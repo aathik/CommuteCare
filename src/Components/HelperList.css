@@ -1,0 +1,24 @@
+.helper-container{
+    width: 100%;
+    padding-top: 8%;
+    max-width: 1140px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 40px;
+    padding-bottom: 5rem;
+    
+}
+
+.helper-cards{
+    padding: 3%;
+    background-color: #62ffed6d;
+    border-radius: 25px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.helper
+
+.helper-details{
+    padding-left: 5%;
+}
