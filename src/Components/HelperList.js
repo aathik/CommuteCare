@@ -18,7 +18,8 @@ const HelperList = () => {
                         <p>Gender: {person.gender}</p>
                         <p>Age: {person.age}</p>
                         <p>Availability: {person.availability}</p>
-                        <p>Description: {person.description}</p>
+                        <p className='italics'>"{person.description}"</p>
+                        
                     </div>
                 </div>
         ))}

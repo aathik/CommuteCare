@@ -17,23 +17,38 @@
 }
 .reservation .reservation-container .calendar{
     padding-top: 3%;
+    margin: auto;
+}
+
+.reservation .reservation-container .label{
+  text-align: left;
+  padding: 2%;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .reservation .reservation-container .time-picker{
     padding-top: 3%;
     margin: auto;
-
+    width: 25%;
 } 
 
 .reservation .reservation-container .time-required{
     padding-top: 3%;
     margin: auto;
+    width: 25%;
+}
+
+.reservation .reservation-container .text-area{
+  padding-top: 3%;
+    margin: auto;
+    width: 25%;
 }
 
 .reservation .reservation-container .submit{
     padding-top: 3%;
     margin: auto;
-
+    
 }
 
 
