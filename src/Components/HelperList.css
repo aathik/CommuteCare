@@ -12,13 +12,55 @@
 
 .helper-cards{
     padding: 3%;
-    background-color: #62ffed6d;
+    background-color: rgba(255, 192, 143, 0.907);
     border-radius: 25px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.22), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 
-.helper-details{
+.helper-details-front{
+    
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 14rem;
+}
+
+.helper-details-front .left{
+    float: left;
+    padding-top: 8%;
+}
+.helper-details-front .right{
+    
+    padding-left: 30%;
+}
+
+.helper-details-front .right .buttons{
+    position: absolute;
+    bottom: 0;
+    
+}
+
+
+
+.helper-details-front .right .buttons .btn{
+    border-radius: 25px;
+    margin-right: 10px;
+}
+.helper-details-back .buttons{
+    padding-top: 3%;
+}
+
+.helper-details-back .buttons .btn{
+    border-radius: 25px;
+}
+
+.helper-details-front .right .text{
+    padding-top: 10%;
+    
+    
+}
+
+.helper-details-back{
     padding-left: 5%;
     padding-right: 5%;
 }

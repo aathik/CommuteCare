@@ -20,7 +20,7 @@
     top: 0;
     left: 0;
     background-color: black;
-    opacity: 0.48;
+    opacity: 0.4;
 }
 
 
@@ -36,6 +36,12 @@
     top: 50%;
     left: 50%;
     text-align: center;
+    border: 1px solid white ;
+    margin: auto;
+    width: 60%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-color: rgba(255, 148, 66, 0.274);
 }
 
 .hero .content h1{
@@ -49,6 +55,7 @@
     font-weight: 200;
     text-transform: uppercase;
     color: white;
+    font-weight: 450;
 }
 
 .content .btn {

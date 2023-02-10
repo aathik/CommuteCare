@@ -14,8 +14,8 @@ const HeroImg = () => {
         </div>
         <div className="content">
             <p>Empowering independence, enhancing travel experience. </p>
-            <p>Your assistive companion on the train.</p>
-            <h1>Commute Care</h1>
+            <p>Your assistive companion on the train !</p>
+            <h1>CommuteCare</h1>
             <div>
                 <Link to="/customer" className="btn">Launch</Link>
             </div>

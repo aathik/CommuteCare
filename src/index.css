@@ -20,7 +20,7 @@ ul{
   padding: 12px 32px;
   font-size: 1rem;
   text-transform: uppercase;
-  background: rgb(18, 187, 69);
+  background: rgba(255, 148, 66, 0.893);
   color: white;
   border: 1px solid white;
   font-weight: 600;
@@ -33,7 +33,7 @@ ul{
 }
 
 .btn:hover {
-  background: rgba(255, 255 , 255, 0.2);
+  background: rgba(255, 255, 255, 0.527);
   color: black;
   transition: 0.3s;
 }
