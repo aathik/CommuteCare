@@ -15,29 +15,41 @@ import Textarea from '@mui/joy/Textarea';
 const Reservation = () => {
   
 
-  const [value, onChange] = useState(null);
+  const [date, setDate] = useState(null);
 
-  const [tvalue, setValue] = React.useState(null);  
+  const [time, setTime] = useState(null);
+  //console.log("Selected Time: ", time);
 
   const navigate = useNavigate();
 
   const [selectedOption, setSelectedOption] = useState(null);
 
+  const [comments, setComments] = useState("");
+
   const handleOptionClick = (option) => {
     setSelectedOption(option === selectedOption ? null : option);
-  };
+    };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(!value || !tvalue || !selectedOption){
+    if(!date || !time || !selectedOption){
       alert("fill all columns");
       return false; 
     }
-    console.log("Selected Date: ", value);
-    console.log("Selected Time: ", tvalue);
-    console.log("Selected date: ", selectedOption);
+    const formData = {
+      Date: date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear(),
+      Time: time.getHours() +':'+ time.getMinutes(),
+      Duration: selectedOption,
+      Description: comments,
+    }
+    console.log("Data: ", formData);
     navigate('/helperList');
   };
+
+  
+
+
 
   return (   
     <form onSubmit={handleSubmit}>
@@ -47,8 +59,8 @@ const Reservation = () => {
                 <p className='label'>Select the Date</p>
                 <Calendar 
                 minDate = {new Date()}
-                onChange={onChange} 
-                value={value} 
+                onChange={setDate} 
+                value={date} 
                 required/>
               </div>
               
@@ -56,13 +68,13 @@ const Reservation = () => {
                 <p className='label'>Booking Time</p>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>  
                     <Stack>  
-                      
+                     
                     <DesktopTimePicker  
                       label="Train Time"  
-                      value={tvalue}  
-                      onChange={(newValue) => {  
-                        setValue(newValue);  
-                      }}  
+                      value={time}  
+                      onChange={  
+                        setTime
+                      }  
                       renderInput={(params) => <TextField {...params}
                       required   />}  
                     />  
@@ -75,12 +87,14 @@ const Reservation = () => {
               <Stack spacing={2} direction="row" required >
                 <Button variant="outlined" style={selectedOption === "15 Mins" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("15 Mins")}>15 Mins</Button>
                 <Button variant="outlined" style={selectedOption === "30 Mins" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("30 Mins")}>30 Mins</Button>
-                <Button variant="outlined" style={selectedOption === "1 hr" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("1 hr")}>1 hr</Button>
+                <Button variant="outlined" style={selectedOption === "60 Mins" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("60 Mins")}>60 Mins</Button>
+                <Button variant="outlined" style={selectedOption === "1+ hr" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("1+ hr")}>1+ HR</Button>
               </Stack>
               </div>
               <div className='text-area'>
                <p className='label'>Travel Description</p>
-                <Textarea minRows={2} placeholder="Additional help required (optional).." />
+                <Textarea minRows={2} placeholder="Additional help required (optional).." value={comments}
+  onChange={(e) => setComments(e.target.value)}  />
               </div>              
               <div className='submit'>
                   <Button variant="contained" size='large' type='submit'>Show helpers</Button>

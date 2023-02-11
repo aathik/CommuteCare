@@ -31,16 +31,17 @@ const HelperList = () => {
         <div className='helper-container'>
         
             {data.map((person, index) => (
-              
+                
                 <div key={index} className='helper-cards'>
                   <ReactCardFlip isFlipped={isFlipped[index]} flipDirection="horizontal">
                     <div className='helper-details-front' >
                         <div className='left'>
                           <BsPersonCircle size={100}/>
                         </div>
+                        
                         <div className='right'>
                           <h3>{person.name}</h3>
-                          <p className='text'>Helped: {person.helped} people</p>
+                          <p className='text'>People helped: {person.helped}</p>
                           <p>Gender: {person.gender}</p>
                           <p>Age: {person.age}</p>
                           <div className='buttons'>
