@@ -10,9 +10,15 @@
 }
 
 .booked-content{
+    height: 50vh;
     text-align: center;
     padding-top: 4%;
     background-color: bisque;
     margin: 40px;
     align-items: center;
+}
+
+.booked-content p{
+    text-align: left;
+    padding-left: 20%;
 }

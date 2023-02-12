@@ -30,6 +30,18 @@ const Reservation = () => {
     setSelectedOption(option === selectedOption ? null : option);
     };
 
+    async function asyncGetData(formData) {
+      const response = await axios.get(
+        `http://localhost:5000/helper?day=${days[formData.day]}&time=${formData.time}`
+      );
+      return response;
+    }
+
+    async function run(formData){
+      const response = await asyncGetData(formData);
+      return response.data;
+    }
+
 
   const handleSubmit = (event) => {
     console.log("submit");
@@ -38,20 +50,24 @@ const Reservation = () => {
       alert("fill all columns");
       return false; 
     }
+
     const formData = {
       day: date.getDay(),
       time: time.getHours() +':'+ time.getMinutes(),
     }
-    axios.get(`http://localhost:5000/helper?day=${days[formData.day]}&time=${formData.time}`)
-    .then(response => {
-    const json = JSON.parse(JSON.stringify(response.data));
-    console.log(json);
-    })
-    .catch(error => {
-      console.error(error);
-    });
+
+    //const getData = axios.get(`http://localhost:5000/helper?day=${days[formData.day]}&time=${formData.time}`)
+   // .then(response => { console.log(response)});
+     // const DataA = run(formData);
+      //console.log(DataA);
+
+      //const jsonData = JSON.stringify(Object.assign({}, DataA))
+      
+      
     
-    //navigate('/helperList', {state: {json_Data}});         to navigate to the next page along with the retrieved data from DB   
+
+   //console.log("JsonData: ",date);
+   navigate(`/helperList?Day=${formData.day}&&time=${formData.time}`);       // to navigate to the next page along with the retrieved data from DB   
   };
 
   
