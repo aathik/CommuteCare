@@ -1,0 +1,18 @@
+.booked{
+    width: 100%;
+}
+
+.booked-container{
+    height: 30vh;
+    
+    margin: 10%;
+    align-items: center;
+}
+
+.booked-content{
+    text-align: center;
+    padding-top: 4%;
+    background-color: bisque;
+    margin: 40px;
+    align-items: center;
+}
