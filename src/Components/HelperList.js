@@ -9,14 +9,15 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const HelperList = () => {
+
+  const HelperList = (props) => {
 
   const [formData, setFormData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [emptyForm, setEmptyForm] = useState(false)
 
   const navigate = useNavigate();
-  const location = useLocation();
+  //const location = useLocation();
 
 
   const [isFlipped, setIsFlipped] = useState(false);
@@ -29,24 +30,25 @@ import { useNavigate, useLocation } from 'react-router-dom';
     
     
   };
-  const queryParam = new URLSearchParams(location.search);
-  const day = queryParam.get('Day');
-  const time = queryParam.get('time');
-  console.log("retrieved data:" , day, time);
+ // const queryParam = new URLSearchParams(location.search);
+  //const day = queryParam.get('Day');
+ // const time = queryParam.get('time');
+ // console.log("retrieved data:" , day, time);
 
   const bookNow = (person) =>{
     console.log("Selected index: ", person);
-    navigate('/booked', {state:{person}});
+    navigate('/confirmationPage', {state:{person}});
+    //navigate(`/confirmationPage?Person=${person}`);
   }
   
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`http://localhost:5000/helper?day=${days[day]}&time=${time}`)
+    axios.get(`http://localhost:5000/helper?day=${days[props.Day]}&time=${props.Time}`)
     .then(response => {
     //const json = JSON.parse(JSON.stringify(response.data));
     setFormData(response.data)
-    console.log(response.data);
+    //console.log(response.data);
     })
     .catch(error => {
       console.error(error);
@@ -57,7 +59,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
   
   
-  console.log("Data::", emptyForm)
+  //console.log("Data::", emptyForm)
   
 
   return (

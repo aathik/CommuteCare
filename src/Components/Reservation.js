@@ -8,39 +8,30 @@ import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';  
 import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';  
 import Button from '@mui/material/Button';
-import { json, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import Textarea from '@mui/joy/Textarea';
-import axios from 'axios';
 
-const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+import useHistoryState from "use-history-state";
+
+
 const Reservation = () => {
   
 
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useHistoryState( null,"date" );
 
-  const [time, setTime] = useState(null);
+  const [time, setTime] = useHistoryState(null,"time");
 
   const navigate = useNavigate();
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useHistoryState(null,"selectedOption");
 
-  const [comments, setComments] = useState("");
+  const [comments, setComments] = useHistoryState("", "comments");
+
+  
 
   const handleOptionClick = (option) => {
     setSelectedOption(option === selectedOption ? null : option);
     };
-
-    async function asyncGetData(formData) {
-      const response = await axios.get(
-        `http://localhost:5000/helper?day=${days[formData.day]}&time=${formData.time}`
-      );
-      return response;
-    }
-
-    async function run(formData){
-      const response = await asyncGetData(formData);
-      return response.data;
-    }
 
 
   const handleSubmit = (event) => {
@@ -67,7 +58,7 @@ const Reservation = () => {
     
 
    //console.log("JsonData: ",date);
-   navigate(`/helperList?Day=${formData.day}&&time=${formData.time}`);       // to navigate to the next page along with the retrieved data from DB   
+   navigate(`/availableHelpers?Day=${formData.day}&&time=${formData.time}`);       // to navigate to the next page along with the retrieved data from DB   
   };
 
   
