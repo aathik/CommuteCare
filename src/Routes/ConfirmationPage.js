@@ -4,9 +4,14 @@ import NavBar from '../Components/NavBar'
 import { useLocation } from 'react-router-dom';
 
 const ConfirmationPage = () => {
-    const location = useLocation();
-    console.log("In Confi: ", location.state)
+
     
+
+    const location = useLocation();
+    console.log("Page: ", window.location.pathname); 
+ // /*
+ 
+  //  */
   return (
     <div>
         <NavBar />

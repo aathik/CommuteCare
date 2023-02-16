@@ -8,10 +8,15 @@ const AvailableHelpers = () => {
     const queryParam = new URLSearchParams(location.search);
     const day = queryParam.get('Day');
     const time = queryParam.get('time');
+    
+    
+
   return (
-    <div>
+     <div>
+      
         <NavBar />
         <HelperList Day={day} Time={time} />
+        
     </div>
   )
 }

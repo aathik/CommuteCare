@@ -1,12 +1,12 @@
 import './HelperList.css'
 import NavBar from './NavBar'
-import data from '../Assets/Helper.json'
+
 import ReactCardFlip from 'react-card-flip';
 import React,{ useState, useEffect } from 'react';
 import { BsPersonCircle } from "react-icons/bs";
 import axios from 'axios';
 
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
@@ -14,10 +14,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
   const [formData, setFormData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [emptyForm, setEmptyForm] = useState(false)
 
   const navigate = useNavigate();
   //const location = useLocation();
+
+  
 
 
   const [isFlipped, setIsFlipped] = useState(false);
@@ -55,7 +56,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
     });
     setIsLoading(false);
     
-  }, []);
+  }, [props.Day, props.Time]);
 
   
   

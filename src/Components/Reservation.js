@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Reservation.css';
 import Calendar from 'react-calendar';
 
