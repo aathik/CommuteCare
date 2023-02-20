@@ -1,3 +1,13 @@
+.helper{
+    width: 100%;
+    
+}
+
+.helper .loading{
+    padding-top: 10%;
+    padding-left: 40%;
+}
+
 .helper-container{
     width: 100%;
     padding-top: 8%;
@@ -71,3 +81,4 @@
     font-weight: 200;
     text-align: justify;
 }
+

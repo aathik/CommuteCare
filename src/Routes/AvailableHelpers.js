@@ -13,10 +13,8 @@ const AvailableHelpers = () => {
 
   return (
      <div>
-      
         <NavBar />
         <HelperList Day={day} Time={time} />
-        
     </div>
   )
 }

@@ -1,14 +1,14 @@
 import React from 'react'
-import LoginChoice from '../Components/LoginChoice'
 import NavBar from '../Components/NavBar'
+import HeroImg from '../Components/HeroImg'
 
-const Home = () => {
+const CustomerHome = () => {
   return (
     <div>
       <NavBar />
-      <LoginChoice />
+      <HeroImg />
     </div>
   )
 }
 
-export default Home
+export default CustomerHome

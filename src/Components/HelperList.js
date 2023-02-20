@@ -1,5 +1,4 @@
 import './HelperList.css'
-import NavBar from './NavBar'
 
 import ReactCardFlip from 'react-card-flip';
 import React,{ useState, useEffect } from 'react';
@@ -7,6 +6,8 @@ import { BsPersonCircle } from "react-icons/bs";
 import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
+
+import ReactLoading from 'react-loading';
 
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
@@ -16,7 +17,6 @@ import { useNavigate } from 'react-router-dom';
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  //const location = useLocation();
 
   
 
@@ -31,15 +31,11 @@ import { useNavigate } from 'react-router-dom';
     
     
   };
- // const queryParam = new URLSearchParams(location.search);
-  //const day = queryParam.get('Day');
- // const time = queryParam.get('time');
- // console.log("retrieved data:" , day, time);
 
   const bookNow = (person) =>{
     console.log("Selected index: ", person);
     navigate('/confirmationPage', {state:{person}});
-    //navigate(`/confirmationPage?Person=${person}`);
+
   }
   
 
@@ -47,29 +43,23 @@ import { useNavigate } from 'react-router-dom';
     setIsLoading(true);
     axios.get(`http://localhost:5000/helper?day=${days[props.Day]}&time=${props.Time}`)
     .then(response => {
-    //const json = JSON.parse(JSON.stringify(response.data));
     setFormData(response.data)
-    //console.log(response.data);
+    setIsLoading(false);
     })
     .catch(error => {
       console.error(error);
     });
-    setIsLoading(false);
     
-  }, [props.Day, props.Time]);
+    
+  }, [props.Day, props.Time]); 
 
-  
-  
-  //console.log("Data::", emptyForm)
-  
 
   return (
-    <div>
-        <NavBar />
-        { isLoading? <span>loading values</span> : 
-          
+    <div className='helper'>
+       
+        {isLoading ? <div className='loading'><ReactLoading type="spin" color="#000" /></div> : (
         <div className='helper-container'>
-              { formData.length===0  ? <span>No helpers at the moment</span> : <>
+               {formData.length===0  ? <span>No helpers at the moment</span> : <> 
               
                   {formData.map((person, index) => (
                 
@@ -105,11 +95,11 @@ import { useNavigate } from 'react-router-dom';
                       </div>
             ))
               }
-              </>
-            }
+             </>  
             
+            } 
         </div>  
-        }
+        )}
         
        
     </div>
