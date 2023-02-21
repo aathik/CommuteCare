@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import './LoginCustomerPage.css'
+import { Link, useNavigate } from 'react-router-dom';
+import './LoginPage.css';
+import { login } from '../Routes/Login/AuthService';
+//import axios from 'axios';
 
-const LoginHelperPage = () => {
+
+const LoginPage = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState("");
+  //const [formData, setformData] = useState(null);
+  
+  const navigate = new useNavigate();
 
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,}$/;
@@ -45,18 +50,24 @@ const LoginHelperPage = () => {
     // Implement sign up functionality
   }
 
-  const handleLoginClick = (e) =>  {
+ // async function loginUser(email, password){}
+  //console.log("data:", props.data)
 
-    // Implement sign up functionality
+  const handleLoginClick = async (e) =>  {
+      e.preventDefault();
+      try {
+        await login(email, password, props.data);
+        navigate('/customerHome');
+      } catch (error) {
+        console.error('error', error);
+      }
   }
-
-  
 
   return (
     <div className='login'>
       
       <form className='login-form'>
-      <h2>Login For Helper</h2>
+      <h2>Login For {props.data}</h2>
         <div>
           <label htmlFor="email">Email</label>
           <input type="email" id="email" value={email} onChange={(e) => {
@@ -71,10 +82,10 @@ const LoginHelperPage = () => {
         </div>
         {passwordError && <p className="error">{passwordError}</p>}
         <div>
-          <Link to="/forgotPass" onClick={handleForgotPasswordClick} className='link'>Forgot password?</Link>
+          <Link to="/emailVerification" onClick={handleForgotPasswordClick} className='link'>Forgot password?</Link>
         </div>
         <div>
-          <Link to="/signUp" onClick={handleSignUpClick} className='link'>Sign up</Link>
+          <Link to="/signUp" state={{userType: props.data}} onClick={handleSignUpClick} className='link'>Sign up</Link>
         </div>
         <div>
           <button type="submit" onClick={handleLoginClick} className='btn'>Login</button>
@@ -85,4 +96,4 @@ const LoginHelperPage = () => {
   )
 }
 
-export default LoginHelperPage
+export default LoginPage

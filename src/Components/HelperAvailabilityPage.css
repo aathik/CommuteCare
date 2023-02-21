@@ -1,0 +1,38 @@
+.availability{
+    width: 100%;
+    padding: 10%;
+}
+
+.availability-container{
+    max-width: 1440px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 40px;
+}
+
+.left{
+    height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: bisque;
+}
+.availability .availability-container .left .label{
+    padding-left: 20%;
+}
+.availability .availability-container .left .calendar{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.right{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: aqua;
+}

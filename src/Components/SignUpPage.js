@@ -1,48 +1,78 @@
 import React, { useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
 import './SignUpPage.css';
+import { useLocation } from "react-router-dom";
+
 
 
 
 const SignUpPage = () => {
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState('');
+  const [confrimPassError, setConfrimPassError] = useState('');
+  const [emailError, setEmailError] = useState("");
+  
+  const navigate = new useNavigate();
+  const location = useLocation();
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
+  
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email)) {
+      setEmailError("Please enter a valid email address");
+    } else {
+      setEmailError("");
+    }
   };
 
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,}$/;
+    return passwordRegex.test(password);
+  }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-  };
+    if (!validatePassword(event.target.value)) {
+      setPasswordError('Please satisfy the conditions for the password: 1 upper case character, 1 numeric, 1 special character');
+    } else {
+      setPasswordError('');
+    }
+  }
 
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
+    if (!validatePassword(event.target.value)) {
+      setConfrimPassError('Please satisfy the conditions for the password: 1 upper case character, 1 numeric, 1 special character');
+    }
+    else{
+      setConfrimPassError('');
+    }
   };
 
  
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(!firstName || !lastName || !email || !password || !confirmPassword){
+    if(!email || !password || !confirmPassword){
       alert("fill all columns");
       return false; 
     }
+    if(password !== confirmPassword){
+      alert('Make sure the passwords are identical');
+      return false;
+    }
     console.log({
-      firstName,
-      lastName,
+      password,
+      confirmPassword,
+      email
     });
+    
+    localStorage.setItem('UserType', location.state.userType);
+    navigate('/AdditionalDetails');
     
   };
 
@@ -51,29 +81,30 @@ const SignUpPage = () => {
          
         
         <form onSubmit={handleSubmit} className='signup-form'>
-        <h2>Sign Up</h2>
+        <h2>Sign Up For {location.state.userType}</h2>
         <div className='signup-container'>
-        <div className='signup-field'>
-            <label htmlFor="first-name">First Name:</label>
-            <input
-              type="text"
-              id="first-name"
-              value={firstName}
-              onChange={handleFirstNameChange}
-              required
-            />
-          </div>
+        
           <div className='signup-field'>
-            <label htmlFor="last-name">Last Name:</label>
-            <input
-              type="text"
-              id="last-name"
-              value={lastName}
-              onChange={handleLastNameChange}
-              required
-            />
+          <label htmlFor="email">Email</label>
+            <input type="email" id="email" value={email} onChange={(e) => {
+              setEmail(e.target.value);
+              validateEmail(e.target.value);
+            }} className='input-field' required/>
           </div>
-          
+          {emailError && <div className="error">{emailError}</div>}
+
+          <div className='signup-field'>
+          <label htmlFor="password">Password</label>
+          <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
+          </div>
+          {passwordError && <p className="error">{passwordError}</p>}
+
+          <div className='signup-field'>
+          <label htmlFor="password">Confirm Password</label>
+          <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} className='input-field' required />
+          </div>
+          {confrimPassError && <p className="error">{confrimPassError}</p>}
+        
           
           
           

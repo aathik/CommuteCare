@@ -5,6 +5,13 @@
     height: 100vh;
     padding-top: 5%;
 }
+.addHelp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-top: 25%;
+}
 
 .signup-form{
     margin: 20px;
@@ -17,6 +24,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.262);
     width: 50%;
 }
+
+
 
 .signup-container{
     width: 400px;
@@ -46,6 +55,10 @@
     height: 40px;
   }
   
+.text-area {
+  width: 400px;
+  height: 100px;
+}
 
   
   .error-message {

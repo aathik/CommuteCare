@@ -5,8 +5,10 @@ import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useState } from 'react';
 import './SignUpPage.css'
+import { useNavigate } from 'react-router-dom';
 
-const AdditionalCustomerDetails = () => {
+
+const AdditionalHelperDetails = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState(null);
@@ -14,17 +16,29 @@ const AdditionalCustomerDetails = () => {
   const [photo, setPhoto] = useState(null);
   const [phone, setPhone] = useState("");
   const [countryCode, setCountryCode] = useState("");
+  const [nationality, setNationality] = useState("");
+  const [bio, setbio] = useState("");
+
+  const navigate = new useNavigate();
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
   };
-
+  
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
   };
 
+  const handleNationalityChange = (event) => {
+    setNationality(event.target.value);
+  };
+
   const handleGenderChange = (event) => {
     setGender(event.target.value);
+  };
+
+  const handleBioChange = (event) => {
+    setbio(event.target.value);
   };
 
   const handlePhotoChange = (event) => {
@@ -46,7 +60,7 @@ const AdditionalCustomerDetails = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(!firstName || !lastName || !dob || !gender || !phone || !photo || !countryCode){
+    if(!firstName || !lastName || !dob || !gender || !phone || !photo || !countryCode || !nationality || !bio){
       alert("fill all columns");
       return false; 
     }
@@ -56,12 +70,15 @@ const AdditionalCustomerDetails = () => {
       phone,
       countryCode,
     });
+
+    navigate('/helperHome');
+    
     
   };
 
 
   return (
-    <div className='signUp'>
+    <div className='addHelp'>
 
       <form onSubmit={handleSubmit} className='signup-form'>
         <h2>Additional Details</h2>
@@ -155,11 +172,39 @@ const AdditionalCustomerDetails = () => {
               />
             </div>
           </div>
+
+          <div className='signup-field'>
+            <label htmlFor="nationality">Nationality:</label>
+            <input
+              type="text"
+              id="nationality"
+              value={nationality}
+              onChange={handleNationalityChange}
+              pattern="[A-Za-z]+"
+              placeholder="Enter your nationality"
+              required
+            />
+          </div>
+
+          <div className='signup-field'>
+            <label htmlFor="bio">Enter your Bio:</label>
+            <textarea
+              type="text"
+              id="bio"
+              value={bio}
+              onChange={handleBioChange}
+              placeholder="Enter your bio"
+              className='text-area'
+              required
+            />
+          </div>
           
           <div className='signup-field'>
             <button type="submit" className='btn'>Proceed</button>
 
           </div>
+
+          
         </div>
         </form>
 
@@ -169,4 +214,4 @@ const AdditionalCustomerDetails = () => {
   )
 }
 
-export default AdditionalCustomerDetails
+export default AdditionalHelperDetails
