@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import './EmailVerificationPage.css'
 
-import { forgotPass } from '../Routes/Login/AuthService';
+import { forgotPass, forgotPassHelper } from '../Routes/Login/AuthService';
 
 const ForgotPasswordPage = (props) => {
 
@@ -39,12 +39,22 @@ const ForgotPasswordPage = (props) => {
         alert('Enter a valid email id');
         return false;
     }
-    console.log(props.data)
-    try {
-      await forgotPass(email, props.data);
-    } catch (error) {
-      console.error('error', error);
+    if(props.data==='Customer'){
+      console.log(props.data)
+      try {
+        await forgotPass(email, props.data);
+      } catch (error) {
+        console.error('error', error);
+      }
     }
+    if(props.data === 'Helper'){
+      try {
+        await forgotPassHelper(email, props.data);
+      } catch (error) {
+        console.error('error', error);
+      }
+    }
+    
     setOtpSent(true);
     setTryCount(0);
     setRemainingTime(60);

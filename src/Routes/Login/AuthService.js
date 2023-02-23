@@ -223,3 +223,34 @@ export const editAvailability = async (availability) => {
 
 	return response.data; 
 }
+
+export const forgotPassHelper = async (email, data) => {
+	
+	const response = await axios.post('http://localhost:5000/forgot-password/helper', {
+		email: email
+	});
+	//console.log(response.data.token);
+	localStorage.setItem('UserType', data);
+    console.log(response);
+
+	return response.data;
+};
+
+
+export const passwordChangeHelper = async (pass, token) => {
+	const response = await axios.post(`http://localhost:5000/reset-password/helper/${token}`, {
+		password: pass
+	});
+	console.log(response);
+
+	return response.data;
+}
+
+export const passwordChange = async (pass, token) => {
+	const response = await axios.post(`http://localhost:5000/reset-password/helper/${token}`, {
+		password: pass
+	});
+	console.log(response);
+
+	return response.data;
+}

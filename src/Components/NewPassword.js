@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { passwordChange, passwordChangeHelper } from '../Routes/Login/AuthService';
 
 const NewPassword = () => {
   const [password, setPassword] = useState("");
@@ -7,6 +9,12 @@ const NewPassword = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confrimPassError, setConfrimPassError] = useState('');
 
+  const userType = localStorage.getItem("UserType");
+
+    const location = useLocation();
+    const queryParam = new URLSearchParams(location.search);
+    const tok = queryParam.get('token');
+    const navigate = new useNavigate();
 
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,}$/;
@@ -35,6 +43,30 @@ const NewPassword = () => {
  
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
+    if(!password || !confirmPassword){
+      alert("fill all columns");
+      return false; 
+    }
+    if(password !== confirmPassword){
+      alert('Make sure the passwords are identical');
+      return false;
+    }
+    if(userType === 'Customer'){
+        try {
+          await passwordChange(password, tok);
+          navigate('/login', {state:{data: userType}})
+        } catch (error) {
+          console.error('error', error);
+        }
+    }
+    if(userType === 'Helper'){
+      try {
+        await passwordChangeHelper(password, tok);
+      } catch (error) {
+        console.error('error', error);
+      }
+    }
 
   };
   return (
