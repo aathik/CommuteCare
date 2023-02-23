@@ -78,7 +78,7 @@ const AdditionalCustomerDetails = () => {
               id="first-name"
               value={firstName}
               onChange={handleFirstNameChange}
-              pattern="[A-Za-z]+"
+              pattern="[A-Za-z ]+"
               placeholder="Please enter only alphabetical characters"
               required
             />
@@ -90,7 +90,7 @@ const AdditionalCustomerDetails = () => {
               id="last-name"
               value={lastName}
               onChange={handleLastNameChange}
-              pattern="[A-Za-z]+"
+              pattern="[A-Za-z ]+"
               placeholder="Please enter only alphabetical characters"
               required
             />

@@ -74,20 +74,8 @@ const ForgotPasswordPage = (props) => {
         </div>
       ) : (
         <div className='forgot-comp'>
-          <p>OTP has been sent to {email}</p>
-          <label htmlFor="otp">OTP:</label>
-          <input type="text" id="otp" value={otp} onChange={handleOtpChange} />
-          <p>{remainingTime} seconds remaining.</p>
-          <button onClick={handleVerify} disabled={otp.length !== 4 || remainingTime === 0}>
-            Verify
-          </button>
-          <p>{otpError}</p>
-          {!canResendOtp && <p>Try again later.</p>}
-          {canResendOtp && (
-            <button onClick={handleSendOtp} disabled={remainingTime !== 0}>
-              Resend OTP
-            </button>
-          )}
+          <p>Password reset link has been sent to {email}</p>
+          
         </div>
       )}
     </div>

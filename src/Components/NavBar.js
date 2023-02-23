@@ -29,9 +29,7 @@ const NavBar = () => {
             <h1>CommuteCare</h1>
         
         <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li>
-                <Link to="/">Home</Link>
-            </li>
+            
             <li>
             <Link to="/" onClick={logout}>Logout</Link>
             </li>

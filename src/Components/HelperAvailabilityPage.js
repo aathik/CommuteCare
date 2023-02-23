@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';  
 import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';  
 
-
+import { editAvailability } from '../Routes/Login/AuthService';
 
 const HelperAvailabilityPage = () => {
     const [selectedDay, setSelectedDay] = useState(null);
@@ -73,8 +73,13 @@ const HelperAvailabilityPage = () => {
 
     }
 
-    const handleSubmit = (event) => {
-        console.log("newAvailability: ", showAvailability)
+    const handleSubmit = async (event) => {
+        console.log("Availability: ", showAvailability)
+        try {
+            await editAvailability(showAvailability);
+          } catch (error) {
+            console.error('error', error);
+          }
     };
     console.log("newAvailability: ", showAvailability)
   return (

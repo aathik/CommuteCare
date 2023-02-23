@@ -13,6 +13,7 @@ export const login = async (email, password, data) => {
 		//console.log(response.data.token);
 		localStorage.setItem('LoggedIn', true);
 		localStorage.setItem('UserType', data);
+		localStorage.setItem('UserID', response.data.userId);
         console.log(response.data);
 	}
 
@@ -108,6 +109,7 @@ export const additionalDetails = async (first, last, gender, dob, mob) => {
 		  Authorization : `Bearer ${JSON.parse(token)}` 
 		}
 	});
+	localStorage.setItem('UserID', response.data.user._id);
     console.log(response.data);
 
 	return response.data; 
@@ -194,21 +196,23 @@ export const additionalDetailsHelper = async (first, last, gender, dob, mob, bio
 		  Authorization : `Bearer ${JSON.parse(token)}` 
 		}
 	});
+	localStorage.setItem('HelperID', response.data.helper._id);
     console.log(response.data);
 
 	return response.data; 
 }
 
-export const editAvailability = async (monday, tuesday, thursday, wednesday, friday, saturday, sunday) => {
+export const editAvailability = async (availability) => {
 	const token = localStorage.getItem('User');
-	const response = await axios.put('http://localhost:5000/additional-details', {
-		Monday: monday,
-		Tuesday: tuesday,
-		Wednesday: wednesday,
-		Thursday: thursday,
-		Friday: friday,
-		Saturday: saturday,
-		Sunday: sunday
+	const helperID = localStorage.getItem('HelperID');
+	const response = await axios.put(`http://localhost:5000/editAvailability/${helperID}`, {
+		Monday: availability.Monday,
+		Tuesday: availability.Tuesday,
+		Wednesday: availability.Wednesday,
+		Thursday: availability.Thursday,
+		Friday: availability.Firday,
+		Saturday: availability.Saturday,
+		Sunday: availability.Sunday
 	},
 	{
 		headers: {
