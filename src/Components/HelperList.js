@@ -17,7 +17,10 @@ import ReactLoading from 'react-loading';
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-
+  const user = localStorage.getItem("User");
+  
+  
+  
   
 
 
@@ -33,17 +36,29 @@ import ReactLoading from 'react-loading';
   };
 
   const bookNow = (person) =>{
-    console.log("Selected index: ", person);
-    navigate('/confirmationPage', {state:{person}});
+    
+    const bookdata = {
+      Person: person,
+      day: days[props.Day],
+      time: props.Time,
+      duration: props.Duration,
+    }
+    console.log("Data: ", bookdata);
+    navigate('/confirmationPage', {state:{bookdata}});
 
   }
-  
+  console.log(user);
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`http://localhost:5000/helper?day=${days[props.Day]}&time=${props.Time}`)
+    axios.get(`http://localhost:5000/availableHelpers?day=${days[props.Day]}&time=${props.Time}&duration=${props.Duration}`, {
+      headers: {
+        Authorization : `Bearer ${JSON.parse(user)}` 
+      }
+    })
     .then(response => {
     setFormData(response.data)
+    console.log(response)
     setIsLoading(false);
     })
     .catch(error => {
@@ -51,7 +66,7 @@ import ReactLoading from 'react-loading';
     });
     
     
-  }, [props.Day, props.Time]); 
+  }, [props.Day, props.Time, props.Duration, user]); 
 
 
   return (

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import './SignUpPage.css';
-import { useLocation } from "react-router-dom";
+
+import { signUp, signUpHelper } from '../Routes/Login/AuthService';
 
 
 
-
-const SignUpPage = () => {
+const SignUpPage = (props) => {
 
 
   const [email, setEmail] = useState("");
@@ -15,9 +15,11 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confrimPassError, setConfrimPassError] = useState('');
   const [emailError, setEmailError] = useState("");
+
+
   
   const navigate = new useNavigate();
-  const location = useLocation();
+  
 
   
   const validateEmail = (email) => {
@@ -55,7 +57,7 @@ const SignUpPage = () => {
 
  
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if(!email || !password || !confirmPassword){
       alert("fill all columns");
@@ -65,14 +67,23 @@ const SignUpPage = () => {
       alert('Make sure the passwords are identical');
       return false;
     }
-    console.log({
-      password,
-      confirmPassword,
-      email
-    });
+    if(props.data==='Customer'){
+      try {
+        await signUp(email, password, props.data);
+        navigate('/emailVerification', {state:{data: email}} );
+      } catch (error) {
+        console.error('error', error);
+      }
+    }
+    if(props.data==='Helper'){
+      try {
+        await signUpHelper(email, password, props.data);
+        navigate('/emailVerification', {state:{data: email}} );
+      } catch (error) {
+        console.error('error', error);
+      }
+    }
     
-    localStorage.setItem('UserType', location.state.userType);
-    navigate('/AdditionalDetails');
     
   };
 
@@ -81,7 +92,7 @@ const SignUpPage = () => {
          
         
         <form onSubmit={handleSubmit} className='signup-form'>
-        <h2>Sign Up For {location.state.userType}</h2>
+        <h2>Sign Up For {props.data}</h2>
         <div className='signup-container'>
         
           <div className='signup-field'>

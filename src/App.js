@@ -14,6 +14,8 @@ import AdditionalDetails from './Routes/AdditionalDetails';
 import CustomerHome from './Routes/CustomerHome';
 import HelperHome from './Routes/HelperHome';
 import HelperAvailability from './Routes/HelperAvailability';
+import ForgotPassword from './Routes/ForgotPassword';
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/additionalDetails" element={<AdditionalDetails />} />
+        <Route path='/forgotPassword' element={<ForgotPassword />} />
         <Route path="/emailVerification" element={<EmailVerification />} />
         <Route path="/customerHome" element={<CustomerHome />} />
         <Route path="/helperHome" element={<HelperHome />} />

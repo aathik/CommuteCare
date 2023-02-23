@@ -45,7 +45,9 @@ const Reservation = () => {
     const formData = {
       day: date.getDay(),
       time: time.getHours() +':'+ time.getMinutes(),
+      duration: selectedOption,
     }
+    console.log("formData", formData)
 
     //const getData = axios.get(`http://localhost:5000/helper?day=${days[formData.day]}&time=${formData.time}`)
    // .then(response => { console.log(response)});
@@ -58,7 +60,7 @@ const Reservation = () => {
     
 
    //console.log("JsonData: ",date);
-   navigate(`/availableHelpers?Day=${formData.day}&&time=${formData.time}`);       // to navigate to the next page along with the retrieved data from DB   
+   navigate(`/availableHelpers?Day=${formData.day}&&time=${formData.time}&&duration=${formData.duration}`);       // to navigate to the next page along with the retrieved data from DB   
   };
 
   
@@ -100,10 +102,10 @@ const Reservation = () => {
               <div className='time-required'>
               <p className='label'>Travel Duration</p>
               <Stack spacing={2} direction="row" required >
-                <Button variant="outlined" style={selectedOption === "15 Mins" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("15 Mins")}>15 Mins</Button>
-                <Button variant="outlined" style={selectedOption === "30 Mins" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("30 Mins")}>30 Mins</Button>
-                <Button variant="outlined" style={selectedOption === "60 Mins" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("60 Mins")}>60 Mins</Button>
-                <Button variant="outlined" style={selectedOption === "1+ hr" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("1+ hr")}>1+ HR</Button>
+                <Button variant="outlined" style={selectedOption === "15" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("15")}>15 Mins</Button>
+                <Button variant="outlined" style={selectedOption === "30" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("30")}>30 Mins</Button>
+                <Button variant="outlined" style={selectedOption === "60" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("60")}>60 Mins</Button>
+                <Button variant="outlined" style={selectedOption === "100" ? { backgroundColor: "lightgreen" } : {}} onClick={() => handleOptionClick("100")}>1+ HR</Button>
               </Stack>
               </div>
               <div className='text-area'>

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import {FaBars, FaTimes} from "react-icons/fa";
 
+import { logout } from '../Routes/Login/AuthService';
+
 const NavBar = () => {
 
   const [click, setClick] = useState(false);
@@ -23,18 +25,15 @@ const NavBar = () => {
 
   return (
     <div className={ color ? "header header-bg" : "header"}>
-        <Link to="/">
+        
             <h1>CommuteCare</h1>
-        </Link>
+        
         <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li>
                 <Link to="/">Home</Link>
             </li>
             <li>
-                <Link to="/customer">Customer</Link>
-            </li>
-            <li>
-                <Link to="/login">Login</Link>
+            <Link to="/" onClick={logout}>Logout</Link>
             </li>
         </ul>
         <div className="hamburger" onClick={handleClick}>

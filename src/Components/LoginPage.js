@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginPage.css';
-import { login } from '../Routes/Login/AuthService';
+import { login, loginHelper } from '../Routes/Login/AuthService';
 //import axios from 'axios';
 
 
@@ -55,11 +55,21 @@ const LoginPage = (props) => {
 
   const handleLoginClick = async (e) =>  {
       e.preventDefault();
-      try {
-        await login(email, password, props.data);
-        navigate('/customerHome');
-      } catch (error) {
-        console.error('error', error);
+      if(props.data === 'Customer'){
+        try {
+          await login(email, password, props.data);
+          navigate('/customerHome');
+        } catch (error) {
+          console.error('error', error);
+        }
+      }
+      if(props.data === 'Helper'){
+        try {
+          await loginHelper(email, password, props.data);
+          navigate('/helperHome');
+        } catch (error) {
+          console.error('error', error);
+        }
       }
   }
 
@@ -82,7 +92,7 @@ const LoginPage = (props) => {
         </div>
         {passwordError && <p className="error">{passwordError}</p>}
         <div>
-          <Link to="/emailVerification" onClick={handleForgotPasswordClick} className='link'>Forgot password?</Link>
+          <Link to="/forgotPassword" state={{userType: props.data}} onClick={handleForgotPasswordClick} className='link'>Forgot password?</Link>
         </div>
         <div>
           <Link to="/signUp" state={{userType: props.data}} onClick={handleSignUpClick} className='link'>Sign up</Link>

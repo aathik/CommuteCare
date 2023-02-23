@@ -6,6 +6,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useState } from 'react';
 import './SignUpPage.css'
 
+import { additionalDetails } from '../Routes/Login/AuthService';
+import { useNavigate } from 'react-router-dom';
+
 const AdditionalCustomerDetails = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -14,6 +17,8 @@ const AdditionalCustomerDetails = () => {
   const [photo, setPhoto] = useState(null);
   const [phone, setPhone] = useState("");
   const [countryCode, setCountryCode] = useState("");
+
+  const navigate = new useNavigate();
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -44,18 +49,18 @@ const AdditionalCustomerDetails = () => {
     setCountryCode(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!firstName || !lastName || !dob || !gender || !phone || !photo || !countryCode){
+    if(!firstName || !lastName || !dob || !gender || !phone || !countryCode){
       alert("fill all columns");
       return false; 
     }
-    console.log({
-      gender,
-      photo,
-      phone,
-      countryCode,
-    });
+    try {
+      await additionalDetails(firstName, lastName, gender, dob, phone);
+      navigate("/customerHome");
+    } catch (error) {
+      console.error('error', error);
+    }
     
   };
 
@@ -124,7 +129,7 @@ const AdditionalCustomerDetails = () => {
           
           <div className='signup-field'>
             <label htmlFor="photo">Profile Photo:</label>
-            <input type="file" id="photo" onChange={handlePhotoChange} required/>
+            <input type="file" id="photo" onChange={handlePhotoChange}/>
           </div>
           
 

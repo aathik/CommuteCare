@@ -5,14 +5,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const ConfirmationPage = () => {
     const location = useLocation();
-    console.log("Page: ", window.location.href ); 
+   // console.log("State: ", location.state ); 
+    //console.log(location.state.bookdata.Person.name.firstname); 
     const navigate = useNavigate();
 
     useEffect(() => {
 
       const backButtonCheck = (event) => {
         if(window.location.pathname === '/availableHelpers'){
-          console.log("true");
+          //console.log("true");
           navigate(-2); 
         }
       };
@@ -26,9 +27,15 @@ const ConfirmationPage = () => {
   return (
     <div>
         <NavBar />
-        <Booked PersonName={location.state.person.name.firstname + ' ' + location.state.person.name.lastname} 
-        PersonEmail={location.state.person.email} 
-        PersonMob = {location.state.person.mob}/>
+        <Booked PersonName={location.state.bookdata.Person.name.firstname+ ' ' + location.state.bookdata.Person.name.lastname} 
+        PersonEmail={location.state.bookdata.Person.email} 
+        PersonMob = {location.state.bookdata.Person.mob}
+        PersonId = {location.state.bookdata.Person._id}
+        Day={location.state.bookdata.day}
+        Time={location.state.bookdata.time}
+        Duration= {location.state.bookdata.duration}
+        
+        />
         
     </div>
   )

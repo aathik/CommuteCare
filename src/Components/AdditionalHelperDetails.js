@@ -7,6 +7,8 @@ import { useState } from 'react';
 import './SignUpPage.css'
 import { useNavigate } from 'react-router-dom';
 
+import { additionalDetailsHelper } from '../Routes/Login/AuthService';
+
 
 const AdditionalHelperDetails = () => {
   const [firstName, setFirstName] = useState("");
@@ -58,20 +60,19 @@ const AdditionalHelperDetails = () => {
     setCountryCode(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!firstName || !lastName || !dob || !gender || !phone || !photo || !countryCode || !nationality || !bio){
+    if(!firstName || !lastName || !dob || !gender || !phone || !nationality || !bio){
       alert("fill all columns");
       return false; 
     }
-    console.log({
-      gender,
-      photo,
-      phone,
-      countryCode,
-    });
-
-    navigate('/helperHome');
+    try {
+      await additionalDetailsHelper(firstName, lastName, gender, dob, phone, bio, nationality);
+      navigate('/helperHome');
+    } catch (error) {
+      console.error('error', error);
+    }
+    
     
     
   };
@@ -90,7 +91,7 @@ const AdditionalHelperDetails = () => {
               id="first-name"
               value={firstName}
               onChange={handleFirstNameChange}
-              pattern="[A-Za-z]+"
+              pattern="[A-Za-z ]+"
               placeholder="Please enter only alphabetical characters"
               required
             />
@@ -102,7 +103,7 @@ const AdditionalHelperDetails = () => {
               id="last-name"
               value={lastName}
               onChange={handleLastNameChange}
-              pattern="[A-Za-z]+"
+              pattern="[A-Za-z ]+"
               placeholder="Please enter only alphabetical characters"
               required
             />
@@ -141,7 +142,7 @@ const AdditionalHelperDetails = () => {
           
           <div className='signup-field'>
             <label htmlFor="photo">Profile Photo:</label>
-            <input type="file" id="photo" onChange={handlePhotoChange} required/>
+            <input type="file" id="photo" onChange={handlePhotoChange}/>
           </div>
           
 
