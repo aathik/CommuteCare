@@ -86,7 +86,7 @@ import ReactLoading from 'react-loading';
                             </div>
                             
                             <div className='right'>
-                              <h3>{person.name.firstname+' '+person.name.lastname}</h3>
+                              <h3>{person.firstname+' '+person.lastname}</h3>
                               <p className='text'>People helped: {person.helped}</p>
                               <p>Gender: {person.gender}</p>
                               

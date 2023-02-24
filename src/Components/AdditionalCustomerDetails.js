@@ -49,19 +49,22 @@ const AdditionalCustomerDetails = () => {
     setCountryCode(event.target.value);
   };
 
+  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if(!firstName || !lastName || !dob || !gender || !phone || !countryCode){
       alert("fill all columns");
       return false; 
     }
+    const date = dob.$D+"/"+(dob.$M +1)+"/"+dob.$y;
+    console.log("dob: ", date);
     try {
-      await additionalDetails(firstName, lastName, gender, dob, phone);
+      await additionalDetails(firstName, lastName, gender, date, phone);
       navigate("/customerHome");
     } catch (error) {
       console.error('error', error);
     }
-    
   };
 
 

@@ -27,7 +27,7 @@ const ConfirmationPage = () => {
   return (
     <div>
         <NavBar />
-        <Booked PersonName={location.state.bookdata.Person.name.firstname+ ' ' + location.state.bookdata.Person.name.lastname} 
+        <Booked PersonName={location.state.bookdata.Person.firstname+ ' ' + location.state.bookdata.Person.lastname} 
         PersonEmail={location.state.bookdata.Person.email} 
         PersonMob = {location.state.bookdata.Person.mob}
         PersonId = {location.state.bookdata.Person._id}

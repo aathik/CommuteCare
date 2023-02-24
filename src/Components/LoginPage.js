@@ -11,6 +11,7 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState("");
+  const [error, seterror] = useState("");
   //const [formData, setformData] = useState(null);
   
   const navigate = new useNavigate();
@@ -60,7 +61,8 @@ const LoginPage = (props) => {
           await login(email, password, props.data);
           navigate('/customerHome');
         } catch (error) {
-          console.error('error', error);
+          console.error('error', error.response);
+          seterror(error.response.data.message);
         }
       }
       if(props.data === 'Helper'){
@@ -97,9 +99,11 @@ const LoginPage = (props) => {
         <div>
           <Link to="/signUp" state={{userType: props.data}} onClick={handleSignUpClick} className='link'>Sign up</Link>
         </div>
+        {error && <div className='error'>{error}</div>}
         <div>
           <button type="submit" onClick={handleLoginClick} className='btn'>Login</button>
         </div>
+        
       </form>
 
     </div>

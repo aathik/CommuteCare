@@ -254,3 +254,29 @@ export const passwordChange = async (pass, token) => {
 
 	return response.data;
 }
+
+export const displayCustomerProfile = async () => {
+	const token = localStorage.getItem('User');
+	const response = await axios.get('http://localhost:5000/userProfile',
+	{
+		headers: {
+		  Authorization : `Bearer ${JSON.parse(token)}` 
+		}
+	});
+	console.log(response);
+
+	return response.data;
+}
+
+export const displayHelperProfile = async () => {
+	const token = localStorage.getItem('User');
+	const response = await axios.get('http://localhost:5000/helperProfile',
+	{
+		headers: {
+		  Authorization : `Bearer ${JSON.parse(token)}` 
+		}
+	});
+	console.log(response);
+
+	return response.data;
+}

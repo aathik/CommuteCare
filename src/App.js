@@ -16,6 +16,8 @@ import HelperHome from './Routes/HelperHome';
 import HelperAvailability from './Routes/HelperAvailability';
 import ForgotPassword from './Routes/ForgotPassword';
 import NewPassword from './Components/NewPassword';
+import HelperProfile from './Routes/HelperProfile';
+import CustomerProfile from './Routes/CustomerProfile';
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
         <Route path="/availableHelpers" element={<AvailableHelpers />} />
         <Route path="/confirmationPage" element={<ConfirmationPage />} />
         <Route path="/newPassword" element={<NewPassword />} />
+        <Route path="/customerProfile" element={<CustomerProfile />} />
+        <Route path="/helperProfile" element={<HelperProfile />} />
         
       </Routes>
     </>

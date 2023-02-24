@@ -66,8 +66,9 @@ const AdditionalHelperDetails = () => {
       alert("fill all columns");
       return false; 
     }
+    const date = dob.$D+"/"+(dob.$M +1)+"/"+dob.$y;
     try {
-      await additionalDetailsHelper(firstName, lastName, gender, dob, phone, bio, nationality);
+      await additionalDetailsHelper(firstName, lastName, gender, date, phone, bio, nationality);
       navigate('/helperHome');
     } catch (error) {
       console.error('error', error);

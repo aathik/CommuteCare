@@ -1,0 +1,8 @@
+.profile{
+    width: 100%;
+}
+
+.profile .profile-container{
+    transform: translate(20%);
+    padding-top: 10%;
+}
