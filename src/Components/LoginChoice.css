@@ -11,8 +11,7 @@
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
   width: 50%;
   margin: 1px;
   padding: 100px;
@@ -22,3 +21,25 @@
            
     padding-top: 20%;
 }
+
+.choice-buttons .buttons{
+    width: 200px;
+    padding: 12px 32px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    background: rgba(255, 148, 66, 0.893);
+    text-align: center;
+    color: white;
+  border: 1px solid white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+
+.choice-buttons .buttons:hover {
+        background: rgba(255, 171, 68, 0.527);
+        color: black;
+        transition: 0.3s;
+      }
+

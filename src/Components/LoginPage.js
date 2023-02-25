@@ -80,15 +80,17 @@ const LoginPage = (props) => {
       
       <form className='login-form'>
       <h2>Login For {props.data}</h2>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" value={email} onChange={(e) => {
-              setEmail(e.target.value);
-              validateEmail(e.target.value);
-            }} className='input-field' required/>
+        <div className='login-container'>
+          <label htmlFor="email" className='label'>Email</label>
+          <div className='input-withIcons'>
+            <input type="email" id="email" value={email}  onChange={(e) => {
+                setEmail(e.target.value);
+                validateEmail(e.target.value);
+              }} className='input-field' required/> 
+          </div>
         </div>
         {emailError && <div className="error">{emailError}</div>}
-        <div>
+        <div className='login-container'>
           <label htmlFor="password">Password</label>
           <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
         </div>

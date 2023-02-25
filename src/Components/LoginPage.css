@@ -14,14 +14,30 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 50%;
+  
+}
+
+.login-form .login-container{
+  width: 300px;
+}
+
+.login-form .login-container .input-withIcons{
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.icons{
+  position: absolute;
+  text-align: center;
 }
 
 .login-form > * {
     margin: 8px 0;
   }
 
-.label{
-    font-weight: bold;
+.login-form .login-container .label{
+    font-weight: 400;
 }
 
 .input-field {

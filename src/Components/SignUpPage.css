@@ -33,6 +33,11 @@
 
 .signup-field{
     padding-top: 5%;
+    
+}
+
+.signup-field .signup-button{
+  text-align: center;
 }
 
 .signup-form label {

@@ -16,6 +16,8 @@ const SignUpPage = (props) => {
   const [confrimPassError, setConfrimPassError] = useState('');
   const [emailError, setEmailError] = useState("");
 
+  const [error, seterror] = useState("");
+
 
   
   const navigate = new useNavigate();
@@ -59,6 +61,10 @@ const SignUpPage = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!validatePassword(password)) {
+      alert('Please satisfy the conditions for the password: 1 upper case character, 1 numeric, 1 special character');
+      return false; 
+    }
     if(!email || !password || !confirmPassword){
       alert("fill all columns");
       return false; 
@@ -73,6 +79,7 @@ const SignUpPage = (props) => {
         navigate('/emailVerification', {state:{data: email}} );
       } catch (error) {
         console.error('error', error);
+        seterror(error.response.data.message);
       }
     }
     if(props.data==='Helper'){
@@ -81,6 +88,7 @@ const SignUpPage = (props) => {
         navigate('/emailVerification', {state:{data: email}} );
       } catch (error) {
         console.error('error', error);
+        seterror(error.response.data.message);
       }
     }
     
@@ -120,9 +128,13 @@ const SignUpPage = (props) => {
           
           
           <div className='signup-field'>
-            <button type="submit" className='btn'>Submit</button>
+            <div className='signup-button'>
+              <button type="submit" className='btn'>Submit</button>
+            </div>
+            
 
           </div>
+          {error && <div className='error'>{error}</div>}
         </div>
         </form>
         

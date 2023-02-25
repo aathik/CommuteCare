@@ -27,13 +27,6 @@ const ForgotPasswordPage = (props) => {
     setEmail(e.target.value);
   };
 
-  const handleOtpChange = (e) => {
-    const re = /^[0-9\b]+$/;
-    if (e.target.value === "" || re.test(e.target.value)) {
-      setOtp(e.target.value);
-    }
-  };
-
   const handleSendOtp = async (event) => {
     if(!email){
         alert('Enter a valid email id');

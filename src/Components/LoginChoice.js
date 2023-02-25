@@ -10,14 +10,20 @@ const LoginChoice = () => {
         <div className='choice-container'>
         <h3>What would you like to do today?</h3>
                 <div className='choice-buttons'>
+                  <div className='buttons'>
                     <Link to="/login"
                       state={{data: "Customer"}}
-                      className='btn' >To Be Helped (Customer)</Link>
+                       >To Be Helped</Link>
+                  </div>
+                    
                 </div>
             <div className='choice-buttons'>
-            <Link to="/login"
+            <div className='buttons'>
+                  <Link to="/login"
                       state={{data: "Helper"}}
-                      className='btn' >To Help (Helper)</Link>
+                       >To Help</Link>
+              </div>
+            
             </div>
       </div>
     </div>
