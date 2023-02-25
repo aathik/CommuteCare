@@ -73,7 +73,7 @@ export const verifyOTP = async (otp, email) => {
 		}
 	});
     console.log(response.data);
-	localStorage.setItem('LoggedIn', true);
+	
 
 	return response.data;
 };
@@ -110,6 +110,7 @@ export const additionalDetails = async (first, last, gender, dob, mob) => {
 		}
 	});
 	localStorage.setItem('UserID', response.data.user._id);
+	localStorage.setItem('LoggedIn', true);
     console.log(response.data);
 
 	return response.data; 
@@ -197,6 +198,7 @@ export const additionalDetailsHelper = async (first, last, gender, dob, mob, bio
 		}
 	});
 	localStorage.setItem('HelperID', response.data.helper._id);
+	localStorage.setItem('LoggedIn', true);
     console.log(response.data);
 
 	return response.data; 

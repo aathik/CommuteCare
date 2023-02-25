@@ -28,15 +28,15 @@ const NavBar = () => {
 
   return (
     <div className={ color ? "header header-bg" : "header"}>
-        
+            <Link to='/'>
             <h1>CommuteCare</h1>
-        
+            </Link>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
             {
-                userType === 'Customer' && <li><Link to="/customerProfile">Profile</Link> </li> 
+                userType === 'Customer' && userLoggedIn && <li><Link to="/customerProfile">Profile</Link> </li> 
             }
             {
-                userType === 'Helper' && <li><Link to="/helperProfile">Profile</Link> </li> 
+                userType === 'Helper' && userLoggedIn && <li><Link to="/helperProfile">Profile</Link> </li> 
             }
             {userLoggedIn && <li>
             <Link to="/" onClick={logout}>Logout</Link>

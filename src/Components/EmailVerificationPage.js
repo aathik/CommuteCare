@@ -41,6 +41,7 @@ const ForgotPasswordPage = (props) => {
             await resendOTP(email);
           } catch (error) {
             console.error('error', error);
+            
           }
     }
     if(userType ==='Helper'){
@@ -48,6 +49,7 @@ const ForgotPasswordPage = (props) => {
             await resendOTPHelper(email);
           } catch (error) {
             console.error('error', error);
+            
           }
     }
     
@@ -63,11 +65,11 @@ const ForgotPasswordPage = (props) => {
     if(userType === 'Customer'){
         try {
             await verifyOTP(otp, email);
-            localStorage.setItem('LoggedIn', true);
+            
             navigate('/additionalDetails');
           } catch (error) {
             console.error('error', error);
-            setOtpError(error.data);
+            setOtpError(error.response.data.message);
             setTryCount(tryCount + 1);
             setOtp("");
           }
@@ -75,11 +77,11 @@ const ForgotPasswordPage = (props) => {
     if(userType ==='Helper'){
         try {
             await verifyOTPHelper(otp, email);
-            localStorage.setItem('LoggedIn', true);
+            
             navigate('/additionalDetails');
           } catch (error) {
             console.error('error', error);
-            setOtpError(error.data);
+            setOtpError(error.response.data.message);
             setTryCount(tryCount + 1);
             setOtp("");
           }
@@ -101,13 +103,13 @@ const ForgotPasswordPage = (props) => {
           <button onClick={handleVerify} disabled={otp.length !== 4 || remainingTime === 0}>
             Verify
           </button>
-          <p>{otpError}</p>
           {!canResendOtp && <p>Try again later.</p>}
           {canResendOtp && (
             <button onClick={handleSendOtp} disabled={remainingTime !== 0}>
               Resend OTP
             </button>
           )}
+          {otpError && <div className='error'>{otpError}</div>}
         </div>
       
     </div>
