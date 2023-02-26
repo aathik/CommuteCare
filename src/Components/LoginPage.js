@@ -4,6 +4,7 @@ import './LoginPage.css';
 import { login, loginHelper } from '../Routes/Login/AuthService';
 //import axios from 'axios';
 
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const LoginPage = (props) => {
 
@@ -13,6 +14,8 @@ const LoginPage = (props) => {
   const [emailError, setEmailError] = useState("");
   const [error, seterror] = useState("");
   //const [formData, setformData] = useState(null);
+
+  const [passwordShown, setPasswordShown] = useState(false);
   
   const navigate = new useNavigate();
 
@@ -54,6 +57,11 @@ const LoginPage = (props) => {
  // async function loginUser(email, password){}
   //console.log("data:", props.data)
 
+  const handlePasswordShow = (event) => {
+    setPasswordShown(!passwordShown)
+    
+  }
+  
   const handleLoginClick = async (e) =>  {
       e.preventDefault();
       if(props.data === 'Customer'){
@@ -71,6 +79,7 @@ const LoginPage = (props) => {
           navigate('/helperHome');
         } catch (error) {
           console.error('error', error);
+          seterror(error.response.data.message);
         }
       }
   }
@@ -92,7 +101,12 @@ const LoginPage = (props) => {
         {emailError && <div className="error">{emailError}</div>}
         <div className='login-container'>
           <label htmlFor="password">Password</label>
-          <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
+          <div className='password-icons'>
+            <input type={passwordShown ? "text" : "password"} value={password} onChange={handlePasswordChange} className='input-field' required />
+            {
+              passwordShown? (<i className='icons-pass' ><AiFillEye onClick={handlePasswordShow}/></i>) : (<i className='icons-pass' ><AiFillEyeInvisible onClick={handlePasswordShow}/></i>)
+            }
+          </div>
         </div>
         {passwordError && <p className="error">{passwordError}</p>}
         <div>

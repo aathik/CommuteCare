@@ -3,6 +3,7 @@ import {  useNavigate } from 'react-router-dom';
 import './SignUpPage.css';
 
 import { signUp, signUpHelper } from '../Routes/Login/AuthService';
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 
 
@@ -18,6 +19,7 @@ const SignUpPage = (props) => {
 
   const [error, seterror] = useState("");
 
+  const [passwordShown, setPasswordShown] = useState(false);
 
   
   const navigate = new useNavigate();
@@ -56,6 +58,11 @@ const SignUpPage = (props) => {
       setConfrimPassError('');
     }
   };
+
+  const handlePasswordShow = (event) => {
+    setPasswordShown(!passwordShown)
+    
+  }
 
  
 
@@ -114,13 +121,23 @@ const SignUpPage = (props) => {
 
           <div className='signup-field'>
           <label htmlFor="password">Password</label>
-          <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
+          <div className='password-icons'>
+          <input type={passwordShown ? "text" : "password"} value={password} onChange={handlePasswordChange} className='input-field' required />
+            {
+              passwordShown? (<i className='icons-pass' ><AiFillEye onClick={handlePasswordShow}/></i>) : (<i className='icons-pass' ><AiFillEyeInvisible onClick={handlePasswordShow}/></i>)
+            }
+          </div>
           </div>
           {passwordError && <p className="error">{passwordError}</p>}
 
           <div className='signup-field'>
           <label htmlFor="password">Confirm Password</label>
-          <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} className='input-field' required />
+          <div className='password-icons'>
+            <input type={passwordShown ? "text" : "password"} value={confirmPassword} onChange={handleConfirmPasswordChange} className='input-field' required />
+            {
+              passwordShown? (<i className='icons-pass' ><AiFillEye onClick={handlePasswordShow}/></i>) : (<i className='icons-pass' ><AiFillEyeInvisible onClick={handlePasswordShow}/></i>)
+            }
+          </div>
           </div>
           {confrimPassError && <p className="error">{confrimPassError}</p>}
         

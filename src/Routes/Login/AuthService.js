@@ -117,7 +117,7 @@ export const additionalDetails = async (first, last, gender, dob, mob) => {
 }
 
 export const forgotPass = async (email, data) => {
-	
+	console.log('email:', email);
 	const response = await axios.post('http://localhost:5000/forgot-password', {
 		email: email
 	});
@@ -227,7 +227,7 @@ export const editAvailability = async (availability) => {
 }
 
 export const forgotPassHelper = async (email, data) => {
-	
+	console.log('email:', email);
 	const response = await axios.post('http://localhost:5000/forgot-password/helper', {
 		email: email
 	});
@@ -239,8 +239,8 @@ export const forgotPassHelper = async (email, data) => {
 };
 
 
-export const passwordChangeHelper = async (pass, token) => {
-	const response = await axios.post(`http://localhost:5000/reset-password/helper/${token}`, {
+export const passwordChange = async (pass, token) => {
+	const response = await axios.post(`http://localhost:5000/reset-password/${token}`, {
 		password: pass
 	});
 	console.log(response);
@@ -248,7 +248,7 @@ export const passwordChangeHelper = async (pass, token) => {
 	return response.data;
 }
 
-export const passwordChange = async (pass, token) => {
+export const passwordChangeHelper = async (pass, token) => {
 	const response = await axios.post(`http://localhost:5000/reset-password/helper/${token}`, {
 		password: pass
 	});

@@ -3,11 +3,19 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { passwordChange, passwordChangeHelper } from '../Routes/Login/AuthService';
 
+import './NewPassword.css';
+
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
 const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState('');
   const [confrimPassError, setConfrimPassError] = useState('');
+
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const [error, setError] = useState('');
 
   const userType = localStorage.getItem("UserType");
 
@@ -40,6 +48,11 @@ const NewPassword = () => {
     }
   };
 
+  const handlePasswordShow = (event) => {
+    setPasswordShown(!passwordShown)
+    
+  }
+
  
 
   const handleSubmit = async (event) => {
@@ -58,13 +71,16 @@ const NewPassword = () => {
           navigate('/login', {state:{data: userType}})
         } catch (error) {
           console.error('error', error);
+          setError(error.response.data.message);
         }
     }
     if(userType === 'Helper'){
       try {
         await passwordChangeHelper(password, tok);
+        navigate('/login', {state:{data: userType}})
       } catch (error) {
         console.error('error', error);
+        setError(error.response.data.message);
       }
     }
 
@@ -76,13 +92,26 @@ const NewPassword = () => {
 
           <div className='signup-field'>
           <label htmlFor="password">New Password</label>
-          <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
+          <div className='password-icons'>
+            <input type={passwordShown ? "text" : "password"} value={password} onChange={handlePasswordChange} className='input-field' required />
+            {
+              passwordShown? (<i className='icons-pass' ><AiFillEye onClick={handlePasswordShow}/></i>) : (<i className='icons-pass' ><AiFillEyeInvisible onClick={handlePasswordShow}/></i>)
+            }
+            
+            
+          </div>
+          
           </div>
           {passwordError && <p className="error">{passwordError}</p>}
 
           <div className='signup-field'>
           <label htmlFor="password">Confirm New Password</label>
-          <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} className='input-field' required />
+          <div className='password-icons'>
+          <input type={passwordShown ? "text" : "password"} value={confirmPassword} onChange={handleConfirmPasswordChange} className='input-field' required />
+            {
+              passwordShown? (<i className='icons-pass' ><AiFillEye onClick={handlePasswordShow}/></i>) : (<i className='icons-pass' ><AiFillEyeInvisible onClick={handlePasswordShow}/></i>)
+            }
+          </div>
           </div>
           {confrimPassError && <p className="error">{confrimPassError}</p>}
         
@@ -93,6 +122,8 @@ const NewPassword = () => {
             <button type="submit" className='btn'>Submit</button>
 
           </div>
+
+          {error && <div className='error'>{error}</div>}
         </div>
         </form>
     </div>
