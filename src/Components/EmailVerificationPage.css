@@ -1,0 +1,55 @@
+.forgot-container {
+    width: 80%;
+    margin: auto;
+    padding-top: 10%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+.forgot-comp{
+    padding-top: 10%;
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 80%;
+}
+
+.label{
+    padding-top: 5%;
+    font-weight: 500;
+}
+
+  #otp-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+   
+  }
+  
+  #otp-input {
+    width: 100%;
+    height: 90px;
+    margin-top: 1px;
+    font-size: 16px;
+    padding: 1px;
+    text-align: center;
+  }
+  
+  #otp-message {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  #otp-timer {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+  
