@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const url = 'http://localhost:5000';
+
 export const login = async (email, password, data) => {
-	const response = await axios.post('http://localhost:5000/userLogin', {
+	const response = await axios.post(`${url}/userLogin`, {
 		email,
 		password
 	});
@@ -22,7 +24,7 @@ export const login = async (email, password, data) => {
 
 
 export const loginHelper = async (email, password, data) => {
-	const response = await axios.post('http://localhost:5000/helperLogin', {
+	const response = await axios.post(`${url}/helperLogin`, {
 		email,
 		password
 	});
@@ -40,12 +42,13 @@ export const loginHelper = async (email, password, data) => {
 };
 
 export const logout = () =>{
-	localStorage.clear();
+	localStorage.removeItem('token-info');
+    localStorage.setItem('LoggedIn', false);
 };
 
 export const signUp = async (email, password, data) => {
 
-	const response = await axios.put('http://localhost:5000/userSignup', {
+	const response = await axios.put(`${url}/userSignup`, {
 		email: email,
         password: password
 	});
@@ -63,7 +66,7 @@ export const signUp = async (email, password, data) => {
 
 export const verifyOTP = async (otp, email) => {
 	const token = localStorage.getItem('User');
-	const response = await axios.post('http://localhost:5000/verifyOTP', {
+	const response = await axios.post(`${url}/verifyOTP`, {
 		otp: Number(otp),
 		email: email
 	},
@@ -80,7 +83,7 @@ export const verifyOTP = async (otp, email) => {
 
 export const resendOTP = async (email) => {
 	const token = localStorage.getItem('User');
-	const response = await axios.post('http://localhost:5000/resendOTP', {
+	const response = await axios.post(`${url}/resendOTP`, {
 		email: email
 	},
 	{
@@ -97,7 +100,7 @@ export const resendOTP = async (email) => {
 
 export const additionalDetails = async (first, last, gender, dob, mob) => {
 	const token = localStorage.getItem('User');
-	const response = await axios.put('http://localhost:5000/additionalDetails', {
+	const response = await axios.put(`${url}/additionalDetails`, {
 		firstname: first,
 		lastname: last,
 		gender: gender,
@@ -117,8 +120,8 @@ export const additionalDetails = async (first, last, gender, dob, mob) => {
 }
 
 export const forgotPass = async (email, data) => {
-	
-	const response = await axios.post('http://localhost:5000/forgot-password', {
+	console.log('email:', email);
+	const response = await axios.post(`${url}/forgot-password`, {
 		email: email
 	});
 	//console.log(response.data.token);
@@ -130,7 +133,7 @@ export const forgotPass = async (email, data) => {
 
 export const signUpHelper = async (email, password, data) => {
 
-	const response = await axios.put('http://localhost:5000/helperSignup', {
+	const response = await axios.put(`${url}/helperSignup`, {
 		email: email,
         password: password
 	});
@@ -149,7 +152,7 @@ export const signUpHelper = async (email, password, data) => {
 
 export const resendOTPHelper = async (email) => {
 	const token = localStorage.getItem('User');
-	const response = await axios.post('http://localhost:5000/resendOTPHelper', {
+	const response = await axios.post(`${url}/resendOTPHelper`, {
 		email: email
 	},
 	{
@@ -165,7 +168,7 @@ export const resendOTPHelper = async (email) => {
 
 export const verifyOTPHelper = async (otp, email) => {
 	const token = localStorage.getItem('User');
-	const response = await axios.post('http://localhost:5000/verifyOTPHelper', {
+	const response = await axios.post(`${url}/verifyOTPHelper`, {
 		otp: Number(otp),
 		email: email
 	},
@@ -182,7 +185,7 @@ export const verifyOTPHelper = async (otp, email) => {
 
 export const additionalDetailsHelper = async (first, last, gender, dob, mob, bio, nation) => {
 	const token = localStorage.getItem('User');
-	const response = await axios.put('http://localhost:5000/additional-details', {
+	const response = await axios.put(`${url}/additional-details`, {
 		firstname: first,
 		lastname: last,
 		dob: dob,
@@ -207,7 +210,7 @@ export const additionalDetailsHelper = async (first, last, gender, dob, mob, bio
 export const editAvailability = async (availability) => {
 	const token = localStorage.getItem('User');
 	const helperID = localStorage.getItem('HelperID');
-	const response = await axios.put(`http://localhost:5000/editAvailability/${helperID}`, {
+	const response = await axios.put(`${url}/editAvailability/${helperID}`, {
 		Monday: availability.Monday,
 		Tuesday: availability.Tuesday,
 		Wednesday: availability.Wednesday,
@@ -227,8 +230,8 @@ export const editAvailability = async (availability) => {
 }
 
 export const forgotPassHelper = async (email, data) => {
-	
-	const response = await axios.post('http://localhost:5000/forgot-password/helper', {
+	console.log('email:', email);
+	const response = await axios.post(`${url}/forgot-password/helper`, {
 		email: email
 	});
 	//console.log(response.data.token);
@@ -239,8 +242,8 @@ export const forgotPassHelper = async (email, data) => {
 };
 
 
-export const passwordChangeHelper = async (pass, token) => {
-	const response = await axios.post(`http://localhost:5000/reset-password/helper/${token}`, {
+export const passwordChange = async (pass, token) => {
+	const response = await axios.post(`${url}/reset-password/${token}`, {
 		password: pass
 	});
 	console.log(response);
@@ -248,8 +251,8 @@ export const passwordChangeHelper = async (pass, token) => {
 	return response.data;
 }
 
-export const passwordChange = async (pass, token) => {
-	const response = await axios.post(`http://localhost:5000/reset-password/helper/${token}`, {
+export const passwordChangeHelper = async (pass, token) => {
+	const response = await axios.post(`${url}/reset-password/helper/${token}`, {
 		password: pass
 	});
 	console.log(response);
@@ -259,7 +262,7 @@ export const passwordChange = async (pass, token) => {
 
 export const displayCustomerProfile = async () => {
 	const token = localStorage.getItem('User');
-	const response = await axios.get('http://localhost:5000/userProfile',
+	const response = await axios.get(`${url}/userProfile`,
 	{
 		headers: {
 		  Authorization : `Bearer ${JSON.parse(token)}` 
@@ -272,7 +275,7 @@ export const displayCustomerProfile = async () => {
 
 export const displayHelperProfile = async () => {
 	const token = localStorage.getItem('User');
-	const response = await axios.get('http://localhost:5000/helperProfile',
+	const response = await axios.get(`${url}/helperProfile`,
 	{
 		headers: {
 		  Authorization : `Bearer ${JSON.parse(token)}` 

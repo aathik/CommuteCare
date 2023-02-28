@@ -16,6 +16,7 @@ const AdditionalCustomerDetails = () => {
   const [gender, setGender] = useState("");
  //  const [photo, setPhoto] = useState(null);
   const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [countryCode, setCountryCode] = useState("");
 
   const navigate = new useNavigate();
@@ -43,6 +44,10 @@ const AdditionalCustomerDetails = () => {
 
   const handlePhoneChange = (event) => {
     setPhone(event.target.value);
+    console.log("Length:", phone.length)
+    if(phone.length >10){
+      setPhoneError("Invalid Phone Number")
+    }
   };
 
   const handleCountryCodeChange = (event) => {
@@ -53,7 +58,7 @@ const AdditionalCustomerDetails = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!firstName || !lastName || !dob || !gender || !phone || !countryCode){
+    if(!firstName || !lastName || !dob || !gender || !phone || !countryCode || phone.length<10){
       alert("fill all columns");
       return false; 
     }
@@ -158,6 +163,7 @@ const AdditionalCustomerDetails = () => {
                 onChange={handlePhoneChange}
                 pattern="[0-9]{10}"
                 placeholder='Enter 10 digit number'
+                maxlength="10"
                 required
               />
             </div>

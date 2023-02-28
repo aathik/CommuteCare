@@ -43,14 +43,20 @@ const CustomerProfilePage = () => {
     <div className='profile'>
         {
             isLoading ? <div>Loading.....</div> : <>
+                    
                     <div className='profile-container'>
-                    <h3>Name: {firstname} {lastname}</h3>
-                    <h4>Email: {email}</h4>
-                    <h4>Gender: {gender}</h4>
-                    <h4>Phone: {mob}</h4>
-                    <h4>Date of Birth: {dob}</h4>
-                    <h4>id: {id}</h4>
-                    <h4>Booking: {bookings}</h4>
+                    <h2>Personal Details</h2>
+                      <div className='profile-div'> 
+                        <div className='profile-content'>
+                          <h3>Name: {firstname} {lastname}</h3>
+                          <h4>Email: {email}</h4>
+                          <h4>Gender: {gender}</h4>
+                          <h4>Phone: {mob}</h4>
+                          <h4>Date of Birth: {dob}</h4>
+                          <h4>ID: {id}</h4>
+                          <h4>Booking: {bookings}</h4>
+                        </div>
+                      </div>
                     </div>
             </>
         }

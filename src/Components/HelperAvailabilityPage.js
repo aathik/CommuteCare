@@ -13,6 +13,9 @@ const HelperAvailabilityPage = () => {
     const [selectedDay, setSelectedDay] = useState(null);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
+    const [errorStartTime, setErrorStartTime] = useState(null);
+    const [errorEndTime, setErrorEndTime] = useState(null);
+    const errortxt = "Invalid Time"
     const [showAvailability, setShowAvailability] = useState({
         Monday: "",
         Tuesday: "",
@@ -35,8 +38,11 @@ const HelperAvailabilityPage = () => {
         if (!selectedDay || !startTime || !endTime) {
             alert('Fill all the columns');
             return false;
-
         } 
+        if(!startTime.getHours() || !startTime.getMinutes() || !endTime.getHours() || !endTime.getMinutes()){
+            alert("Invalid Time");
+            return false;
+        }
         const day = selectedDay;
         const start = startTime.getHours() +':'+ startTime.getMinutes();
         const end = endTime.getHours() +':'+ endTime.getMinutes();
@@ -150,8 +156,18 @@ const HelperAvailabilityPage = () => {
                             onChange={  
                                 setStartTime
                             }  
-                            renderInput={(params) => <TextField {...params}
-                            required   />}  
+                            onError={
+                                setErrorStartTime
+                            }
+                            
+                            renderInput={(params) => <TextField 
+                                
+                                {...params} sx={{ width:"100%" }} 
+                                errorStartTime
+                                helperText={errorStartTime? errortxt: ''}
+                              />}
+                            
+                              
                             />  
                         
                         </Stack>  
@@ -170,8 +186,16 @@ const HelperAvailabilityPage = () => {
                             onChange={  
                                 setEndTime
                             }  
-                            renderInput={(params) => <TextField {...params}
-                            required   />}  
+                            onError={
+                                setErrorEndTime
+                            }
+                            
+                            renderInput={(params) => <TextField 
+                                
+                                {...params} sx={{ width:"100%" }} 
+                                errorStartTime
+                                helperText={errorEndTime? errortxt: ''}
+                              />}
                             />  
                         
                         </Stack>  

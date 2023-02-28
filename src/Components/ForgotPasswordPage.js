@@ -69,7 +69,7 @@ const ForgotPasswordPage = (props) => {
     <div className='forgot-container'>
         {!otpSent ? (
         <div className='forgot-comp'>
-          <label htmlFor="email" className='forgot-label'>Enter your email Id on which OTP will be sent</label>
+          <label htmlFor="email" className='forgot-label'>Enter your email Id to which OTP will be sent</label>
           <br></br>
           <input type="email" id="email" value={email} onChange={handleEmailChange} className='email-input'/>
           <br></br>

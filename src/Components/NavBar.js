@@ -24,14 +24,19 @@ const NavBar = () => {
     const userLoggedIn = localStorage.getItem("LoggedIn");
     const userType = localStorage.getItem("UserType");
 
+    console.log('loggedIn:', userLoggedIn)
+
     window.addEventListener("scroll", changeColor);
 
   return (
     <div className={ color ? "header header-bg" : "header"}>
-            <Link to='/'>
+            <Link to={userLoggedIn==='true' ? ('/home') : ('/')}>
             <h1>CommuteCare</h1>
             </Link>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
+            <li>
+                <Link to="/home">Home</Link> 
+            </li>
             {
                 userType === 'Customer' && userLoggedIn && <li><Link to="/customerProfile">Profile</Link> </li> 
             }
@@ -39,7 +44,9 @@ const NavBar = () => {
                 userType === 'Helper' && userLoggedIn && <li><Link to="/helperProfile">Profile</Link> </li> 
             }
             {userLoggedIn && <li>
-            <Link to="/" onClick={logout}>Logout</Link>
+                
+                <Link to="/" onClick={logout}>Logout</Link>
+
             </li> 
             }
             
