@@ -10,13 +10,13 @@ const Home = () => {
   
   const userLoggedIn = localStorage.getItem('LoggedIn');
   const userType = localStorage.getItem('UserType');
-  
+  console.log("User:", userType)
   
  
   return (
     <div>
       <NavBar />
-      {userLoggedIn? <>
+      {userLoggedIn === 'true'? <>
       { userType === 'Customer' && <Navigate to='/customerHome' />}
       { userType === 'Helper' && <Navigate to='/helperHome'/>}
       </> : <LoginChoice />}

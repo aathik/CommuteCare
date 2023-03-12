@@ -14,15 +14,15 @@ const LoginChoicePage = () => {
          <div className='choice-contents'>
             <h3>What would you like to do today?</h3>
                     <div className='choice-buttons'>
-                      <div className='buttons'>
-                        <Link to="/login"
+                      <div className='btn'>
+                        <Link to="/login" 
                           state={{data: "Customer"}}
                           >To Be Helped</Link>
                       </div>
                         
                     </div>
                 <div className='choice-buttons'>
-                <div className='buttons'>
+                <div className='btn'>
                       <Link to="/login"
                           state={{data: "Helper"}}
                           >To Help</Link>

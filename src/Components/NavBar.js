@@ -33,8 +33,9 @@ const NavBar = () => {
             <Link to={userLoggedIn==='true' ? ('/home') : ('/')}>
             <h1>CommuteCare</h1>
             </Link>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li>
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
+            {
+                userLoggedIn === 'true'? <><li>
                 <Link to="/home">Home</Link> 
             </li>
             {
@@ -43,12 +44,17 @@ const NavBar = () => {
             {
                 userType === 'Helper' && userLoggedIn && <li><Link to="/helperProfile">Profile</Link> </li> 
             }
-            {userLoggedIn && <li>
-                
-                <Link to="/" onClick={logout}>Logout</Link>
-
-            </li> 
+            <li>
+            <Link to="/" onClick={logout}>Logout</Link>
+            </li>  
+            </> : <></>
+            
             }
+        
+            
+        
+              
+
             
             
         </ul>

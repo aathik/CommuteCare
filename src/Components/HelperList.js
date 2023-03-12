@@ -3,9 +3,10 @@ import './HelperList.css'
 import ReactCardFlip from 'react-card-flip';
 import React,{ useState, useEffect } from 'react';
 import { BsPersonCircle } from "react-icons/bs";
-import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
+
+import { displayAvailHelperList } from '../Routes/Login/AuthService';
 
 import ReactLoading from 'react-loading';
 
@@ -50,23 +51,23 @@ import ReactLoading from 'react-loading';
   console.log(user);
 
   useEffect(() => {
-    setIsLoading(true);
-    axios.get(`http://localhost:5000/availableHelpers?day=${days[props.Day]}&time=${props.Time}&duration=${props.Duration}`, {
-      headers: {
-        Authorization : `Bearer ${JSON.parse(user)}` 
-      }
-    })
-    .then(response => {
-    setFormData(response.data)
-    console.log(response)
-    setIsLoading(false);
-    })
-    .catch(error => {
-      console.error(error);
-    });
+
+    const fetchData = async () => {
+      try {
+          setIsLoading(true);
+          await displayAvailHelperList(days[props.Day], props.Time, props.Duration).then(
+            (response) => setFormData(response.data)
+          );
+          console.log("Response:",formData);
+        } catch (error) {
+          console.error('error', error);
+        }
+        setIsLoading(false);
+    }
+    fetchData();
     
     
-  }, [props.Day, props.Time, props.Duration, user]); 
+  }, []); 
 
 
   return (

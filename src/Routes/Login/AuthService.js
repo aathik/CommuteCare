@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const url = 'http://localhost:5000';
 
+
+
 export const login = async (email, password, data) => {
 	const response = await axios.post(`${url}/userLogin`, {
 		email,
@@ -42,7 +44,10 @@ export const loginHelper = async (email, password, data) => {
 };
 
 export const logout = () =>{
-	localStorage.removeItem('token-info');
+	localStorage.removeItem('User');
+	localStorage.removeItem('UserType');
+	localStorage.removeItem('UserID');
+	
     localStorage.setItem('LoggedIn', false);
 };
 
@@ -285,3 +290,37 @@ export const displayHelperProfile = async () => {
 
 	return response.data;
 }
+
+
+export const displayAvailHelperList = async (day, time, duration) => {
+	const token = localStorage.getItem('User');
+	const response = axios.get(`${url}/availableHelpers?day=${day}&time=${time}&duration=${duration}`, {
+		headers: {
+		  Authorization : `Bearer ${JSON.parse(token)}` 
+		}
+	  });
+	console.log(response);
+
+	return response;
+}
+
+
+export const bookingHelper = async (helperId, day, time, duration) => {
+	const token = localStorage.getItem('User');
+	const response = axios.post(`${url}/book`,{
+		helperId: helperId,
+		day: day,
+		starttime: time,
+		duration: duration
+	  } 
+	  ,{
+		headers: {
+		  Authorization : `Bearer ${JSON.parse(token)}` 
+		}
+	  });
+	console.log(response);
+
+	return response;
+}
+
+

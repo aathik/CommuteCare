@@ -45,7 +45,7 @@
 }
 
 .hero .content h1{
-    font-size: 4rem;
+    font-size: 400%;
     padding: 0.6rem 0 1.5rem;
     color: white;
 }
@@ -62,13 +62,33 @@
     margin: 1rem 0.2rem;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 520px) {
+    .hero .content{
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        border: 1px solid white ;
+        margin: auto;
+        height: 20%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        background-color: #c4d6b073
+    }
     .hero .content h1{
-        font-size: 3rem;
+        font-size: 2rem;
+        padding-bottom: 10%;
     }
     
     .hero .content p{
         font-size: 1.4rem;
         
+    }
+
+    .content .btn {
+        
+        font-size: 1rem;
+        width: 10%;
     }
 }

@@ -18,7 +18,7 @@ import ForgotPassword from './Routes/ForgotPassword';
 import NewPassword from './Components/NewPassword';
 import HelperProfile from './Routes/HelperProfile';
 import CustomerProfile from './Routes/CustomerProfile';
-import LoginChoice from './Components/LoginChoicePage';
+import LoginChoice from './Routes/LoginChoice';
 
 
 function App() {

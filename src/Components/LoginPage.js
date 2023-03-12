@@ -71,6 +71,7 @@ const LoginPage = (props) => {
           navigate('/helperHome');
         } catch (error) {
           console.error('error', error);
+          seterror(error.response.data.message);
         }
       }
   }
