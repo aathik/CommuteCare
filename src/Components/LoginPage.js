@@ -2,17 +2,36 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import { login, loginHelper } from '../Routes/Login/AuthService';
-//import axios from 'axios';
+import loginImg from '../Assets/home-page.jpg';
+import logo from "../Assets/logo.png";
+
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Button from '@mui/material/Button';
 
 
 const LoginPage = (props) => {
 
   const [email, setEmail] = useState('');
+  const [emailFlag, setEmailFlag] = useState(false);
   const [password, setPassword] = useState('');
+  const [passwordFlag, setPasswordFlag] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState("");
   const [error, seterror] = useState("");
-  //const [formData, setformData] = useState(null);
+
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+
+
   
   const navigate = new useNavigate();
 
@@ -26,36 +45,40 @@ const LoginPage = (props) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regex.test(email)) {
       setEmailError("Please enter a valid email address");
+      setEmailFlag(true);
+      return true;
     } else {
       setEmailError("");
+      setEmailFlag(false);
+      return false;
     }
   };
  
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    if (!validatePassword(event.target.value)) {
+  const handlePasswordChange = (password) => {
+    if (!validatePassword(password)) {
       setPasswordError('Your password must contain 1 upper case character, 1 number, 1 special character');
+      setPasswordFlag(true);
+      return true;
     } else {
       setPasswordError('');
+      setPasswordFlag(false);
+      return false;
     }
   }
 
-  const handleForgotPasswordClick = (e) => {
-
-    // Implement forgot password functionality
-  }
-
-  const handleSignUpClick = (e) =>  {
-
-    // Implement sign up functionality
-  }
-
- // async function loginUser(email, password){}
-  //console.log("data:", props.data)
 
   const handleLoginClick = async (e) =>  {
       e.preventDefault();
+      if(validateEmail(email) || handlePasswordChange(password)){
+        if(email.length===0){
+          setEmailError('Enter Email')
+        }
+        if(password.length===0){
+          setPasswordError('Enter Password')
+        }
+        return false;
+      }
       if(props.data === 'Customer'){
         try {
           await login(email, password, props.data);
@@ -78,40 +101,106 @@ const LoginPage = (props) => {
 
   return (
     <div className='login'>
-      
-      <form className='login-form'>
-      <h2>Login</h2>
-      {/* <h2>Login For {props.data}</h2> */}
 
-        <div className='login-container'>
-          <label htmlFor="email" className='label'>Email</label>
-          <div className='input-withIcons'>
-            <input type="email" id="email" value={email}  onChange={(e) => {
+      <div className='logo'>
+        <img src={logo} alt='logo-img' className='logo-img'></img>
+      </div>
+      <div className='login-comp'>
+        <form className='login-form' id='login'>
+        {/*<h2>Login</h2>
+         <h2>Login For {props.data}</h2> */}
+
+          <div className='login-container'>
+            
+            <div className='input-withIcons'>
+            <TextField id="login" 
+              label="Email" 
+              variant="standard"
+              
+              error = {emailFlag}
+              helperText={emailError}
+              type={"email"}
+              sx={{width: 300,
+                marginTop: 3
+              }}
+              value={email}
+              onChange={(e) => {
                 setEmail(e.target.value);
-                validateEmail(e.target.value);
-              }} className='input-field' required/> 
+                }}
+              required/>
+            { /*<input type="email" id="email" value={email}  onChange={(e) => {
+                  setEmail(e.target.value);
+                  validateEmail(e.target.value);
+                }} className='input-field' required/> */}
+            </div>
+            {/*emailError && <div className="error">{emailError}</div> */}
           </div>
-          {emailError && <div className="error">{emailError}</div>}
+          
+          <div className='login-container'>
+            <TextField id="login" 
+              label="Password" 
+              variant="standard"
+              error = {passwordFlag}
+              helperText={passwordError}
+              type={showPassword ? 'text' : 'password'}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>,
+              }}
+              sx={{width: 300,
+                marginTop: 3
+              }}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                }}
+              required/>
+            {/*<label htmlFor="password">Password</label>
+            <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
+            {passwordError && <p className="error">{passwordError}</p>} */}
+          </div>
+          
+
+          <div className='links'>
+            <div className='forgot'>
+              <Link to="/forgotPassword" state={{userType: props.data}} className='link'>Forgot password?</Link>
+            </div>
+            <div className='new'>
+              <Link to="/signUp" state={{userType: props.data}} className='link'>New User? Sign up</Link>
+            </div>
+          </div>
+          {error && <div className='error'>{error}</div>}
+            <div  className='login-button'>
+                        <Button variant='outlined' sx={{
+                            ":hover": {
+                            bgcolor: "#006e5f4a",
+                            borderColor: "#006E60",
+                            },
+                            color: "white",
+                            backgroundColor: "#00720B",
+                            borderColor: "#006E60",
+                          }} size="large" onClick={handleLoginClick}>
+                            Login
+                        </Button>
+                    </div>
+                          
+          
+        </form>
+      
+      
+
+        <div className='login-Img'>
+            <img  src={loginImg} alt='login-img'className='logoimg'/>
         </div>
-        
-        <div className='login-container'>
-          <label htmlFor="password">Password</label>
-          <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
-          {passwordError && <p className="error">{passwordError}</p>}
-        </div>
-        
-        <div>
-          <Link to="/forgotPassword" state={{userType: props.data}} onClick={handleForgotPasswordClick} className='link'>Forgot password?</Link>
-        </div>
-        <div>
-          <Link to="/signUp" state={{userType: props.data}} onClick={handleSignUpClick} className='link'>Sign up</Link>
-        </div>
-        {error && <div className='error'>{error}</div>}
-        <div>
-          <button type="submit" onClick={handleLoginClick} className='btn'>Login</button>
-        </div>
-        
-      </form>
+      </div>
 
     </div>
   )

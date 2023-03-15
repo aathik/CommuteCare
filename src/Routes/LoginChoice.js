@@ -1,7 +1,6 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 import LoginChoicePage from '../Components/LoginChoicePage'
-import NavBar from '../Components/NavBar'
 
 const LoginChoice = () => {
   const userLoggedIn = localStorage.getItem('LoggedIn');
@@ -9,7 +8,6 @@ const LoginChoice = () => {
   
   return (
     <div>
-        <NavBar />
         {userLoggedIn ==='True'? <>
           { userType === 'Customer' && <Navigate to='/customerHome' />}
           { userType === 'Helper' && <Navigate to='/helperHome'/>}

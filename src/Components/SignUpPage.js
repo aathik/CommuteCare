@@ -97,8 +97,8 @@ const SignUpPage = (props) => {
 
   return (
     <div className='signUp'>
-         
-        
+      <div className='signup-grid'>
+             
         <form onSubmit={handleSubmit} className='signup-form'>
         <h2>SignUp</h2>
         <div className='signup-container'>
@@ -137,7 +137,7 @@ const SignUpPage = (props) => {
           {error && <div className='error'>{error}</div>}
         </div>
         </form>
-        
+      </div>
 
     </div>
   )

@@ -1,15 +1,54 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import './LoginChoicePage.css'
-import IntroImg from "../Assets/img1.jpg";
+import IntroImg from "../Assets/loginchoicescreen.jpg";
+import logo from "../Assets/logo.png";
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const LoginChoicePage = () => {
-  
+  const navigate = new useNavigate();
   return (
     <div className='choice'>
-        <div className="mask">
+      <div className='logo'>
+        <img src={logo} alt='logo-img' className='logo-img'></img>
+      </div>
+      <div className="mask">
             <img className="intro-img" src={IntroImg} alt='heroImg'></img>
-        </div>
+      </div>
+      <div className='choice-buttons'>
+          <div className='choice-button-getHelp'>
+            <Button variant="outlined" fullWidth size='large'
+                sx={{
+                  ":hover": {
+                  bgcolor: "#006e5f4a",
+                  borderColor: "#006E60",
+                  },
+                  color: "#006E60",
+                  backgroundColor: "#DAFFD7",
+                  borderColor: "#006E60",
+                  height: 60,
+                }} onClick={(e)=> {navigate('/login', {state:{data: "Customer"}})}}
+            
+            >Get Help</Button>
+          </div>
+          <div className='choice-button-helper'>
+            <Button variant="outlined" fullWidth size='large'
+              sx={{
+                ":hover": {
+                bgcolor: "#006e5f4a",
+                borderColor: "#006E60",
+                },
+                color: "#006E60",
+                backgroundColor: "#DAFFD7",
+                borderColor: "#006E60",
+                height: 60,
+
+              }} onClick={(e)=> {navigate('/login', {state:{data: "Helper"}})}}
+            
+            >Help Someone</Button>
+          </div>
+      </div>
+        {/*
         <div className='choice-container'>
          <div className='choice-contents'>
             <h3>What would you like to do today?</h3>
@@ -30,7 +69,7 @@ const LoginChoicePage = () => {
                 
                 </div>
             </div> 
-      </div>
+  </div>*/}
     </div>
   )
 }
