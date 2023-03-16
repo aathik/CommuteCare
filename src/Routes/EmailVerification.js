@@ -7,7 +7,7 @@ const EmailVerification = () => {
   const location = useLocation();
   return (
     <div>
-      <NavBar />
+      
       <EmailVerificationPage data={location.state.data}/>
     </div>
   )

@@ -1,12 +1,12 @@
 .signUp{
   width: 100%;
+  height: 100%;
+  background-color: #ECF7E6;
 }
 
 .signup-grid{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 .addHelp{
     display: flex;
@@ -17,16 +17,32 @@
 }
 
 .signup-form{
-    margin: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #fff;
-    padding: 5%;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.262);
-    width: 50%;
+    padding-left: 15%;
 }
+.image{
+  display: flex;
+  width: 100%;
+  height: 70vh;
+  position: relative;
+  justify-content: center;
+  padding-right: 10%;
+}
+
+.actual-img{
+  height: 100%;
+}
+
+.image::after{
+  content: "";
+  width: 99%;
+  height: 100%; 
+  position: absolute;
+  justify-content: center;
+  background: linear-gradient(0deg, rgba(51, 144, 133, 0.5), rgba(51, 144, 133, 0.5));
+  opacity: 0.5;
+} 
 
 
 .signup-container{
@@ -34,18 +50,19 @@
 }
 
 .signup-field{
-    padding-top: 5%;
     display: flex;
     justify-content: center;
     flex-direction: column ;
 }
 
 .signup-field .signup-button{
-  text-align: center;
+  
+  padding-top: 13%;
+  float: right;
+  padding-left: 25%;
 }
 
 .signup-form label {
-    font-weight: bold;
     margin-bottom: 2%;
   }
 
@@ -53,8 +70,8 @@
 .signup-form select {
     width: 100%;
     padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    
+    
 }
 
 .signup-form input[type="file"] {
@@ -111,6 +128,36 @@
     height: 100%;
     width: 100%;
     padding-top: 15px;
+  }
+
+
+  /*addtional details*/
+  .addtionalC-container{
+    
+    width: 300px;
+  }
+
+  .addtionalC-field{
+      text-align: center;
+      align-items: center;
+  }
+  
+  .addtionalC-date{
+      padding-top: 15%;
+  }
+
+  .addtionalH-container{
+    width: 300px;
+    margin-bottom: 10%;
+  }
+
+  .addtionalH-field{
+      text-align: center;
+      align-items: center;
+  }
+
+  .addtionalH-date{
+    padding-top: 15%;
   }
 
   @media screen and (max-width: 720px)

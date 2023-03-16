@@ -1,47 +1,115 @@
 import React from 'react'
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useState } from 'react';
 import './SignUpPage.css'
 import { useNavigate } from 'react-router-dom';
+import logo from "../Assets/logo.png";
+import image from '../Assets/home-page.jpg';
+
+
 
 import { additionalDetailsHelper } from '../Routes/Login/AuthService';
+import { nationalityPlaces } from '../Assets/data';
+import { DatePicker } from '@mui/x-date-pickers';
+import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 
 
 const AdditionalHelperDetails = () => {
   const [firstName, setFirstName] = useState("");
+  const [fnameErrorFlag, setfnameErrorFlag] = useState(false);
+  const [fnameError, setfnameError] = useState("");
+  const [lnameErrorFlag, setlnameErrorFlag] = useState(false);
   const [lastName, setLastName] = useState("");
+  const [lnameError, setlnameError] = useState("");
   const [dob, setDob] = useState(null);
+  const [dobErrorFlag, setdobErrorFlag] = useState(false);
+  const [dobError, setdobError] = useState("");
   const [gender, setGender] = useState("");
+  const [genderErrorFlag, setgenderErrorFlag] = useState(false);
   // const [photo, setPhoto] = useState(null);
   const [phone, setPhone] = useState("");
+  const [phoneErrorFlag, setPhoneErrorFlag] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
   const [countryCode, setCountryCode] = useState("");
+  const [countryCodeErrorFlag, setcountryCodeErrorFlag] = useState(false);
   const [nationality, setNationality] = useState("");
+  const [nationalityErrorFlag, setnationalityErrorFlag] = useState(false);
   const [bio, setbio] = useState("");
+  const [bioErrorFlag, setbioErrorFlag] = useState(false);
+  const [bioError, setbioError] = useState("");
+
 
   const navigate = new useNavigate();
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
+  const handleFirstNameChange = (firstName) => {
+    const regex = /^[A-Za-z\s]*$/;
+    if (!regex.test(firstName)) {
+      setfnameError('Enter only alphabets');
+      setfnameErrorFlag(true);
+      return true;
+    }
+    else{
+      setfnameError('');
+      setfnameErrorFlag(false);
+      return false;
+    }
   };
   
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
+  const handleLastNameChange = (lastName) => {
+    const regex = /^[A-Za-z\s]*$/;
+    if (!regex.test(lastName)) {
+      setlnameError('Enter only alphabets');
+      setlnameErrorFlag(true);
+      return true;
+    }
+    else{
+      setlnameError('');
+      setlnameErrorFlag(false);
+      return false;
+    }
   };
 
-  const handleNationalityChange = (event) => {
-    setNationality(event.target.value);
+  const handleDobChange = (dob) => {
+    if(!dob){
+      setdobError("Enter DOB");
+      setdobErrorFlag(true);
+      return true;
+    }
+    else{
+      setdobError("");
+      setdobErrorFlag(false);
+      return false;
+    }
+  }
+
+  const handleNationalityChange = (nationality) => {
+    if(!nationality){
+      setnationalityErrorFlag(true);
+      return true;
+    }
+    else{
+      
+      setnationalityErrorFlag(false);
+      return false;
+    }
   };
 
-  const handleGenderChange = (event) => {
-    setGender(event.target.value);
+  const handleGenderChange = (gender) => {
+    if(!gender){
+      
+      setgenderErrorFlag(true);
+      return true;
+    }
+    else{
+      
+      setgenderErrorFlag(false);
+      return false;
+    }
   };
 
-  const handleBioChange = (event) => {
-    setbio(event.target.value);
-  };
+  
 
   const handlePhotoChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -53,18 +121,80 @@ const AdditionalHelperDetails = () => {
   };
 
   const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
+    const regex = /^\d{10}$/;
+    if (!regex.test(phone)) {
+      setPhoneError('Number Invalid');
+      setPhoneErrorFlag(true);
+      return true;
+    }
+    else{
+      setPhoneError('');
+      setPhoneErrorFlag(false);
+      return false;
+    }
   };
 
-  const handleCountryCodeChange = (event) => {
-    setCountryCode(event.target.value);
+  const handleCountryCodeChange = (countryCode) => {
+    if(!countryCode){
+      
+      setcountryCodeErrorFlag(true);
+      return true;
+    }
+    else{
+      
+      setcountryCodeErrorFlag(false);
+      return false;
+    }
+  };
+
+  const handleBioChange = (bio) => {
+    if(!bio){
+      setbioError('Enter your bio here');
+      setbioErrorFlag(true);
+      return true;
+    }
+    else{
+      setbioError('');
+      setbioErrorFlag(false);
+      return false;
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!firstName || !lastName || !dob || !gender || !phone || !nationality || !bio){
-      alert("fill all columns");
-      return false; 
+    if(handleFirstNameChange(firstName) || handleLastNameChange(lastName) || handlePhoneChange(phone) || handleDobChange(dob)
+        || handleCountryCodeChange(countryCode) || handleGenderChange(gender) || handleBioChange(bio) || handleNationalityChange(nationality)
+    ){
+      if(firstName.length === 0){
+        setfnameError('Enter First Name');
+        setfnameErrorFlag(true);
+      }
+      if(lastName.length === 0){
+        setlnameError('Enter Last Name');
+        setlnameErrorFlag(true);
+      }
+      if(phone.length === 0){
+        setPhoneError('Enter Phone Number');
+        setPhoneErrorFlag(true);
+      }
+      if(!dob){
+        setdobError("Enter DOB");
+        setdobErrorFlag(true);
+      }
+      if(!gender){
+        setgenderErrorFlag(true);
+      }
+      if(!countryCode){
+        setcountryCodeErrorFlag(true);
+      }
+      if(!nationality){
+        setnationalityErrorFlag(true);
+      }
+      if(!bio){
+        setbioError('Enter your bio here');
+        setbioErrorFlag(true);
+      }
+      return false;
     }
     const date = dob.$D+"/"+(dob.$M +1)+"/"+dob.$y;
     try {
@@ -80,320 +210,223 @@ const AdditionalHelperDetails = () => {
 
 
   return (
-    <div className='addHelp'>
+    <div className='signUp'>
+      <div className='logo'>
+          <img src={logo} alt='logo-img' className='logo-img'></img>
+      </div>
+      <div className='signup-grid'>
 
-      <form onSubmit={handleSubmit} className='signup-form'>
-        <h2>Additional Details</h2>
-        <div className='signup-container'>
-        <div className='signup-field'>
-            <label htmlFor="first-name">First Name</label>
-            <input
-              type="text"
-              id="first-name"
-              value={firstName}
-              onChange={handleFirstNameChange}
-              pattern="[A-Za-z ]+"
-              placeholder="first name"
-              required
-            />
-          </div>
-          <div className='signup-field'>
-            <label htmlFor="last-name">Last Name</label>
-            <input
-              type="text"
-              id="last-name"
-              value={lastName}
-              onChange={handleLastNameChange}
-              pattern="[A-Za-z ]+"
-              placeholder="last name"
-              required
-            />
-          </div>
-          <div className='signup-field'>
-          <label htmlFor="date-of-birth">Date of Birth</label>
-          <div className='signup-date'> 
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <MobileDatePicker
-                  value={dob}
-                  onChange={(newValue) => {
-                    setDob(newValue);
-                  }}
-                  maxDate={new Date()}
-                  required
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                </LocalizationProvider>
-          </div>
+
+                  <form onSubmit={handleSubmit} className='signup-form'>
+                    
+                    <div className='addtionalH-container'>
+                    <div className='addtionalH-field'>
+                      <TextField id="signUp" 
+                          label="First Name" 
+                          variant="standard"
+                          error = {fnameErrorFlag}
+                          helperText={fnameError}
+                          type={"text"}
+                          sx={{width: 300,
+                            marginTop: 2,
+                          }}
+                          value={firstName}
+                          onChange={(e) => {
+                            setFirstName(e.target.value);}}
+                          inputProps={{pattern: '[A-Za-z ]+'}}
+                          required/>
+                        
+                      </div>
+                      <div className='addtionalH-field'>
+                         <TextField id="signUp" 
+                          label="Last Name" 
+                          variant="standard"
+                          error = {lnameErrorFlag}
+                          helperText={lnameError}
+                          type={"text"}
+                          sx={{width: 300,
+                            marginTop: 3
+                          }}
+                          value={lastName}
+                          onChange={(e) => {
+                            setLastName(e.target.value);}}
+                          inputProps={{pattern: '[A-Za-z ]+'}}
+                          required/>
+                      </div>
+                      <div className='addtionalH-field'>
+                        <div className='addtionalH-date'> 
+                            <LocalizationProvider dateAdapter={AdapterDayjs} fullWidth>
+                              <DatePicker
+                                variant="standard"
+                                value={dob}
+                                
+                                label="Date of Birth"
+                                onChange={(newValue) => {
+                                  setDob(newValue);
+                                }}
+                                maxDate={new Date()}
+                                required
+                                renderInput={(params) => (
+                                  <TextField
+                                    sx={{ width: '100%' }}
+                                    {...params}
+                                    error={dobErrorFlag}
+                                    helperText={dobError}
+                                  />
+                                )}
+                              />
+                              </LocalizationProvider>
+                        </div>
+                          
+                      </div>
+                      
+                      
+                      <div className='addtionalH-field'>
+                        <FormControl variant="standard" fullWidth sx={{width: 300, marginTop: 4.3, textAlign: 'left'}} error={genderErrorFlag}>
+                          <InputLabel id="gender">Gender</InputLabel>
+                          <Select
+                            labelId="gender"
+                            id="gender"
+                            value={gender}
+                            label="gender"
+                            onChange={(e) => {
+                              setGender(e.target.value);}}
+                            required
+                            
+                          >
+                            <MenuItem value="Male">Male</MenuItem>
+                            <MenuItem value="Female">Female</MenuItem>
+                            <MenuItem value="Others">Others</MenuItem>
+                            <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
+                          </Select>
+                            <FormHelperText>{genderErrorFlag? "Enter gender": ""}</FormHelperText>
+                        </FormControl>
+
+                      </div>
+                      
+                      {/* <div className='signup-field'>
+                        <label htmlFor="photo">Profile Photo:</label>
+                        <input type="file" id="photo" onChange={handlePhotoChange}/>
+                      </div> */}
+                      
+
+                      <div className='addtionalH-field'>
+                  
+                  <div className="addtionalH-phone-input">
+                        <FormControl variant="standard" sx={{width: 120, marginTop: 4.3}} error={countryCodeErrorFlag}>
+                          <InputLabel id="country-code">Country Code</InputLabel>
+                          <Select
+                            labelId="country-code"
+                            id="country-code"
+                            value={countryCode}
+                            label="Country Code"
+                            onChange={(e) => {
+                              setCountryCode(e.target.value);}}
+                            required
+                          >
+                            <MenuItem value={+1}>+1 (USA)</MenuItem>
+                            <MenuItem value={+33}>+33 (FR)</MenuItem>
+                            <MenuItem value={+44}>+44 (UK)</MenuItem>
+                            <MenuItem value={+91}>+91 (India)</MenuItem>
+                          </Select>
+                          <FormHelperText>{countryCodeErrorFlag? "Enter Country Code": ""}</FormHelperText>
+                        </FormControl>
+
+                        <TextField id="phone" 
+                              label="Phone Number" 
+                              variant="standard"
+                              error = {phoneErrorFlag}
+                              helperText={phoneError}
+                              type={"text"}
+                              sx={{width: 150,
+                                marginTop: 3,
+                                marginLeft: 3
+                              }}
+                              value={phone}
+                              onChange={(e) => {
+                                setPhone(e.target.value);}}
+                              inputProps={{pattern: '[0-9]{10}'}}
+                              
+                              required/>
+                        
+                      </div>
+                    </div>
+
+                      <div className='addtionalH-field'>
+                      <FormControl variant="standard" fullWidth sx={{width: 300, marginTop: 4.3, textAlign: 'left'}} error={nationalityErrorFlag}>
+                          <InputLabel id="nationality">Nationality</InputLabel>
+                          <Select
+                            labelId="nationality"
+                            id="nationality"
+                            value={nationality}
+                            label="nationality"
+                            onChange={(e) => {
+                              setNationality(e.target.value);}}
+                            required
+                            
+                          >
+                            {nationalityPlaces.map((option,index) =>(
+                              <MenuItem key={index} value={option.value}>
+                                  {option.text}
+                                </MenuItem>
+                            ))}
+                            
+                          </Select>
+                            <FormHelperText>{nationalityErrorFlag? "Enter nationality": ""}</FormHelperText>
+                        </FormControl>
+                                          
+                      </div>
+
+                      <div className='addtionalH-field'>
+                        <div className='addtionalH-textfield'>
+                        <TextField
+                            id="bio"
+                            value={bio}
+                            onChange={(e) => {
+                              setbio(e.target.value);}}
+                            placeholder="Enter your bio here"
+                            multiline
+                            rows={3}
+                            maxRows={4}
+                            sx={{
+                              width: 300,
+                              marginTop: 5
+                            }}
+                            error={bioErrorFlag}
+                            helperText={bioError}
+                            label='About me'
+                          />
+                        </div>
+                          
+                        
+                      </div>
+                      
+                      <div className='addtionalH-field'>
+                        
+
+                            <Button variant='outlined' sx={{
+                                  ":hover": {
+                                  bgcolor: "#006e5f4a",
+                                  borderColor: "#006E60",
+                                  },
+                                  color: "white",
+                                  backgroundColor: "#00720B",
+                                  borderColor: "#006E60",
+                                  width: 150,
+                                  marginTop: 4
+                                }} size="large" onClick={handleSubmit}>
+                                  Submit
+                              </Button>
+                        
+                            
+                      </div>
+                    </div>
+                  </form>
+                  <div className='image'>
+                    <img  src={image} alt='login-img'className='actual-img'/>
               
-          </div>
-          
-          
-          <div className='signup-field'>
-            <label htmlFor="gender">Gender</label>
-            <select id="gender" value={gender} onChange={handleGenderChange} required>
-              <option value="">--Select--</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="others">Others</option>
-              <option value="prefer-not-to-say">Prefer not to say</option>
-            </select>
-
-          </div>
-          
-          {/* <div className='signup-field'>
-            <label htmlFor="photo">Profile Photo:</label>
-            <input type="file" id="photo" onChange={handlePhotoChange}/>
-          </div> */}
-          
-
-          <div className='signup-field'>
-            <label htmlFor="phone">Phone Number</label>
-            <div className="phone-input">
-              <select
-                id="country-code"
-                value={countryCode}
-                onChange={handleCountryCodeChange}
-                required
-                className='phone-country'
-              >
-                <option value="">--Select Country Code--</option>
-                <option value="+1">+1 (USA)</option>
-                <option value="+33">+33 (FR)</option>
-                <option value="+44">+44 (UK)</option>
-                <option value="+91">+91 (India)</option>
-              </select>
-              <input
-                type="tel"
-                id="phone"
-                value={phone}
-                onChange={handlePhoneChange}
-                pattern="[0-9]{10}"
-                placeholder='Enter 10 digit number'
-                maxlength="10"
-                required
-              />
-            </div>
-          </div>
-
-          <div className='signup-field'>
-            <label htmlFor="nationality">Nationality</label>
-            <select id="nationality" value={nationality} onChange={handleNationalityChange} required>
-                <option value="">-- select one --</option>
-                <option value="afghan">Afghan</option>
-                <option value="albanian">Albanian</option>
-                <option value="algerian">Algerian</option>
-                <option value="american">American</option>
-                <option value="andorran">Andorran</option>
-                <option value="angolan">Angolan</option>
-                <option value="antiguans">Antiguans</option>
-                <option value="argentinean">Argentinean</option>
-                <option value="armenian">Armenian</option>
-                <option value="australian">Australian</option>
-                <option value="austrian">Austrian</option>
-                <option value="azerbaijani">Azerbaijani</option>
-                <option value="bahamian">Bahamian</option>
-                <option value="bahraini">Bahraini</option>
-                <option value="bangladeshi">Bangladeshi</option>
-                <option value="barbadian">Barbadian</option>
-                <option value="barbudans">Barbudans</option>
-                <option value="batswana">Batswana</option>
-                <option value="belarusian">Belarusian</option>
-                <option value="belgian">Belgian</option>
-                <option value="belizean">Belizean</option>
-                <option value="beninese">Beninese</option>
-                <option value="bhutanese">Bhutanese</option>
-                <option value="bolivian">Bolivian</option>
-                <option value="bosnian">Bosnian</option>
-                <option value="brazilian">Brazilian</option>
-                <option value="british">British</option>
-                <option value="bruneian">Bruneian</option>
-                <option value="bulgarian">Bulgarian</option>
-                <option value="burkinabe">Burkinabe</option>
-                <option value="burmese">Burmese</option>
-                <option value="burundian">Burundian</option>
-                <option value="cambodian">Cambodian</option>
-                <option value="cameroonian">Cameroonian</option>
-                <option value="canadian">Canadian</option>
-                <option value="cape verdean">Cape Verdean</option>
-                <option value="central african">Central African</option>
-                <option value="chadian">Chadian</option>
-                <option value="chilean">Chilean</option>
-                <option value="chinese">Chinese</option>
-                <option value="colombian">Colombian</option>
-                <option value="comoran">Comoran</option>
-                <option value="congolese">Congolese</option>
-                <option value="costa rican">Costa Rican</option>
-                <option value="croatian">Croatian</option>
-                <option value="cuban">Cuban</option>
-                <option value="cypriot">Cypriot</option>
-                <option value="czech">Czech</option>
-                <option value="danish">Danish</option>
-                <option value="djibouti">Djibouti</option>
-                <option value="dominican">Dominican</option>
-                <option value="dutch">Dutch</option>
-                <option value="east timorese">East Timorese</option>
-                <option value="ecuadorean">Ecuadorean</option>
-                <option value="egyptian">Egyptian</option>
-                <option value="emirian">Emirian</option>
-                <option value="equatorial guinean">Equatorial Guinean</option>
-                <option value="eritrean">Eritrean</option>
-                <option value="estonian">Estonian</option>
-                <option value="ethiopian">Ethiopian</option>
-                <option value="fijian">Fijian</option>
-                <option value="filipino">Filipino</option>
-                <option value="finnish">Finnish</option>
-                <option value="french">French</option>
-                <option value="gabonese">Gabonese</option>
-                <option value="gambian">Gambian</option>
-                <option value="georgian">Georgian</option>
-                <option value="german">German</option>
-                <option value="ghanaian">Ghanaian</option>
-                <option value="greek">Greek</option>
-                <option value="grenadian">Grenadian</option>
-                <option value="guatemalan">Guatemalan</option>
-                <option value="guinea-bissauan">Guinea-Bissauan</option>
-                <option value="guinean">Guinean</option>
-                <option value="guyanese">Guyanese</option>
-                <option value="haitian">Haitian</option>
-                <option value="herzegovinian">Herzegovinian</option>
-                <option value="honduran">Honduran</option>
-                <option value="hungarian">Hungarian</option>
-                <option value="icelander">Icelander</option>
-                <option value="indian">Indian</option>
-                <option value="indonesian">Indonesian</option>
-                <option value="iranian">Iranian</option>
-                <option value="iraqi">Iraqi</option>
-                <option value="irish">Irish</option>
-                <option value="israeli">Israeli</option>
-                <option value="italian">Italian</option>
-                <option value="ivorian">Ivorian</option>
-                <option value="jamaican">Jamaican</option>
-                <option value="japanese">Japanese</option>
-                <option value="jordanian">Jordanian</option>
-                <option value="kazakhstani">Kazakhstani</option>
-                <option value="kenyan">Kenyan</option>
-                <option value="kittian and nevisian">Kittian and Nevisian</option>
-                <option value="kuwaiti">Kuwaiti</option>
-                <option value="kyrgyz">Kyrgyz</option>
-                <option value="laotian">Laotian</option>
-                <option value="latvian">Latvian</option>
-                <option value="lebanese">Lebanese</option>
-                <option value="liberian">Liberian</option>
-                <option value="libyan">Libyan</option>
-                <option value="liechtensteiner">Liechtensteiner</option>
-                <option value="lithuanian">Lithuanian</option>
-                <option value="luxembourger">Luxembourger</option>
-                <option value="macedonian">Macedonian</option>
-                <option value="malagasy">Malagasy</option>
-                <option value="malawian">Malawian</option>
-                <option value="malaysian">Malaysian</option>
-                <option value="maldivan">Maldivan</option>
-                <option value="malian">Malian</option>
-                <option value="maltese">Maltese</option>
-                <option value="marshallese">Marshallese</option>
-                <option value="mauritanian">Mauritanian</option>
-                <option value="mauritian">Mauritian</option>
-                <option value="mexican">Mexican</option>
-                <option value="micronesian">Micronesian</option>
-                <option value="moldovan">Moldovan</option>
-                <option value="monacan">Monacan</option>
-                <option value="mongolian">Mongolian</option>
-                <option value="moroccan">Moroccan</option>
-                <option value="mosotho">Mosotho</option>
-                <option value="motswana">Motswana</option>
-                <option value="mozambican">Mozambican</option>
-                <option value="namibian">Namibian</option>
-                <option value="nauruan">Nauruan</option>
-                <option value="nepalese">Nepalese</option>
-                <option value="new zealander">New Zealander</option>
-                <option value="ni-vanuatu">Ni-Vanuatu</option>
-                <option value="nicaraguan">Nicaraguan</option>
-                <option value="nigerien">Nigerien</option>
-                <option value="north korean">North Korean</option>
-                <option value="northern irish">Northern Irish</option>
-                <option value="norwegian">Norwegian</option>
-                <option value="omani">Omani</option>
-                <option value="pakistani">Pakistani</option>
-                <option value="palauan">Palauan</option>
-                <option value="panamanian">Panamanian</option>
-                <option value="papua new guinean">Papua New Guinean</option>
-                <option value="paraguayan">Paraguayan</option>
-                <option value="peruvian">Peruvian</option>
-                <option value="polish">Polish</option>
-                <option value="portuguese">Portuguese</option>
-                <option value="qatari">Qatari</option>
-                <option value="romanian">Romanian</option>
-                <option value="russian">Russian</option>
-                <option value="rwandan">Rwandan</option>
-                <option value="saint lucian">Saint Lucian</option>
-                <option value="salvadoran">Salvadoran</option>
-                <option value="samoan">Samoan</option>
-                <option value="san marinese">San Marinese</option>
-                <option value="sao tomean">Sao Tomean</option>
-                <option value="saudi">Saudi</option>
-                <option value="scottish">Scottish</option>
-                <option value="senegalese">Senegalese</option>
-                <option value="serbian">Serbian</option>
-                <option value="seychellois">Seychellois</option>
-                <option value="sierra leonean">Sierra Leonean</option>
-                <option value="singaporean">Singaporean</option>
-                <option value="slovakian">Slovakian</option>
-                <option value="slovenian">Slovenian</option>
-                <option value="solomon islander">Solomon Islander</option>
-                <option value="somali">Somali</option>
-                <option value="south african">South African</option>
-                <option value="south korean">South Korean</option>
-                <option value="spanish">Spanish</option>
-                <option value="sri lankan">Sri Lankan</option>
-                <option value="sudanese">Sudanese</option>
-                <option value="surinamer">Surinamer</option>
-                <option value="swazi">Swazi</option>
-                <option value="swedish">Swedish</option>
-                <option value="swiss">Swiss</option>
-                <option value="syrian">Syrian</option>
-                <option value="taiwanese">Taiwanese</option>
-                <option value="tajik">Tajik</option>
-                <option value="tanzanian">Tanzanian</option>
-                <option value="thai">Thai</option>
-                <option value="togolese">Togolese</option>
-                <option value="tongan">Tongan</option>
-                <option value="trinidadian or tobagonian">Trinidadian or Tobagonian</option>
-                <option value="tunisian">Tunisian</option>
-                <option value="turkish">Turkish</option>
-                <option value="tuvaluan">Tuvaluan</option>
-                <option value="ugandan">Ugandan</option>
-                <option value="ukrainian">Ukrainian</option>
-                <option value="uruguayan">Uruguayan</option>
-                <option value="uzbekistani">Uzbekistani</option>
-                <option value="venezuelan">Venezuelan</option>
-                <option value="vietnamese">Vietnamese</option>
-                <option value="welsh">Welsh</option>
-                <option value="yemenite">Yemenite</option>
-                <option value="zambian">Zambian</option>
-                <option value="zimbabwean">Zimbabwean</option>
-            </select>
-
-            
-          </div>
-
-          <div className='signup-field'>
-            <label htmlFor="bio">Bio</label>
-            <textarea
-              type="text"
-              id="bio"
-              value={bio}
-              onChange={handleBioChange}
-              placeholder="Enter your bio "
-              className='text-area'
-              required
-            />
-          </div>
-          
-          <div className='signup-field'>
-            <button type="submit" className='btn'>Proceed</button>
-          </div>
-        </div>
-      </form>
+                  </div>
+      </div>
     </div>
   )
 }

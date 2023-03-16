@@ -82,7 +82,7 @@ const LoginPage = (props) => {
       if(props.data === 'Customer'){
         try {
           await login(email, password, props.data);
-          navigate('/customerHome');
+          navigate('/customer');
         } catch (error) {
           console.error('error', error.response);
           seterror(error.response.data.message);

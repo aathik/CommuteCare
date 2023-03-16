@@ -2,6 +2,11 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import './EmailVerificationPage.css'
 import { useNavigate } from 'react-router-dom';
+import image from '../Assets/home-page.jpg';
+import { MuiOtpInput } from 'mui-one-time-password-input'
+import Button from '@mui/material/Button';
+
+import logo from "../Assets/logo.png";
 
 import { verifyOTP, resendOTP, resendOTPHelper, verifyOTPHelper } from '../Routes/Login/AuthService';
 
@@ -28,10 +33,10 @@ const ForgotPasswordPage = (props) => {
     return () => clearTimeout(timer);
   }, [remainingTime, otpSent]);
 
-  const handleOtpChange = (e) => {
+  const handleOtpChange = (val) => {
     const re = /^[0-9\b]+$/;
-    if (e.target.value === "" || re.test(e.target.value)) {
-      setOtp(e.target.value);
+    if (val === "" || re.test(val)) {
+      setOtp(val);
     }
   };
 
@@ -94,22 +99,62 @@ const ForgotPasswordPage = (props) => {
 
 
   return (
-    <div className='forgot-container'>
-        <div className='forgot-comp'>
-          <p>OTP has been sent to {email}</p>
-          <label htmlFor="otp">OTP:</label>
-          <input type="text" id="otp" value={otp} onChange={handleOtpChange} />
-          <p>{remainingTime} seconds remaining.</p>
-          <button onClick={handleVerify} disabled={otp.length !== 4 || remainingTime === 0}>
-            Verify
-          </button>
-          {!canResendOtp && <p>Try again later.</p>}
-          {canResendOtp && (
-            <button onClick={handleSendOtp} disabled={remainingTime !== 0}>
-              Resend OTP
-            </button>
-          )}
-          {otpError && <div className='error'>{otpError}</div>}
+    <div className='emailVerification'>
+      
+        <div className='logo'>
+            <img src={logo} alt='logo-img' className='logo-img'></img>
+        </div>
+        <div className='emailVerificationGrid'>
+
+              <div className='emailVerificationContent'>
+
+              
+                <div className='emailVerificationContainer'>
+                        <p>OTP has been sent to {email}</p>
+                        <div className='otp-input'>
+                          <MuiOtpInput value={otp} onChange={handleOtpChange} />
+                        </div>
+                        {!canResendOtp && <p>Try again later.</p>}
+                        
+                        <div className='single-line'>
+                          <div className='single-line-time'>
+                            <p>{remainingTime} seconds remaining....</p>
+                          </div>
+                            
+                          <div className='single-line-button'>
+                            {canResendOtp && (
+                              <button onClick={handleSendOtp} disabled={remainingTime !== 0} className='link'>
+                                Resend OTP
+                              </button>)}
+                          </div>  
+                            
+                            
+                        </div>
+                        <div className='verify'>
+                            <Button variant='outlined' sx={{
+                                ":hover": {
+                                bgcolor: "#006e5f4a",
+                                borderColor: "#006E60",
+                                },
+                                color: "white",
+                                backgroundColor: "#00720B",
+                                borderColor: "#006E60",
+                                "&.Mui-disabled":  {
+                                  background: "#eaeaea",
+                                  color: "#c0c0c0"
+                                },
+                              }} size="large" onClick={handleVerify} disabled={otp.length !== 4 || remainingTime === 0}>
+                                Verify
+                            </Button>
+                            
+                        </div>
+                        
+                        {otpError && <div className='error'>{otpError}</div>}
+                      </div>
+                </div>
+                <div className='image'>
+                    <img  src={image} alt='login-img'className='actual-img'/>
+                </div>
         </div>
       
     </div>

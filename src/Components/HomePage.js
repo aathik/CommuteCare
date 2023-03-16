@@ -16,7 +16,7 @@ const HomePage = () => {
             <div className='home-container'>
                 <div className='home-content'>
                     <h1>
-                        Get peace of mind knowing that your ...
+                    Your comfort, our priority!
                     </h1>
                     <div  className='home-button'>
                         <Button variant='outlined' sx={{

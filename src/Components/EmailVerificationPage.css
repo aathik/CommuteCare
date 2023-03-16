@@ -1,7 +1,24 @@
+.emailVerification{
+  width: 100%;
+  height: 100vh;
+  background-color: #ECF7E6;
+}
+
+.emailVerificationGrid{
+  display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.emailVerificationContainer{
+    display: flex;
+    flex-direction: column;
+    margin: 15%;
+    align-items: center;
+}
+
+
 .forgot-container {
     width: 80%;
-    margin: auto;
-    padding-top: 10%;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -53,3 +70,45 @@
     text-align: center;
   }
   
+  
+
+  .emailVerificationContainer p{
+    font-weight: 400;
+    color: #028B28;
+    font-size: 20px;
+    padding-bottom: 10%;
+  }
+
+  .otp-input{
+    margin: 5% 25%;
+    
+  }
+
+  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+    background: #5FBA57 !important;
+    color: white !important;
+    border-radius: 5px;
+    
+  }
+
+  .single-line{
+    display: flex;
+    width: 90%;
+  }
+
+  .single-line-time{
+    width: 100%;
+    padding-left: 15%;
+  }
+
+  .single-line-button{
+    width: 50%;
+  }
+
+  .link{
+    cursor: pointer;
+    width: 70%;
+    background: none;
+    border: none;
+    font-size: 16px;
+  }

@@ -1,23 +1,45 @@
 import React, { useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import './SignUpPage.css';
+import logo from "../Assets/logo.png";
+import image from '../Assets/home-page.jpg';
 
 import { signUp, signUpHelper } from '../Routes/Login/AuthService';
 
+
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Button from '@mui/material/Button';
 
 
 const SignUpPage = (props) => {
 
 
   const [email, setEmail] = useState("");
+  const [emailFlag, setEmailFlag] = useState(false);
   const [password, setPassword] = useState("");
+  const [passwordFlag, setPasswordFlag] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPasswordFlag, setConfirmPasswordFlag] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [confrimPassError, setConfrimPassError] = useState('');
   const [emailError, setEmailError] = useState("");
 
   const [error, seterror] = useState("");
 
+
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
 
   
   const navigate = new useNavigate();
@@ -28,8 +50,12 @@ const SignUpPage = (props) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regex.test(email)) {
       setEmailError("Please enter a valid email address");
+      setEmailFlag(true);
+      return true;
     } else {
       setEmailError("");
+      setEmailFlag(false);
+      return false;
     }
   };
 
@@ -38,22 +64,30 @@ const SignUpPage = (props) => {
     return passwordRegex.test(password);
   }
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    if (!validatePassword(event.target.value)) {
+  const handlePasswordChange = (password) => {
+   // setPassword(event.target.value);
+    if (!validatePassword(password)) {
       setPasswordError('Your password must contain 1 upper case character, 1 number, 1 special character');
+      setPasswordFlag(true);
+      return true;
     } else {
       setPasswordError('');
+      setPasswordFlag(false);
+      return false;
     }
   }
 
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-    if (!validatePassword(event.target.value)) {
-      setConfrimPassError('Make sure the passwords are identical');
+  const handleConfirmPasswordChange = (confirmPassword) => {
+    //setConfirmPassword(event.target.value);
+    if (!validatePassword(confirmPassword)) {
+      setConfrimPassError('Your password must contain 1 upper case character, 1 number, 1 special character');
+      setConfirmPasswordFlag(true);
+      return true;
     }
     else{
-      setConfrimPassError('Make sure the passwords are identical');
+      setConfrimPassError('');
+      setConfirmPasswordFlag(false);
+      return false;
     }
   };
 
@@ -61,16 +95,23 @@ const SignUpPage = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validatePassword(password)) {
-      // alert('Please satisfy the conditions for the password: 1 upper case character, 1 numeric, 1 special character');
-      return false; 
-    }
-    if(!email || !password || !confirmPassword){
-      alert("fill all columns");
-      return false; 
-    }
-    if(password !== confirmPassword){
-      // alert('Make sure the passwords are identical');
+    if(validateEmail(email) || handlePasswordChange(password) || handleConfirmPasswordChange(confirmPassword)){
+      if(email.length===0){
+        setEmailError('Enter Email');
+        setEmailFlag(true);
+
+      }
+      if(password.length===0){
+        setPasswordError('Enter Password');
+        setPasswordFlag(true);
+      }
+      if(confirmPassword.length === 0){
+        setConfrimPassError('Enter Password');
+        setConfirmPasswordFlag(true);
+      }
+      if(password !== confirmPassword){
+        setConfrimPassError("Make sure the passwords are identical");
+      }
       return false;
     }
     if(props.data==='Customer'){
@@ -97,39 +138,126 @@ const SignUpPage = (props) => {
 
   return (
     <div className='signUp'>
+      <div className='logo'>
+          <img src={logo} alt='logo-img' className='logo-img'></img>
+      </div>
       <div className='signup-grid'>
              
         <form onSubmit={handleSubmit} className='signup-form'>
-        <h2>SignUp</h2>
+        {/*<h2>SignUp</h2> */}
         <div className='signup-container'>
         
           <div className='signup-field'>
+            <TextField id="signUp" 
+                label="Email" 
+                variant="standard"
+                
+                error = {emailFlag}
+                helperText={emailError}
+                type={"email"}
+                sx={{width: 300,
+                  marginTop: 3
+                }}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  }}
+                required/>
+            { /*
           <label htmlFor="email">Email</label>
             <input type="email" id="email" value={email} onChange={(e) => {
               setEmail(e.target.value);
               validateEmail(e.target.value);
-            }} className='input-field' required/>
-          </div>
-          {emailError && <div className="error">{emailError}</div>}
-
+            }} className='input-field' required/>*/}
+          </div> 
+          
+            
           <div className='signup-field'>
+
+          <TextField id="signUp" 
+              label="Password" 
+              variant="standard"
+              error = {passwordFlag}
+              helperText={passwordError}
+              type={showPassword ? 'text' : 'password'}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>,
+              }}
+              sx={{width: 300,
+                marginTop: 3
+              }}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                }}
+              required/>
+            {/*
           <label htmlFor="password">Password</label>
           <input type="password" value={password} onChange={handlePasswordChange} className='input-field' required />
+          {passwordError && <p className="error">{passwordError}</p>} */}
           </div>
-          {passwordError && <p className="error">{passwordError}</p>}
 
           <div className='signup-field'>
-          <label htmlFor="password">Confirm Password</label>
+
+          <TextField id="signUp" 
+              label="Confirm Password" 
+              variant="standard"
+              error = {confirmPasswordFlag}
+              helperText={confrimPassError}
+              type={showConfirmPassword ? 'text' : 'password'}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowConfirmPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>,
+              }}
+              sx={{width: 300,
+                marginTop: 3
+              }}
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                }}
+              required/>
+
+          </div>
+          {/*<label htmlFor="password">Confirm Password</label>
           <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} className='input-field' required />
           </div>
-          {confrimPassError && <p className="error">{confrimPassError}</p>}
+        {confrimPassError && <p className="error">{confrimPassError}</p>} */}
         
           
           
           
           <div className='signup-field'>
             <div className='signup-button'>
-              <button type="submit" className='btn'>Submit</button>
+            <Button variant='outlined' sx={{
+                            ":hover": {
+                            bgcolor: "#006e5f4a",
+                            borderColor: "#006E60",
+                            },
+                            color: "white",
+                            backgroundColor: "#00720B",
+                            borderColor: "#006E60",
+                          }} size="large" onClick={handleSubmit}>
+                            Submit
+                        </Button>
+              
             </div>
             
 
@@ -137,6 +265,10 @@ const SignUpPage = (props) => {
           {error && <div className='error'>{error}</div>}
         </div>
         </form>
+        <div className='image'>
+            <img  src={image} alt='login-img'className='actual-img'/>
+        
+        </div>
       </div>
 
     </div>

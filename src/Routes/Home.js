@@ -1,9 +1,7 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
 import HomePage from '../Components/HomePage';
-import NavBar from '../Components/NavBar'
-// import CustomerHome from './CustomerHome';
-// import HelperHome from './HelperHome';
+
 
 
 const Home = () => {
@@ -16,7 +14,7 @@ const Home = () => {
   return (
     <div>
       {userLoggedIn === 'true'? <>
-      { userType === 'Customer' && <Navigate to='/customerHome' />}
+      { userType === 'Customer' && <Navigate to='/customer' />}
       { userType === 'Helper' && <Navigate to='/helperHome'/>}
       </> :
       <HomePage />

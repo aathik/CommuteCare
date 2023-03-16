@@ -11,7 +11,6 @@ import Login from './Routes/Login';
 import EmailVerification from './Routes/EmailVerification';
 import SignUp from './Routes/SignUp';
 import AdditionalDetails from './Routes/AdditionalDetails';
-import CustomerHome from './Routes/CustomerHome';
 import HelperHome from './Routes/HelperHome';
 import HelperAvailability from './Routes/HelperAvailability';
 import ForgotPassword from './Routes/ForgotPassword';
@@ -32,7 +31,7 @@ function App() {
         <Route path="/additionalDetails" element={<AdditionalDetails />} /> 
         <Route path='/forgotPassword' element={<ForgotPassword />} /> 
         <Route path="/emailVerification" element={<EmailVerification />} /> 
-        <Route path="/customerHome" element={<CustomerHome />} /> 
+      
         <Route path="/helperHome" element={<HelperHome />} /> 
         <Route path="/helperAvailability" element={<HelperAvailability />} /> 
         <Route path="/customer" element={<Customer />} /> 

@@ -9,7 +9,7 @@ const LoginChoice = () => {
   return (
     <div>
         {userLoggedIn ==='True'? <>
-          { userType === 'Customer' && <Navigate to='/customerHome' />}
+          { userType === 'Customer' && <Navigate to='/customer' />}
           { userType === 'Helper' && <Navigate to='/helperHome'/>}
           </> : <LoginChoicePage />}
     </div>

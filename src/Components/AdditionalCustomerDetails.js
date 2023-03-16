@@ -1,36 +1,84 @@
 import React from 'react'
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useState } from 'react';
 import './SignUpPage.css'
+import logo from "../Assets/logo.png";
+import image from '../Assets/home-page.jpg';
 
 import { additionalDetails } from '../Routes/Login/AuthService';
 import { useNavigate } from 'react-router-dom';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { DatePicker } from '@mui/x-date-pickers';
+import { Button, FormHelperText } from '@mui/material';
+
 const AdditionalCustomerDetails = () => {
   const [firstName, setFirstName] = useState("");
+  const [fnameErrorFlag, setfnameErrorFlag] = useState(false);
+  const [fnameError, setfnameError] = useState("");
+  const [lnameErrorFlag, setlnameErrorFlag] = useState(false);
   const [lastName, setLastName] = useState("");
+  const [lnameError, setlnameError] = useState("");
   const [dob, setDob] = useState(null);
+  const [dobErrorFlag, setdobErrorFlag] = useState(false);
+  const [dobError, setdobError] = useState("");
   const [gender, setGender] = useState("");
+  const [genderErrorFlag, setgenderErrorFlag] = useState(false);
+  const [genderError, setgenderError] = useState("");
  //  const [photo, setPhoto] = useState(null);
   const [phone, setPhone] = useState("");
+  const [phoneErrorFlag, setPhoneErrorFlag] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const [countryCode, setCountryCode] = useState("");
+  const [countryCodeErrorFlag, setcountryCodeErrorFlag] = useState(false);
+  const [countryCodeError, setcountryCodeError] = useState("");
 
   const navigate = new useNavigate();
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
+  const handleFirstNameChange = (firstName) => {
+    const regex = /^[A-Za-z\s]*$/;
+    if (!regex.test(firstName)) {
+      setfnameError('Enter only alphabets');
+      setfnameErrorFlag(true);
+      return true;
+    }
+    else{
+      setfnameError('');
+      setfnameErrorFlag(false);
+      return false;
+    }
   };
 
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
+  const handleLastNameChange = (lastName) => {
+    const regex = /^[A-Za-z\s]*$/;
+    if (!regex.test(lastName)) {
+      setlnameError('Enter only alphabets');
+      setlnameErrorFlag(true);
+      return true;
+    }
+    else{
+      setlnameError('');
+      setlnameErrorFlag(false);
+      return false;
+    }
   };
 
-  const handleGenderChange = (event) => {
-    setGender(event.target.value);
+  const handleGenderChange = (gender) => {
+    if(!gender){
+      setgenderError("Enter gender");
+      setgenderErrorFlag(true);
+      return true;
+    }
+    else{
+      setgenderError("");
+      setgenderErrorFlag(false);
+      return false;
+    }
   };
 
   const handlePhotoChange = (event) => {
@@ -42,138 +90,252 @@ const AdditionalCustomerDetails = () => {
     //setPhoto(selectedFile);
   };
 
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-    console.log("Length:", phone.length)
-    if(phone.length >10){
-      setPhoneError("Invalid Phone Number")
+  const handlePhoneChange = (phone) => {
+    const regex = /^\d{10}$/;
+    if (!regex.test(phone)) {
+      setPhoneError('Number Invalid');
+      setPhoneErrorFlag(true);
+      return true;
+    }
+    else{
+      setPhoneError('');
+      setPhoneErrorFlag(false);
+      return false;
     }
   };
 
-  const handleCountryCodeChange = (event) => {
-    setCountryCode(event.target.value);
+  const handleCountryCodeChange = (countryCode) => {
+    if(!countryCode){
+      setcountryCodeError("Enter Country Code");
+      setcountryCodeErrorFlag(true);
+      return true;
+    }
+    else{
+      setcountryCodeError("");
+      setcountryCodeErrorFlag(false);
+      return false;
+    }
   };
 
-  
+  const handleDobChange = (dob) => {
+    if(!dob){
+      setdobError("Enter DOB");
+      setdobErrorFlag(true);
+      return true;
+    }
+    else{
+      setdobError("");
+      setdobErrorFlag(false);
+      return false;
+    }
+  }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(!firstName || !lastName || !dob || !gender || !phone || !countryCode || phone.length<10){
-      alert("fill all columns");
-      return false; 
+    if(handleFirstNameChange(firstName) || handleLastNameChange(lastName) || handlePhoneChange(phone) || handleDobChange(dob)
+        || handleCountryCodeChange(countryCode) || handleGenderChange(gender)
+    ){
+      if(firstName.length === 0){
+        setfnameError('Enter First Name');
+        setfnameErrorFlag(true);
+      }
+      if(lastName.length === 0){
+        setlnameError('Enter Last Name');
+        setlnameErrorFlag(true);
+      }
+      if(phone.length === 0){
+        setPhoneError('Enter Phone Number');
+        setPhoneErrorFlag(true);
+      }
+      if(!dob){
+        setdobError("Enter DOB");
+        setdobErrorFlag(true);
+      }
+      if(!gender){
+        setgenderErrorFlag(true);
+      }
+      if(!countryCode){
+        setcountryCodeErrorFlag(true);
+      }
+      return false;
     }
     const date = dob.$D+"/"+(dob.$M +1)+"/"+dob.$y;
     console.log("dob: ", date);
     try {
       await additionalDetails(firstName, lastName, gender, date, phone);
-      navigate("/customerHome");
+      navigate("/customer");
     } catch (error) {
       console.error('error', error);
     }
   };
-
+  
 
   return (
     <div className='signUp'>
-
-      <form onSubmit={handleSubmit} className='signup-form'>
-        <h2>Additional Details</h2>
-        <div className='signup-container'>
-        <div className='signup-field'>
-            <label htmlFor="first-name">First Name:</label>
-            <input
-              type="text"
-              id="first-name"
-              value={firstName}
-              onChange={handleFirstNameChange}
-              pattern="[A-Za-z ]+"
-              placeholder="first name"
-              required
-            />
-          </div>
-          <div className='signup-field'>
-            <label htmlFor="last-name">Last Name:</label>
-            <input
-              type="text"
-              id="last-name"
-              value={lastName}
-              onChange={handleLastNameChange}
-              pattern="[A-Za-z ]+"
-              placeholder="last name"
-              required
-            />
-          </div>
-          <div className='signup-field'>
-          <label htmlFor="date-of-birth">Date of Birth:</label>
-          <div className='signup-date'> 
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <MobileDatePicker
-                  value={dob}
-                  onChange={(newValue) => {
-                    setDob(newValue);
-                  }}
-                  maxDate={new Date()}
-                  required
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                </LocalizationProvider>
-          </div>
+      <div className='logo'>
+          <img src={logo} alt='logo-img' className='logo-img'></img>
+      </div>
+      <div className='signup-grid'>
+      
+            <form onSubmit={handleSubmit} className='signup-form'>
               
-          </div>
-          
-          
-          <div className='signup-field'>
-            <label htmlFor="gender">Gender:</label>
-            <select id="gender" value={gender} onChange={handleGenderChange} required>
-              <option value="">--Select--</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="others">Others</option>
-              <option value="prefer-not-to-say">Prefer not to say</option>
-            </select>
+              <div className='addtionalC-container'>
+              <div className='addtionalC-field'>
+                  <TextField id="signUp" 
+                          label="First Name" 
+                          variant="standard"
+                          error = {fnameErrorFlag}
+                          helperText={fnameError}
+                          type={"text"}
+                          sx={{width: 300,
+                            marginTop: 2,
+                          }}
+                          value={firstName}
+                          onChange={(e) => {
+                            setFirstName(e.target.value);}}
+                          inputProps={{pattern: '[A-Za-z ]+'}}
+                          required/>
+                </div>
+                <div className='addtionalC-field'>
+                    <TextField id="signUp" 
+                          label="Last Name" 
+                          variant="standard"
+                          error = {lnameErrorFlag}
+                          helperText={lnameError}
+                          type={"text"}
+                          sx={{width: 300,
+                            marginTop: 3
+                          }}
+                          value={lastName}
+                          onChange={(e) => {
+                            setLastName(e.target.value);}}
+                          inputProps={{pattern: '[A-Za-z ]+'}}
+                          required/>
+                </div>
+                <div className='addtionalC-field'>
+                
+                <div className='addtionalC-date'> 
+                    <LocalizationProvider dateAdapter={AdapterDayjs} fullWidth>
+                      <DatePicker
+                        variant="standard"
+                        value={dob}
+                        
+                        label="Date of Birth"
+                        onChange={(newValue) => {
+                          setDob(newValue);
+                        }}
+                        maxDate={new Date()}
+                        required
+                        renderInput={(params) => (
+                          <TextField
+                            sx={{ width: '100%' }}
+                            {...params}
+                            error={dobErrorFlag}
+                            helperText={dobError}
+                          />
+                        )}
+                      />
+                      </LocalizationProvider>
+                </div>
+                    
+                </div>
+                
+                
+                <div className='addtionalC-field'>
+                  <FormControl variant="standard" fullWidth sx={{width: 300, marginTop: 4.3, textAlign: 'left'}} error={genderErrorFlag}>
+                      <InputLabel id="gender">Gender</InputLabel>
+                      <Select
+                        labelId="gender"
+                        id="gender"
+                        value={gender}
+                        label="gender"
+                        onChange={(e) => {
+                          setGender(e.target.value);}}
+                        required
+                        
+                      >
+                        <MenuItem value="Male">Male</MenuItem>
+                        <MenuItem value="Female">Female</MenuItem>
+                        <MenuItem value="Others">Others</MenuItem>
+                        <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
+                      </Select>
+                        <FormHelperText>{genderErrorFlag? "Enter gender": ""}</FormHelperText>
+                    </FormControl>
+                  
 
-          </div>
-          
-          {/* <div className='signup-field'>
-            <label htmlFor="photo">Profile Photo:</label>
-            <input type="file" id="photo" onChange={handlePhotoChange}/>
-          </div> */}
-          
+                </div>
+                
+                {/* <div className='signup-field'>
+                  <label htmlFor="photo">Profile Photo:</label>
+                  <input type="file" id="photo" onChange={handlePhotoChange}/>
+                </div> */}
+                
 
-          <div className='signup-field'>
-            <label htmlFor="phone">Phone Number:</label>
-            <div className="phone-input">
-              <select
-                id="country-code"
-                value={countryCode}
-                onChange={handleCountryCodeChange}
-                required
-                className='phone-country'
-              >
-                <option value="">--Select Country Code--</option>
-                <option value="+1">+1 (USA)</option>
-                <option value="+33">+33 (FR)</option>
-                <option value="+44">+44 (UK)</option>
-                <option value="+91">+91 (India)</option>
-              </select>
-              <input
-                type="tel"
-                id="phone"
-                value={phone}
-                onChange={handlePhoneChange}
-                pattern="[0-9]{10}"
-                placeholder='Enter 10 digit number'
-                maxlength="10"
-                required
-              />
-            </div>
-          </div>
-          
-          <div className='signup-field'>
-            <button type="submit" className='btn'>Proceed</button>
-          </div>
-        </div>
-        </form>
+                <div className='addtionalC-field'>
+                  
+                  <div className="addtionalC-phone-input">
+                    <FormControl variant="standard" sx={{width: 120, marginTop: 4.3}} error={countryCodeErrorFlag}>
+                      <InputLabel id="country-code">Country Code</InputLabel>
+                      <Select
+                        labelId="country-code"
+                        id="country-code"
+                        value={countryCode}
+                        label="Country Code"
+                        onChange={(e) => {
+                          setCountryCode(e.target.value);}}
+                        required
+                      >
+                        <MenuItem value={+1}>+1 (USA)</MenuItem>
+                        <MenuItem value={+33}>+33 (FR)</MenuItem>
+                        <MenuItem value={+44}>+44 (UK)</MenuItem>
+                        <MenuItem value={+91}>+91 (India)</MenuItem>
+                      </Select>
+                      <FormHelperText>{countryCodeErrorFlag? "Enter Country Code": ""}</FormHelperText>
+                    </FormControl>
+
+                    <TextField id="phone" 
+                          label="Phone Number" 
+                          variant="standard"
+                          error = {phoneErrorFlag}
+                          helperText={phoneError}
+                          type={"text"}
+                          sx={{width: 150,
+                            marginTop: 3,
+                            marginLeft: 3
+                          }}
+                          value={phone}
+                          onChange={(e) => {
+                            setPhone(e.target.value);}}
+                          inputProps={{pattern: '[0-9]{10}'}}
+                          
+                          required/>
+                    
+                  </div>
+                </div>
+                
+                <div className='addtionalC-field'>
+                      <Button variant='outlined' sx={{
+                                  ":hover": {
+                                  bgcolor: "#006e5f4a",
+                                  borderColor: "#006E60",
+                                  },
+                                  color: "white",
+                                  backgroundColor: "#00720B",
+                                  borderColor: "#006E60",
+                                  width: 150,
+                                  marginTop: 4
+                                }} size="large" onClick={handleSubmit}>
+                                  Submit
+                              </Button>
+                </div>
+              </div>
+              </form>
+              <div className='image'>
+                  <img  src={image} alt='login-img'className='actual-img'/>
+              
+              </div>
+        </div>  
       </div>
   )
 }
