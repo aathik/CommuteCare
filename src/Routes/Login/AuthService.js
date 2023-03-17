@@ -323,4 +323,10 @@ export const bookingHelper = async (helperId, day, time, duration) => {
 	return response;
 }
 
+export const getAvailability = async (helperId) => {
+	const response = axios.get(`${url}/getAvailability/${helperId}`);
+	console.log(response);
+	return response;
+}
+
 

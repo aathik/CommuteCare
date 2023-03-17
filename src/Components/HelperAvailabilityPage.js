@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './HelperAvailabilityPage.css'
 import { useState } from 'react';
 
@@ -6,8 +6,10 @@ import Calendar from 'react-calendar';
 import TimeField from 'react-simple-timefield';
 
 
-import { editAvailability } from '../Routes/Login/AuthService';
+import { editAvailability, getAvailability } from '../Routes/Login/AuthService';
 import { Button } from '@mui/material';
+
+
 
 
 const HelperAvailabilityPage = () => {
@@ -49,6 +51,12 @@ const HelperAvailabilityPage = () => {
         Sunday: ""
 
     });
+
+    const [getAvailabilityInPage, setgetAvailabilityInPage] = useState("");
+
+    const helperId = localStorage.getItem('HelperID');
+
+    
 
     
 
@@ -105,7 +113,8 @@ const HelperAvailabilityPage = () => {
     }
 
     const handleSubmit = async (event) => {
-        console.log("Availability: ", showAvailability)
+        console.log("Availability: ", showAvailability);
+        
         try {
             await editAvailability(showAvailability);
           } catch (error) {
@@ -116,7 +125,24 @@ const HelperAvailabilityPage = () => {
     var maxDate = new Date();                                                   //Date
     maxDate.setDate(maxDate.getDate()+6);
 
-    console.log("newAvailability: ", showAvailability)
+    console.log("newAvailability: ", showAvailability);
+
+    useEffect(() => {
+        const fetchAvailability = async () => {
+            try {
+                await getAvailability(helperId).then(
+                    (response) => setgetAvailabilityInPage(response.data.availability)
+                );
+              } catch (error) {
+                console.error('error', error);
+              }
+        }
+        fetchAvailability();
+
+    }, [])
+
+    console.log("AfterFetch: ",getAvailabilityInPage);
+    
 
 
   return (
