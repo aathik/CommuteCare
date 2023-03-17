@@ -54,6 +54,7 @@ import ReactLoading from 'react-loading';
 
     const fetchData = async () => {
       try {
+          console.log("Day", days[props.Day]);
           setIsLoading(true);
           await displayAvailHelperList(days[props.Day], props.Time, props.Duration).then(
             (response) => setFormData(response.data)

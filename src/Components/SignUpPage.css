@@ -8,13 +8,6 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
-.addHelp{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding-top: 20%;
-}
 
 .signup-form{
     display: flex;

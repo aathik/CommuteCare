@@ -1,34 +1,43 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import './ForgotPasswordPage.css'
+import logo from "../Assets/logo.png";
 
 import { forgotPass, forgotPassHelper } from '../Routes/Login/AuthService';
+import { Button, TextField } from '@mui/material';
 
 const ForgotPasswordPage = (props) => {
 
   const [email, setEmail] = useState("");
+  const [emailFlag, setEmailFlag] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otpError, setOtpError] = useState("");
   const [remainingTime, setRemainingTime] = useState(60);
   const [tryCount, setTryCount] = useState(0);
 
-  useEffect(() => {
-    let timer;
-    if (remainingTime > 0 && otpSent) {
-      timer = setTimeout(() => setRemainingTime(remainingTime - 1), 1000);
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email)) {
+      setEmailError("Please enter a valid email address");
+      setEmailFlag(true);
+      return true;
+    } else {
+      setEmailError("");
+      setEmailFlag(false);
+      return false;
     }
-    return () => clearTimeout(timer);
-  }, [remainingTime, otpSent]);
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
   };
 
   const handleSendOtp = async (event) => {
-    if(!email){
-        alert('Enter a valid email id');
-        return false;
+    if(validateEmail(email)){
+      if(email.length===0){
+        setEmailError('Enter Email');
+        setEmailFlag(true);
+
+      }
+      return false;
     }
     if(props.data==='Customer'){
       console.log(props.data)
@@ -66,21 +75,56 @@ const ForgotPasswordPage = (props) => {
 
 
   return (
-    <div className='forgot-container'>
-        {!otpSent ? (
-        <div className='forgot-comp'>
-          <label htmlFor="email" className='forgot-label'>Enter your email Id to which OTP will be sent</label>
+    <div className='forgot'>
+      <div className='logo'>
+          <img src={logo} alt='logo-img' className='logo-img'></img>
+      </div>
+      <div className='forgot-container'>
+      {!otpSent ? (
+        <div className='forgot-component'>
+          <label htmlFor="email" className='forgot-label'>Forgot Your Password?  No Problem. </label>
+          <label className='forgot-label'>Let Us Help You Regain Access</label>
           <br></br>
-          <input type="email" id="email" value={email} onChange={handleEmailChange} className='email-input'/>
+            <TextField id="signUp" 
+                label="Email" 
+                variant="standard"
+                
+                error = {emailFlag}
+                helperText={emailError}
+                type={"email"}
+                sx={{width: 300,
+                  marginTop: 3
+                }}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  }}
+                required/>
+          
           <br></br>
-          <button className='btn' onClick={handleSendOtp}>Send OTP</button>
+          <Button variant='outlined' sx={{
+                            ":hover": {
+                            bgcolor: "#006e5f4a",
+                            borderColor: "#006E60",
+                            },
+                            color: "white",
+                            backgroundColor: "#00720B",
+                            borderColor: "#006E60",
+                            marginTop: 4
+                          }} size="large" onClick={handleSendOtp}>
+                            Submit
+                        </Button>
+          
         </div>
       ) : (
-        <div className='forgot-comp'>
-          <p>Password reset link has been sent to {email}</p>
+        <div className='forgot-component'>
+          <p className='forgot-label'>Password reset link has been sent to {email}</p>
           
         </div>
       )}
+
+      </div>
+        
     </div>
   )
 }

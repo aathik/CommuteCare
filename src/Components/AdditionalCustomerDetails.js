@@ -286,7 +286,7 @@ const AdditionalCustomerDetails = () => {
                           setCountryCode(e.target.value);}}
                         required
                       >
-                        <MenuItem value={+1}>+1 (USA)</MenuItem>
+                        <MenuItem value={+1}>+1 (USA/CA)</MenuItem>
                         <MenuItem value={+33}>+33 (FR)</MenuItem>
                         <MenuItem value={+44}>+44 (UK)</MenuItem>
                         <MenuItem value={+91}>+91 (India)</MenuItem>
@@ -307,7 +307,7 @@ const AdditionalCustomerDetails = () => {
                           value={phone}
                           onChange={(e) => {
                             setPhone(e.target.value);}}
-                          inputProps={{pattern: '[0-9]{10}'}}
+                          inputProps={{pattern: '[0-9]{10}',maxLength: 10  }}
                           
                           required/>
                     

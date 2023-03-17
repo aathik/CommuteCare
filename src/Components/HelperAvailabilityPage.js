@@ -1,21 +1,44 @@
 import React from 'react'
 import './HelperAvailabilityPage.css'
 import { useState } from 'react';
-import TextField from '@mui/material/TextField';  
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';  
-import Stack from '@mui/material/Stack';  
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';  
-import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';  
+
+import Calendar from 'react-calendar';
+import TimeField from 'react-simple-timefield';
+
 
 import { editAvailability } from '../Routes/Login/AuthService';
+import { Button } from '@mui/material';
+
 
 const HelperAvailabilityPage = () => {
+    const [date, setDate] = useState(null);
     const [selectedDay, setSelectedDay] = useState(null);
-    const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null);
+    
     const [errorStartTime, setErrorStartTime] = useState(null);
     const [errorEndTime, setErrorEndTime] = useState(null);
-    const errortxt = "Invalid Time"
+    const errortxt = "Invalid Time";
+
+    const [startTimeMon, setStartTimeMon] = useState("00");
+    const [endTimeMon, setEndTimeMon] = useState("00");
+
+    const [startTimeTue, setStartTimeTue] = useState("00");
+    const [endTimeTue, setEndTimeTue] = useState("00");
+
+    const [startTimeWed, setStartTimeWed] = useState("00");
+    const [endTimeWed, setEndTimeWed] = useState("00");
+
+    const [startTimeThu, setStartTimeThu] = useState("00");
+    const [endTimeThu, setEndTimeThu] = useState("00");
+
+    const [startTimeFri, setStartTimeFri] = useState("00");
+    const [endTimeFri, setEndTimeFri] = useState("00");
+
+    const [startTimeSat, setStartTimeSat] = useState("00");
+    const [endTimeSat, setEndTimeSat] = useState("00");
+
+    const [startTimeSun, setStartTimeSun] = useState("00");
+    const [endTimeSun, setEndTimeSun] = useState("00");
+
     const [showAvailability, setShowAvailability] = useState({
         Monday: "",
         Tuesday: "",
@@ -27,11 +50,13 @@ const HelperAvailabilityPage = () => {
 
     });
 
+    
+
     const handleSelectedDay = (option) => {
         setSelectedDay(option === selectedDay ? null : option);
     }
     
-    
+    /*
     const handleAddAvailability = (event) => {
         event.preventDefault();
         //console.log("availabilities: ", availabilities )
@@ -62,7 +87,7 @@ const HelperAvailabilityPage = () => {
         setSelectedDay(null);
         setStartTime(null);
         setEndTime(null);
-    }
+    } */
     //console.log("Outside availabilities: ", availabilities )
 
     const handleRemoveAvailability  = (event) => {
@@ -87,10 +112,189 @@ const HelperAvailabilityPage = () => {
             console.error('error', error);
           }
     };
+
+    var maxDate = new Date();                                                   //Date
+    maxDate.setDate(maxDate.getDate()+6);
+
     console.log("newAvailability: ", showAvailability)
+
+
   return (
     
     <div className='availability'>
+        <div className='availability-grid'>
+            <div className='availability-calendar'>
+                <Calendar 
+                    minDate = {new Date()}
+                    maxDate = {maxDate}
+                    onChange={setDate} 
+                    value={date} 
+                    required/>
+            </div>
+            <div className='availability-container'>
+                <div className='Week-days'>
+                    <p>Monday</p>
+                        <TimeField
+                                value={startTimeMon}                        
+                                onChange={(e)=>{
+                                    setStartTimeMon(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                        <p >to</p>
+                        <TimeField
+                                value={endTimeMon}                        
+                                onChange={(e)=>{
+                                    setEndTimeMon(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                </div>
+                <div className='Week-days'>
+                    <p>Tuesday</p>
+                        <TimeField
+                                value={startTimeTue}                        
+                                onChange={(e)=>{
+                                    setStartTimeTue(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                        <p >to</p>
+                        <TimeField
+                                value={endTimeTue}                        
+                                onChange={(e)=>{
+                                    setEndTimeTue(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                </div>
+                <div className='Week-days'>
+                    <p>Wednesday</p>
+                        <TimeField
+                                value={startTimeWed}                        
+                                onChange={(e)=>{
+                                    setStartTimeWed(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                        <p >to</p>
+                        <TimeField
+                                value={endTimeWed}                        
+                                onChange={(e)=>{
+                                    setEndTimeWed(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                </div>
+                <div className='Week-days'>
+                    <p>Thursday</p>
+                        <TimeField
+                                value={startTimeThu}                        
+                                onChange={(e)=>{
+                                    setStartTimeThu(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                        <p >to</p>
+                        <TimeField
+                                value={endTimeThu}                        
+                                onChange={(e)=>{
+                                    setEndTimeThu(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                </div>
+                <div className='Week-days'>
+                    <p>Friday</p>
+                        <TimeField
+                                value={startTimeFri}                        
+                                onChange={(e)=>{
+                                    setStartTimeFri(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                        <p >to</p>
+                        <TimeField
+                                value={endTimeFri}                        
+                                onChange={(e)=>{
+                                    setEndTimeFri(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                </div>
+                <div className='Week-days'>
+                    <p>Saturday</p>
+                        <TimeField
+                                value={startTimeSat}                        
+                                onChange={(e)=>{
+                                    setStartTimeSat(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                        <p >to</p>
+                        <TimeField
+                                value={endTimeSat}                        
+                                onChange={(e)=>{
+                                    setEndTimeSat(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                </div>
+                <div className='Week-days'>
+                    <p>Sunday</p>
+                        <TimeField
+                                value={startTimeSun}                        
+                                onChange={(e)=>{
+                                    setStartTimeSun(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                        <p >to</p>
+                        <TimeField
+                                value={endTimeSun}                        
+                                onChange={(e)=>{
+                                    setEndTimeSun(e.target.value) }}
+                                input={<input className='time-input'/>}      
+                                colon=":"                           
+                                                      
+                            />
+                </div>
+
+                
+            </div>
+            
+        </div>
+        <div className='save-button'>
+
+                        <Button variant='outlined' sx={{
+                            ":hover": {
+                            bgcolor: "#006e5f4a",
+                            borderColor: "#006E60",
+                            },
+                            color: "white",
+                            backgroundColor: "#00720B",
+                            borderColor: "#006E60",
+                            width: 200,
+                            marginTop: 4
+                        }} size="large" onClick={handleSubmit}>
+                            Save
+                        </Button>
+
+                </div>
+        { /*
         <div className='availability-container'>
             <div className='left'>
                 <form onSubmit={handleSubmit}>
@@ -119,30 +323,6 @@ const HelperAvailabilityPage = () => {
                         <label htmlFor="Sunday">Sunday - {JSON.stringify(showAvailability.Sunday, null, 100)}</label>
 
                     </div>
-                    {/* <div className='Days'>
-                        <p className='paraTag'>Select the Day</p>
-                        <input type="radio" id="Monday" name="Day" value="Monday" onClick={() => handleSelectedDay("Monday")}/>
-                        <label htmlFor="Monday">Monday</label>
-
-                        <input type="radio" id="Tuesday" name="Day" value="Tuesday" onClick={() => handleSelectedDay("Tuesday")} />
-                        <label htmlFor="Tuesday">Tuesday</label>
-
-                        <input type="radio" id="Wednesday" name="Day" value="Wednesday" onClick={() => handleSelectedDay("Wednesday")} />
-                        <label htmlFor="Wednesday">Wednesday</label>
-
-                        <input type="radio" id="Thursday" name="Day" value="Thursday" onClick={() => handleSelectedDay("Thursday")} />
-                        <label htmlFor="Thursday">Thursday</label>
-
-                        <input type="radio" id="Friday" name="Day" value="Friday"  onClick={() => handleSelectedDay("Friday")}/>
-                        <label htmlFor="Friday">Friday</label>
-
-                        <input type="radio" id="Saturday" name="Day" value="Saturday"  onClick={() => handleSelectedDay("Saturday")}/>
-                        <label htmlFor="Saturday">Saturday</label>
-
-                        <input type="radio" id="Sunday" name="Day" value="Sunday" onClick={() => handleSelectedDay("Sunday")} />
-                        <label htmlFor="Sunday">Sunday</label>
-
-                    </div> */}
                     <div className='time-picker-upper'>
                         <br></br><br></br>
                         <p className='paraTag'>Start Time</p>
@@ -215,8 +395,8 @@ const HelperAvailabilityPage = () => {
                     <div><pre>{JSON.stringify(showAvailability, null, 100)}</pre></div>
                     <div><pre>Monday : {JSON.stringify(showAvailability.Monday, null, 100)}</pre></div>
                 </div>
-            </div> */}
-        </div> 
+            </div> 
+        </div> */}
     </div>
    
   )

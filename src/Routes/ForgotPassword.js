@@ -9,7 +9,6 @@ const ForgotPassword = () => {
   console.log(location.state.userType)
   return (
     <div>
-        <NavBar />
         <ForgotPasswordPage data={location.state.userType}/>
     </div>
   )

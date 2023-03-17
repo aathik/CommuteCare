@@ -324,7 +324,7 @@ const AdditionalHelperDetails = () => {
                               setCountryCode(e.target.value);}}
                             required
                           >
-                            <MenuItem value={+1}>+1 (USA)</MenuItem>
+                            <MenuItem value={+1}>+1 (USA/CA)</MenuItem>
                             <MenuItem value={+33}>+33 (FR)</MenuItem>
                             <MenuItem value={+44}>+44 (UK)</MenuItem>
                             <MenuItem value={+91}>+91 (India)</MenuItem>
@@ -384,7 +384,7 @@ const AdditionalHelperDetails = () => {
                             value={bio}
                             onChange={(e) => {
                               setbio(e.target.value);}}
-                            placeholder="Enter your bio here"
+                            placeholder="Enter your bio here (150 wordlimit)"
                             multiline
                             rows={3}
                             maxRows={4}
@@ -394,6 +394,7 @@ const AdditionalHelperDetails = () => {
                             }}
                             error={bioErrorFlag}
                             helperText={bioError}
+                            inputProps={{ maxLength: 150 }}
                             label='About me'
                           />
                         </div>

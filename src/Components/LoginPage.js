@@ -169,12 +169,12 @@ const LoginPage = (props) => {
           </div>
           
 
-          <div className='links'>
-            <div className='forgot'>
-              <Link to="/forgotPassword" state={{userType: props.data}} className='link'>Forgot password?</Link>
+          <div className='login-links'>
+            <div className='forgot-password-link'>
+              <Link to="/forgotPassword" state={{userType: props.data}} className='login-link'>Forgot password?</Link>
             </div>
             <div className='new'>
-              <Link to="/signUp" state={{userType: props.data}} className='link'>New User? Sign up</Link>
+              <Link to="/signUp" state={{userType: props.data}} className='login-link'>New User? Sign up</Link>
             </div>
           </div>
           {error && <div className='error'>{error}</div>}

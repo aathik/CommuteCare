@@ -18,6 +18,9 @@ import NewPassword from './Components/NewPassword';
 import HelperProfile from './Routes/HelperProfile';
 import CustomerProfile from './Routes/CustomerProfile';
 import LoginChoice from './Routes/LoginChoice';
+import Review from './Components/Review';
+import Report from './Components/Report';
+
 
 
 function App() {
@@ -41,6 +44,10 @@ function App() {
         <Route path="/newPassword" element={<NewPassword />} /> 
         <Route path="/customerProfile" element={<CustomerProfile />} />
         <Route path="/helperProfile" element={<HelperProfile />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/report" element={<Report />} />
+
+
         
       </Routes>
     </>

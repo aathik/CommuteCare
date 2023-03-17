@@ -38,3 +38,9 @@ ul{
   transition: 0.3s;
 }
 
+.alert-left{
+  display: flex;
+  width: 300px;
+  align-items: center;
+  margin: 3% 40%;
+}

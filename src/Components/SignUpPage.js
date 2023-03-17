@@ -20,13 +20,14 @@ const SignUpPage = (props) => {
 
   const [email, setEmail] = useState("");
   const [emailFlag, setEmailFlag] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordFlag, setPasswordFlag] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordFlag, setConfirmPasswordFlag] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [confrimPassError, setConfrimPassError] = useState('');
-  const [emailError, setEmailError] = useState("");
+  
 
   const [error, seterror] = useState("");
 

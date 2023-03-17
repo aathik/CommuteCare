@@ -30,13 +30,13 @@ const NavBar = () => {
 
   return (
     <div className={ color ? "header header-bg" : "header"}>
-            <Link to={userLoggedIn==='true' ? ('/home') : ('/')}>
+            <Link to="/">
             <h1>CommuteCare</h1>
             </Link>
             <ul className={click ? "nav-menu active" : "nav-menu"}>
             {
                 userLoggedIn === 'true'? <><li>
-                <Link to="/home">Home</Link> 
+                <Link to="/">Home</Link> 
             </li>
             {
                 userType === 'Customer' && userLoggedIn && <li><Link to="/customerProfile">Profile</Link> </li> 

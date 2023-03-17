@@ -105,7 +105,7 @@
     width: 50%;
   }
 
-  .link{
+  .single-line-button .link{
     cursor: pointer;
     width: 70%;
     background: none;
