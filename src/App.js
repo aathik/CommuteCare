@@ -21,6 +21,7 @@ import LoginChoice from "./Routes/LoginChoice";
 import Review from "./Components/Review";
 import Report from "./Components/Report";
 import ChatPage from "./Routes/ChatPage";
+import HistoryPage from "./Routes/HistoryPage";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/report" element={<Report />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/history" element={<HistoryPage />} />
       </Routes>
     </>
   );

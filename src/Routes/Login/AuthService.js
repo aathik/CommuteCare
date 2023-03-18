@@ -370,3 +370,71 @@ export const getChatMessages = async (userId, helperId) => {
   const response = axios.get(`${url}/getmsg/${userId}/${helperId}`);
   return response;
 };
+
+export const getUserBookings = async () => {
+  const token = localStorage.getItem("User");
+  const response = axios.get(`${url}/user-booking`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(token)}`,
+    },
+  });
+  return response;
+};
+
+export const getUserHistory = async () => {
+  const token = localStorage.getItem("User");
+  const response = axios.get(`${url}/booking-history`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(token)}`,
+    },
+  });
+  return response;
+};
+
+export const getHelperPendings = async () => {
+  const token = localStorage.getItem("User");
+  const response = axios.get(`${url}/pending-requests`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(token)}`,
+    },
+  });
+  return response;
+};
+
+export const getHelperConfirmedBookings = async () => {
+  const token = localStorage.getItem("User");
+  const response = axios.get(`${url}/pending-requests`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(token)}`,
+    },
+  });
+  return response;
+};
+
+export const rejectBooking = async (bookingId) => {
+  const token = localStorage.getItem("User");
+  const response = axios.post(
+    `${url}/decline-booking/${bookingId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(token)}`,
+      },
+    }
+  );
+  return response;
+};
+
+export const acceptBooking = async (bookingId) => {
+  const token = localStorage.getItem("User");
+  const response = axios.post(
+    `${url}/accept-booking/${bookingId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(token)}`,
+      },
+    }
+  );
+  return response;
+};
