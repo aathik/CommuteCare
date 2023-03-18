@@ -38,13 +38,13 @@ const HelperAvailabilityPage = () => {
   const [endTimeSun, setEndTimeSun] = useState("");
 
   const [showAvailability, setShowAvailability] = useState({
-    Monday: `[${startTimeMon},${endTimeMon}]`,
-    Tuesday: `[${startTimeTue},${endTimeTue}]`,
-    Wednesday: `[${startTimeWed},${endTimeWed}]`,
-    Thursday: `[${startTimeThu},${endTimeThu}]`,
-    Friday: `[${startTimeFri},${endTimeFri}]`,
-    Saturday: `[${startTimeSat},${endTimeSat}]`,
-    Sunday: `[${startTimeSun},${endTimeSun}]`,
+    Monday: `${startTimeMon} ${endTimeMon}`,
+    Tuesday: `${startTimeTue} ${endTimeTue}`,
+    Wednesday: `${startTimeWed} ${endTimeWed}`,
+    Thursday: `${startTimeThu} ${endTimeThu}`,
+    Friday: `${startTimeFri} ${endTimeFri}`,
+    Saturday: `${startTimeSat} ${endTimeSat}`,
+    Sunday: `${startTimeSun} ${endTimeSun}`,
   });
 
   const [getAvailabilityInPage, setgetAvailabilityInPage] = useState("");
@@ -89,27 +89,27 @@ const HelperAvailabilityPage = () => {
     } */
   //console.log("Outside availabilities: ", availabilities )
 
-  const handleRemoveAvailability = (event) => {
-    event.preventDefault();
-    if (!selectedDay) {
-      alert("Please select the day you want to remove");
-      return false;
-    }
-    setShowAvailability((showAvailability) => ({
-      ...showAvailability,
-      [selectedDay]: "",
-    }));
-  };
+  // const handleRemoveAvailability = (event) => {
+  //   event.preventDefault();
+  //   if (!selectedDay) {
+  //     alert("Please select the day you want to remove");
+  //     return false;
+  //   }
+  //   setShowAvailability((showAvailability) => ({
+  //     ...showAvailability,
+  //     [selectedDay]: "",
+  //   }));
+  // };
 
   useEffect(() => {
     setShowAvailability({
-      Monday: `[${startTimeMon},${endTimeMon}]`,
-      Tuesday: `[${startTimeTue},${endTimeTue}]`,
-      Wednesday: `[${startTimeWed},${endTimeWed}]`,
-      Thursday: `[${startTimeThu},${endTimeThu}]`,
-      Friday: `[${startTimeFri},${endTimeFri}]`,
-      Saturday: `[${startTimeSat},${endTimeSat}]`,
-      Sunday: `[${startTimeSun},${endTimeSun}]`,
+      Monday: `${startTimeMon} ${endTimeMon}`,
+      Tuesday: `${startTimeTue} ${endTimeTue}`,
+      Wednesday: `${startTimeWed} ${endTimeWed}`,
+      Thursday: `${startTimeThu} ${endTimeThu}`,
+      Friday: `${startTimeFri} ${endTimeFri}`,
+      Saturday: `${startTimeSat} ${endTimeSat}`,
+      Sunday: `${startTimeSun} ${endTimeSun}`,
     });
   }, [
     startTimeMon,
@@ -141,22 +141,46 @@ const HelperAvailabilityPage = () => {
   var maxDate = new Date(); //Date
   maxDate.setDate(maxDate.getDate() + 6);
 
-  console.log("newAvailability: ", showAvailability);
+
+
+   
+   const fetchAvailability = async () => {
+    try {
+      await getAvailability(helperId).then((response) =>{
+        setgetAvailabilityInPage(response.data.availability);
+        setStartTimeMon(response.data.availability.Monday.slice(0,5));
+        setEndTimeMon(response.data.availability.Monday.slice(6,11));
+        setStartTimeTue(response.data.availability.Tuesday.slice(0,5));
+        setEndTimeTue(response.data.availability.Tuesday.slice(6,11));
+        setStartTimeWed(response.data.availability.Wednesday.slice(0,5));
+        setEndTimeWed(response.data.availability.Wednesday.slice(6,11));
+        setStartTimeThu(response.data.availability.Thursday.slice(0,5));
+        setEndTimeThu(response.data.availability.Thursday.slice(6,11));
+        setStartTimeFri(response.data.availability.Friday.slice(0,5));
+        setEndTimeFri(response.data.availability.Friday.slice(6,11));
+        setStartTimeSat(response.data.availability.Saturday.slice(0,5));
+        setEndTimeSat(response.data.availability.Saturday.slice(6,11));
+        setStartTimeSun(response.data.availability.Sunday.slice(0,5));
+        setEndTimeSun(response.data.availability.Sunday.slice(6,11));
+      }
+
+      );
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
+  
 
   useEffect(() => {
-    const fetchAvailability = async () => {
-      try {
-        await getAvailability(helperId).then((response) =>
-          setgetAvailabilityInPage(response.data.availability)
-        );
-      } catch (error) {
-        console.error("error", error);
-      }
-    };
+      
     fetchAvailability();
+    
   }, []);
 
   console.log("AfterFetch: ", getAvailabilityInPage);
+  
+  
 
   return (
     <div className="availability">
@@ -195,7 +219,7 @@ const HelperAvailabilityPage = () => {
           </div>
           <div className="Week-days">
             <div className="Week-day">
-              <p>Monday</p>
+              <p>Tuesday</p>
             </div>
             <TimeField
               value={startTimeTue}
@@ -217,7 +241,7 @@ const HelperAvailabilityPage = () => {
           </div>
           <div className="Week-days">
             <div className="Week-day">
-              <p>Monday</p>
+              <p>Wednesday</p>
             </div>
             <TimeField
               value={startTimeWed}
@@ -239,7 +263,7 @@ const HelperAvailabilityPage = () => {
           </div>
           <div className="Week-days">
             <div className="Week-day">
-              <p>Monday</p>
+              <p>Thursday</p>
             </div>
             <TimeField
               value={startTimeThu}
@@ -261,7 +285,7 @@ const HelperAvailabilityPage = () => {
           </div>
           <div className="Week-days">
             <div className="Week-day">
-              <p>Monday</p>
+              <p>Friday</p>
             </div>
             <TimeField
               value={startTimeFri}
@@ -283,7 +307,7 @@ const HelperAvailabilityPage = () => {
           </div>
           <div className="Week-days">
             <div className="Week-day">
-              <p>Monday</p>
+              <p>Saturday</p>
             </div>
             <TimeField
               value={startTimeSat}
@@ -305,7 +329,7 @@ const HelperAvailabilityPage = () => {
           </div>
           <div className="Week-days">
             <div className="Week-day">
-              <p>Monday</p>
+              <p>Sunday</p>
             </div>
             <TimeField
               value={startTimeSun}

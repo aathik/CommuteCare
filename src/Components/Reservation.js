@@ -13,6 +13,7 @@ import { DesktopTimePicker } from "@mui/x-date-pickers/DesktopTimePicker";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import Textarea from "@mui/joy/Textarea";
+import dayjs from 'dayjs';
 
 import useHistoryState from "use-history-state";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -44,6 +45,8 @@ const Reservation = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option === selectedOption ? null : option);
   };
+
+  const stations = ["Paris-Vaugirard ", "Dreux" ,"Verneuil-sur-Avre" ,"L'Aigle" ,"Surdon" ,"Argentan" ,"Briouze" ,"Flers" ,"Vire" ,"Villedieu-les-Poêles" ,"Folligny" ,"Granville"];
 
   const handleSubmit = (event) => {
     console.log("submit");
@@ -79,6 +82,7 @@ const Reservation = () => {
   };
 
   console.log("Date:", date);
+  console.log("Date:", time);
   return (
     <form onSubmit={handleSubmit}>
       <div className="reservation">
@@ -89,10 +93,9 @@ const Reservation = () => {
                 <DatePicker
                   variant="standard"
                   value={date}
-                  label="Date of Birth"
-                  onChange={(newValue) => {
-                    setDate(newValue);
-                  }}
+                  label="Date of Travel"
+                  onChange={setDate
+                  }
                   minDate={new Date()}
                   required
                   renderInput={(params) => (
@@ -199,10 +202,13 @@ const Reservation = () => {
                   }}
                   required
                 >
-                  <MenuItem value="Verdon">Verdon</MenuItem>
-                  <MenuItem value="canada">Canada</MenuItem>
-                  <MenuItem value="france">France</MenuItem>
-                  <MenuItem value="brazil">Brazil</MenuItem>
+                  {stations.map((station,index) =>
+                        <MenuItem key={index} value={station}>
+                        {station}
+                      </MenuItem>
+                  )}
+                 
+                  
                 </Select>
                 <FormHelperText>
                   {false ? "Enter Nationality Code" : ""}
@@ -233,6 +239,7 @@ const Reservation = () => {
 
           <div className="image">
             <img src={image} alt="login-img" className="actual-img" />
+            
           </div>
         </div>
       </div>

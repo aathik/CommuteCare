@@ -43,7 +43,7 @@ export const logout = () => {
   localStorage.removeItem("User");
   localStorage.removeItem("UserType");
   localStorage.removeItem("UserID");
-
+  localStorage.removeItem("HelperID");
   localStorage.setItem("LoggedIn", false);
 };
 

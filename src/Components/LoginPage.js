@@ -52,7 +52,7 @@ const LoginPage = (props) => {
   const handlePasswordChange = (password) => {
     if (!validatePassword(password)) {
       setPasswordError(
-        "Your password must contain 1 upper case character, 1 number, 1 special character"
+        "Incorrect Password"
       );
       setPasswordFlag(true);
       return true;

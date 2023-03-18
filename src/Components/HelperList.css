@@ -21,10 +21,12 @@
 }
 
 .helper-cards{
-    padding: 3%;
-    background-color: hsl(89, 76%, 92%);
-    border-radius: 25px;
+    padding: 3%;   
     box-shadow: 0 14px 28px rgba(0,0,0,0.22), 0 10px 10px rgba(0, 0, 0, 0.22);
+    border: 2;
+    background: #FFFFFF;
+    border: 2px solid #028B28;
+    border-radius: 15px;
 }
 
 

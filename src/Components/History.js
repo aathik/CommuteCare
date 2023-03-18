@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -90,8 +90,53 @@ const History = () => {
         )}
       </div>
       <div className="history-buttons">
-        <Button onClick={() => setisCurrentBookings(true)}>Current</Button>
-        <Button onClick={() => setisCurrentBookings(false)}>History</Button>
+              <Button
+                  variant="outlined"
+                  sx={{
+                    ":hover": {
+                      bgcolor: "#006e5f4a",
+                      borderColor: "#006E60",
+                    },
+                    color: "white",
+                    backgroundColor: "#00720B",
+                    borderColor: "#006E60",
+                    ...(!isCurrentBookings ? {
+                      backgroundColor: "#D4FFBC",
+                      color: "#024F09"
+                    } : {color: "white",
+                    backgroundColor: "#00720B",}),
+                  }}
+                  size="large"
+                  onClick={() => setisCurrentBookings(true)}
+                >
+                  Current
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    ":hover": {
+                      bgcolor: "#006e5f4a",
+                      borderColor: "#006E60",
+                    },
+                    backgroundColor: "#00720B",
+                      color: "white",
+                    borderColor: "#006E60",
+                    ...(isCurrentBookings && {
+                      color: "#024F09",
+                    backgroundColor: "#D4FFBC",
+                      
+                    }),
+                  }}
+                  size="large"
+                  onClick={() => setisCurrentBookings(false)}
+                >
+                  History
+                </Button>
+        
+
+        
+        
+      
       </div>
     </div>
   );

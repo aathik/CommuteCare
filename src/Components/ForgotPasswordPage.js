@@ -13,8 +13,8 @@ const ForgotPasswordPage = (props) => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otpError, setOtpError] = useState("");
-  const [remainingTime, setRemainingTime] = useState(60);
-  const [tryCount, setTryCount] = useState(0);
+  const [serror, setserror] = useState("");
+  const [errorFlag, seterrorFlag] = useState(false);
 
   const validateEmail = (email) => {
     const regex =
@@ -43,7 +43,10 @@ const ForgotPasswordPage = (props) => {
       try {
         await forgotPass(email, props.data);
       } catch (error) {
-        console.error("error", error);
+        console.log("error", error);
+        setserror(error.response.data);
+        seterrorFlag(true);
+        console.log("flg", errorFlag)
       }
     }
     if (props.data === "Helper") {
@@ -55,22 +58,7 @@ const ForgotPasswordPage = (props) => {
     }
 
     setOtpSent(true);
-    setTryCount(0);
-    setRemainingTime(60);
   };
-
-  const handleVerify = () => {
-    if (otp === "123456") {
-      // redirect to additional information page
-      console.log("Redirecting to additional information page...");
-    } else {
-      setTryCount(tryCount + 1);
-      setOtpError("Verification failed, please try again.");
-      setOtp("");
-    }
-  };
-
-  const canResendOtp = tryCount < 2;
 
   return (
     <div className="forgot">
@@ -123,9 +111,12 @@ const ForgotPasswordPage = (props) => {
           </div>
         ) : (
           <div className="forgot-component">
-            <p className="forgot-label">
+            {errorFlag? <p className="forgot-label">
+              {serror}
+            </p> : <p className="forgot-label">
               Password reset link has been sent to {email}
-            </p>
+            </p>}
+            
           </div>
         )}
       </div>

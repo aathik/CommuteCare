@@ -6,9 +6,10 @@ import { BsPersonCircle } from "react-icons/bs";
 
 import { useNavigate } from 'react-router-dom';
 
-import { displayAvailHelperList } from '../Routes/Login/AuthService';
+import { displayAvailHelperList, logout } from '../Routes/Login/AuthService';
 
 import ReactLoading from 'react-loading';
+import { Button } from '@mui/material';
 
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
@@ -19,6 +20,10 @@ import ReactLoading from 'react-loading';
 
   const navigate = useNavigate();
   const user = localStorage.getItem("User");
+
+
+  const [jwtError, setjwtError] = useState("");
+
   
   
   
@@ -62,6 +67,13 @@ import ReactLoading from 'react-loading';
           console.log("Response:",formData);
         } catch (error) {
           console.error('error', error);
+          setjwtError(error.response.data.message);
+          
+          if(jwtError==="jwt expired" || jwtError==='jwt malformed'){
+            console.log("Hello")
+            logout();
+            navigate('/');
+          }
         }
         setIsLoading(false);
     }
@@ -70,7 +82,7 @@ import ReactLoading from 'react-loading';
     
   }, []); 
 
-
+  console.log("formData:", formData)
   return (
     <div className='helper'>
        
@@ -88,13 +100,50 @@ import ReactLoading from 'react-loading';
                             </div>
                             
                             <div className='right'>
+                              <div className='helper-name-rating'>
+
+                              </div>
                               <h3>{person.firstname+' '+person.lastname}</h3>
                               <p className='text'>People helped: {person.helped}</p>
                               <p>Gender: {person.gender}</p>
                               
                               <div className='buttons'>
-                                <button className='btn' onClick={() => handleFlip(index)}>More Info</button>
-                                <button className='btn' onClick={() => bookNow(person)}>Book Now</button>
+                                <Button
+                                  variant="outlined"
+                                  sx={{
+                                    ":hover": {
+                                      bgcolor: "#006e5f4a",
+                                      borderColor: "#006E60",
+                                    },
+                                    color: "white",
+                                    backgroundColor: "#00720B",
+                                    borderColor: "#006E60",
+                                    width: 100,
+                                   marginRight: 3,
+                                   height:40
+                                  }}
+                                  size="small"
+                                  onClick={() => handleFlip(index)}
+                                >More Info</Button>
+                                <Button
+                                  variant="outlined"
+                                  sx={{
+                                    ":hover": {
+                                      bgcolor: "#006e5f4a",
+                                      borderColor: "#006E60",
+                                    },
+                                    color: "white",
+                                    backgroundColor: "#00720B",
+                                    borderColor: "#006E60",
+                                    width: 100,
+                                   marginLeft: 10,
+                                   height:40
+                                  }}
+                                  size="small"
+                                  onClick={() => bookNow(person)}
+                                >Book Now</Button>
+                                
+                            
                               </div>
                               
                             </div>  
@@ -105,7 +154,24 @@ import ReactLoading from 'react-loading';
                             <p>Nationality: {person.nationality}</p>
                             <p className='italics'>"{person.description}"</p>
                             <div className='buttons'>
-                                <button className='btn' onClick={() => handleFlip(index)}>Less Info</button>
+                                  <Button
+                                  variant="outlined"
+                                  sx={{
+                                    ":hover": {
+                                      bgcolor: "#006e5f4a",
+                                      borderColor: "#006E60",
+                                    },
+                                    color: "white",
+                                    backgroundColor: "#00720B",
+                                    borderColor: "#006E60",
+                                    width: 100,
+                                   marginLeft: 10,
+                                   height:40
+                                  }}
+                                  size="small"
+                                  onClick={() => handleFlip(index)}
+                                >Less Info</Button>
+                                
                               </div>
                         </div>
                         </ReactCardFlip>

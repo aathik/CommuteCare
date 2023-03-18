@@ -4,15 +4,20 @@ import { TiTick } from "react-icons/ti";
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-import { bookingHelper } from '../Routes/Login/AuthService';
+import { bookingHelper, logout } from '../Routes/Login/AuthService';
 
 import ReactLoading from 'react-loading';
+import { useNavigate } from 'react-router-dom';
 
 
 const Booked = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setresult] = useState(""); 
   const [error, seterror] = useState("");
+
+  const navigate = useNavigate();
+
+  const [jwtError, setjwtError] = useState("");
 
   //console.log(props.PersonId, props.Day,props.Time, props.Duration);
 
@@ -31,6 +36,14 @@ const Booked = (props) => {
         } catch (error) {
           console.error("Inside ",error.response.data);
           seterror(error.response.data)
+          console.error('error', error);
+          setjwtError(error.response.data.message);
+          
+          if(jwtError==="jwt expired" || jwtError==='jwt malformed'){
+            console.log("Hello")
+            logout();
+            navigate('/');
+          }
           setIsLoading(false);
         }
         setIsLoading(false);
