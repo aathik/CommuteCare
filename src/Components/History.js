@@ -1,12 +1,20 @@
 import { Button } from "@mui/material";
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
-import { getUserBookings, getUserHistory } from "../Routes/Login/AuthService";
+import { useNavigate } from "react-router-dom";
+import {
+  cancelBooking,
+  getUserBookings,
+  getUserHistory,
+} from "../Routes/Login/AuthService";
 import "./History.css";
 
 const History = () => {
+  const navigate = useNavigate();
+
   const [bookings, setbookings] = useState([]);
   const [isCurrentBookings, setisCurrentBookings] = useState(true);
+  const [isrefresh, setisrefresh] = useState(false);
 
   const getBookingsData = async () => {
     try {
@@ -27,10 +35,21 @@ const History = () => {
     }
   };
 
+  const deleteData = async (id) => {
+    try {
+      await cancelBooking(id).then((response) => {
+        // setbookings(response.data);
+        setisrefresh(!isrefresh);
+      });
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
   useEffect(() => {
     console.log(isCurrentBookings);
     isCurrentBookings ? getBookingsData() : getHistoryData();
-  }, [isCurrentBookings]);
+  }, [isCurrentBookings, isrefresh]);
 
   return (
     <div className="history">
@@ -49,8 +68,10 @@ const History = () => {
                 booking.status
               ) : (
                 <div className="card-buttons">
-                  <Button>Chat</Button>
-                  <Button>Cancel</Button>
+                  <Button onClick={() => navigate("/chat")}>Chat</Button>
+                  <Button onClick={() => deleteData(booking._id)}>
+                    Cancel
+                  </Button>
                 </div>
               )}
             </div>

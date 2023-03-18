@@ -438,3 +438,13 @@ export const acceptBooking = async (bookingId) => {
   );
   return response;
 };
+
+export const cancelBooking = async (bookingId) => {
+  const token = localStorage.getItem("User");
+  const response = axios.delete(`${url}/delete/${bookingId}`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(token)}`,
+    },
+  });
+  return response;
+};
