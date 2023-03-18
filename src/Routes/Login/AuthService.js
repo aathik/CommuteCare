@@ -403,7 +403,7 @@ export const getHelperPendings = async () => {
 
 export const getHelperConfirmedBookings = async () => {
   const token = localStorage.getItem("User");
-  const response = axios.get(`${url}/pending-requests`, {
+  const response = axios.get(`${url}/confirmed-booking`, {
     headers: {
       Authorization: `Bearer ${JSON.parse(token)}`,
     },

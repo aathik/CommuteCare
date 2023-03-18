@@ -40,6 +40,7 @@ const HistoryHelper = () => {
       await acceptBooking(id).then((response) => {
         // setbookings(response.data);
         console.log(response);
+        setisrefresh(!isrefresh);
       });
     } catch (error) {
       console.error("error", error);
@@ -50,6 +51,7 @@ const HistoryHelper = () => {
       await rejectBooking(id).then((response) => {
         // setbookings(response.data);
         console.log(response);
+        setisrefresh(!isrefresh);
       });
     } catch (error) {
       console.error("error", error);
@@ -91,7 +93,9 @@ const HistoryHelper = () => {
               </div>
               <div>Day: {booking.day}</div>
               <div>Time: {moment(booking.starttime).utc().format("HH:mm")}</div>
-              {booking.status}
+              <div className="card-buttons">
+                <Button>Chat</Button>
+              </div>
             </div>
           )
         )}
