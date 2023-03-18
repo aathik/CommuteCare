@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { passwordChange, passwordChangeHelper } from '../Routes/Login/AuthService';
 import './newPassword.css';
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 // import './Password-icons.css';

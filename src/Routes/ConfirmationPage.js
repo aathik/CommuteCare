@@ -5,8 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const ConfirmationPage = () => {
     const location = useLocation();
-   // console.log("State: ", location.state ); 
-    //console.log(location.state.bookdata.Person.name.firstname); 
+ 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,14 +26,20 @@ const ConfirmationPage = () => {
   return (
     <div>
         <NavBar />
-        <Booked PersonName={location.state.bookdata.Person.firstname+ ' ' + location.state.bookdata.Person.lastname} 
+        <Booked 
+        
+        
+        PersonName={location.state.bookdata.Person.firstname+ ' ' + location.state.bookdata.Person.lastname} 
         PersonEmail={location.state.bookdata.Person.email} 
         PersonMob = {location.state.bookdata.Person.mob}
         PersonId = {location.state.bookdata.Person._id}
         Day={location.state.bookdata.day}
         Time={location.state.bookdata.time}
         Duration= {location.state.bookdata.duration}
-        
+        Location = {location.state.bookdata.location}
+        Comments = {location.state.bookdata.comments}
+        Date = {location.state.bookdata.date}
+
         />
         
     </div>
@@ -42,3 +47,5 @@ const ConfirmationPage = () => {
 }
 
 export default ConfirmationPage
+
+

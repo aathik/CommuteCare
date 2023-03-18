@@ -1,7 +1,7 @@
 import React from 'react'
 import './LoginChoicePage.css'
 import IntroImg from "../Assets/loginchoicescreen.jpg";
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,9 +23,9 @@ const LoginChoicePage = () => {
                   bgcolor: "#006e5f4a",
                   borderColor: "#006E60",
                   },
-                  color: "#006E60",
-                  backgroundColor: "#DAFFD7",
-                  borderColor: "#006E60",
+                  color: "white",
+                  backgroundColor: "#00720B",
+                  borderColor: "white",
                   height: 60,
                 }} onClick={(e)=> {navigate('/login', {state:{data: "Customer"}})}}
             
@@ -38,9 +38,9 @@ const LoginChoicePage = () => {
                 bgcolor: "#006e5f4a",
                 borderColor: "#006E60",
                 },
-                color: "#006E60",
-                backgroundColor: "#DAFFD7",
-                borderColor: "#006E60",
+                color: "white",
+                  backgroundColor: "#00720B",
+                  borderColor: "white",
                 height: 60,
 
               }} onClick={(e)=> {navigate('/login', {state:{data: "Helper"}})}}

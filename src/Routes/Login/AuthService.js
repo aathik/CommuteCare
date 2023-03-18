@@ -320,7 +320,7 @@ export const displayAvailHelperList = async (day, time, duration) => {
   return response;
 };
 
-export const bookingHelper = async (helperId, day, time, duration) => {
+export const bookingHelper = async (helperId, day, time, duration, date, location, comments) => {
   const token = localStorage.getItem("User");
   const response = axios.post(
     `${url}/book`,
@@ -329,6 +329,9 @@ export const bookingHelper = async (helperId, day, time, duration) => {
       day: day,
       starttime: time,
       duration: duration,
+      date: date,
+      location: location,
+      description: comments,
     },
     {
       headers: {

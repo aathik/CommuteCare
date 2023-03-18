@@ -10,13 +10,13 @@ import { FormControlLabel, Switch } from '@mui/material';
 
 import { green } from '@mui/material/colors';
 import { alpha, styled } from '@mui/material/styles';
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 
 
 const NavBar = () => {
 
   const [click, setClick] = useState(false);
-  const [switchPress, setSwitchPress] = useState(false);
+  const [switchPress, setSwitchPress] = useState(true);
 
     const handleClick = () => setClick(!click);
     
@@ -61,7 +61,7 @@ const NavBar = () => {
                 userLoggedIn === 'true'? <>
 
           
-
+            <li><Link to="/">Home</Link> </li>
             <li><Link to="/history">Booking</Link> </li>
            
 
@@ -75,7 +75,7 @@ const NavBar = () => {
             <Link to="/" onClick={logout}>Logout</Link>
             </li>  
             <li>
-                <FormControlLabel control={<Switch defaultChecked size="small"
+                <FormControlLabel control={<Switch size="small"
                 sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: green[600],

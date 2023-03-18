@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useState } from 'react';
 import './SignUpPage.css'
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 import image from '../Assets/home-page.jpg';
 
 import { additionalDetails } from '../Routes/Login/AuthService';

@@ -11,11 +11,12 @@ const AvailableHelpers = () => {
     const duration = queryParam.get('duration');
     
     
+    
 
   return (
      <div>
         <NavBar />
-        <HelperList Day={day} Time={time} Duration={duration} />
+        <HelperList Day={day} Time={time} Duration={duration} Comments={location.state.comments} Location={location.state.location} Date={location.state.dateFormat}/>
     </div>
   )
 }

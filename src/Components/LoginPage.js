@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import { login, loginHelper } from "../Routes/Login/AuthService";
 import loginImg from "../Assets/home-page.jpg";
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";

@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useState } from 'react';
 import './SignUpPage.css'
 import { useNavigate } from 'react-router-dom';
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 import image from '../Assets/home-page.jpg';
 
 

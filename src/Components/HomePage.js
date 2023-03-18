@@ -1,6 +1,6 @@
 import React from 'react'
 import './HomePage.css'
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 import homeImg from '../Assets/home-page.jpg';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';

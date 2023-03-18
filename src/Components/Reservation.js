@@ -25,6 +25,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import moment from "moment/moment";
 
 const Reservation = () => {
   const [date, setDate] = useHistoryState(null, "date");
@@ -48,19 +49,25 @@ const Reservation = () => {
 
   const stations = ["Paris-Vaugirard ", "Dreux" ,"Verneuil-sur-Avre" ,"L'Aigle" ,"Surdon" ,"Argentan" ,"Briouze" ,"Flers" ,"Vire" ,"Villedieu-les-Poêles" ,"Folligny" ,"Granville"];
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("submit");
+
+    
+
+    
+    if (!date || !time || !selectedOption || !location) {
+      alert("fill all columns");
+      return false;
+    }
 
     let hr = time.getHours() < 10 ? `0${time.getHours()}` : time.getHours();
     let min =
       time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
 
-    event.preventDefault();
-    if (!date || !time || !selectedOption) {
-      alert("fill all columns");
-      return false;
-    }
+    const dateFormat = moment(date.$d).utc().format('MM/DD/YYYY');
 
+    console.log("date",dateFormat);
     const formData = {
       day: date.$W,
       time: hr + ":" + min,
@@ -68,16 +75,8 @@ const Reservation = () => {
     };
     console.log("formData", formData);
 
-    //const getData = axios.get(`http://localhost:5000/helper?day=${days[formData.day]}&time=${formData.time}`)
-    // .then(response => { console.log(response)});
-    // const DataA = run(formData);
-    //console.log(DataA);
-
-    //const jsonData = JSON.stringify(Object.assign({}, DataA))
-
-    //console.log("JsonData: ",date);
     navigate(
-      `/availableHelpers?Day=${formData.day}&&time=${formData.time}&&duration=${formData.duration}`
+      `/availableHelpers?Day=${formData.day}&&time=${formData.time}&&duration=${formData.duration}`, {state:{comments,location,dateFormat}}
     ); // to navigate to the next page along with the retrieved data from DB
   };
 

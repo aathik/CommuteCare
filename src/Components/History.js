@@ -29,6 +29,7 @@ const History = () => {
     try {
       await getUserHistory().then((response) => {
         setbookings(response.data);
+        console.log(bookings)
       });
     } catch (error) {
       console.error("error", error);
@@ -46,6 +47,14 @@ const History = () => {
     }
   };
 
+  const goTochatPage = (id, fname, lname) => {
+    console.log("UserId <<", id);
+    const name = fname + " " + lname; 
+    console.log("UserName <<", name);
+    navigate('/chat',{state:{id,name}});
+    
+  }
+
   useEffect(() => {
     console.log(isCurrentBookings);
     isCurrentBookings ? getBookingsData() : getHistoryData();
@@ -57,21 +66,57 @@ const History = () => {
         {bookings.map((booking, index) =>
           isCurrentBookings ? (
             <div className="booking-card" key={index}>
+              
               <div className="booking-name">
                 {`${booking.helper.firstname ?? "No first name"} ${
                   booking.helper.lastname ?? "No last name"
                 }`}
               </div>
-              <div>Day: {booking.day}</div>
-              <div>Time: {moment(booking.starttime).utc().format("HH:mm")}</div>
+              <div className="booking-card-text">Location:{booking.location}</div>
+              <div className="booking-card-day-time">
+                <div>Day: {booking.day}</div>
+                <div>Time: {moment(booking.starttime).utc().format("HH:mm")}</div>
+              </div>
+              <div className="booking-card-text">Duration: {booking.duration} mins</div>
               {booking.status === "pending" ? (
-                booking.status
+                <div className={`booking-card-status-${booking.status}`}><span className={`booking-card-status-dot-${booking.status}`}></span>{booking.status}</div>
               ) : (
                 <div className="card-buttons">
-                  <Button onClick={() => navigate("/chat")}>Chat</Button>
-                  <Button onClick={() => deleteData(booking._id)}>
-                    Cancel
-                  </Button>
+                      <Button
+                      variant="outlined"
+                      sx={{
+                        ":hover": {
+                          bgcolor: "#006e5f4a",
+                          borderColor: "#006E60",
+                        },
+                        color: "white",
+                        backgroundColor: "#00720B",
+                        borderColor: "#006E60",
+                        width: 100,
+                      }}
+                      
+                      onClick={(e) => {
+                        e.preventDefault();
+                        goTochatPage(booking.helper._id, booking.helper.firstname, booking.helper.lastname);
+                      }}
+
+                    >Chat</Button>
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        ":hover": {
+                          bgcolor: "#006e5f4a",
+                          borderColor: "#006E60",
+                        },
+                        color: "red",
+                        background: "none",
+                        borderColor: "red",
+                        width: 100,
+                        
+                      }}
+                      
+                      onClick={() => deleteData(booking._id)}
+                    >Cancel</Button>
                 </div>
               )}
             </div>
@@ -82,9 +127,15 @@ const History = () => {
                   booking.helper.lastname ?? "No last name"
                 }`}
               </div>
-              <div>Day: {booking.day}</div>
-              <div>Time: {moment(booking.starttime).utc().format("HH:mm")}</div>
-              {booking.status}
+              <div className="booking-card-text">Location: </div>
+              <div className="booking-card-day-time">
+
+                <div>Day: {booking.day}</div>
+                <div>Time: {moment(booking.starttime).utc().format("HH:mm")}</div>
+              </div>
+              <div className="booking-card-text">Duration: {booking.duration} mins</div>
+              <div className={`booking-card-status-${booking.status}`}><span className={`booking-card-status-dot-${booking.status}`}></span>{booking.status}</div>
+              
             </div>
           )
         )}

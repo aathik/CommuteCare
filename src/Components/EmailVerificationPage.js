@@ -6,7 +6,7 @@ import image from '../Assets/home-page.jpg';
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import Button from '@mui/material/Button';
 
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 
 import { verifyOTP, resendOTP, resendOTPHelper, verifyOTPHelper } from '../Routes/Login/AuthService';
 

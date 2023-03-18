@@ -12,8 +12,8 @@ const CustomerProfilePage = () => {
     const [gender, setgender] = useState("");
     const [mob, setmob] = useState("");
     const [dob, setdob] = useState("");
-    const [id, setid] = useState("");
-    const [bookings, setBookings] = useState("");
+   
+  
     const [isLoading, setisLoading] = useState(false);
 
     useEffect( () => {
@@ -28,8 +28,8 @@ const CustomerProfilePage = () => {
                 setgender(res.user.gender);
                 setdob(res.user.dob);
                 setmob(res.user.mob);
-                setid(res.user._id);
-                setBookings(res.user.bookings);
+               
+                
                 //setresult(res);
               } catch (error) {
                 console.error('error', error);
@@ -53,8 +53,8 @@ const CustomerProfilePage = () => {
                           <h4>Gender: {gender}</h4>
                           <h4>Phone: {mob}</h4>
                           <h4>Date of Birth: {dob}</h4>
-                          <h4>ID: {id}</h4>
-                          <h4>Booking: {bookings}</h4>
+                          
+                        
                         </div>
                       </div>
                     </div>

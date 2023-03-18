@@ -38,78 +38,28 @@ const HelperAvailabilityPage = () => {
   const [endTimeSun, setEndTimeSun] = useState("");
 
   const [showAvailability, setShowAvailability] = useState({
-    Monday: `${startTimeMon} ${endTimeMon}`,
-    Tuesday: `${startTimeTue} ${endTimeTue}`,
-    Wednesday: `${startTimeWed} ${endTimeWed}`,
-    Thursday: `${startTimeThu} ${endTimeThu}`,
-    Friday: `${startTimeFri} ${endTimeFri}`,
-    Saturday: `${startTimeSat} ${endTimeSat}`,
-    Sunday: `${startTimeSun} ${endTimeSun}`,
+    Monday: `${startTimeMon}${endTimeMon}`,
+    Tuesday: `${startTimeTue}${endTimeTue}`,
+    Wednesday: `${startTimeWed}${endTimeWed}`,
+    Thursday: `${startTimeThu}${endTimeThu}`,
+    Friday: `${startTimeFri}${endTimeFri}`,
+    Saturday: `${startTimeSat}${endTimeSat}`,
+    Sunday: `${startTimeSun}${endTimeSun}`,
   });
 
   const [getAvailabilityInPage, setgetAvailabilityInPage] = useState("");
 
   const helperId = localStorage.getItem("HelperID");
 
-  const handleSelectedDay = (option) => {
-    setSelectedDay(option === selectedDay ? null : option);
-  };
-
-  /*
-    const handleAddAvailability = (event) => {
-        event.preventDefault();
-        //console.log("availabilities: ", availabilities )
-        if (!selectedDay || !startTime || !endTime) {
-            alert('Fill all the columns');
-            return false;
-        } 
-        if(!startTime.getHours() || !startTime.getMinutes() || !endTime.getHours() || !endTime.getMinutes()){
-            alert("Invalid Time");
-            return false;
-        }
-        const day = selectedDay;
-        const start = startTime.getHours() +':'+ startTime.getMinutes();
-        const end = endTime.getHours() +':'+ endTime.getMinutes();
-        const newAvailability = {
-            day,
-            start,
-            end,
-        };
-       // console.log("newAvailability: ", newAvailability.start)
-       // setAvailabilities([...availabilities, newAvailability]);
-        setShowAvailability( showAvailability => ({
-            ...showAvailability,
-            [newAvailability.day] : newAvailability.start+ ' ' + newAvailability.end
-        })
-        );
-        //console.log("newAvailability: ", showAvailability)
-        setSelectedDay(null);
-        setStartTime(null);
-        setEndTime(null);
-    } */
-  //console.log("Outside availabilities: ", availabilities )
-
-  // const handleRemoveAvailability = (event) => {
-  //   event.preventDefault();
-  //   if (!selectedDay) {
-  //     alert("Please select the day you want to remove");
-  //     return false;
-  //   }
-  //   setShowAvailability((showAvailability) => ({
-  //     ...showAvailability,
-  //     [selectedDay]: "",
-  //   }));
-  // };
-
   useEffect(() => {
     setShowAvailability({
-      Monday: `${startTimeMon} ${endTimeMon}`,
-      Tuesday: `${startTimeTue} ${endTimeTue}`,
-      Wednesday: `${startTimeWed} ${endTimeWed}`,
-      Thursday: `${startTimeThu} ${endTimeThu}`,
-      Friday: `${startTimeFri} ${endTimeFri}`,
-      Saturday: `${startTimeSat} ${endTimeSat}`,
-      Sunday: `${startTimeSun} ${endTimeSun}`,
+      Monday: `${startTimeMon}${endTimeMon}`,
+      Tuesday: `${startTimeTue}${endTimeTue}`,
+      Wednesday: `${startTimeWed}${endTimeWed}`,
+      Thursday: `${startTimeThu}${endTimeThu}`,
+      Friday: `${startTimeFri}${endTimeFri}`,
+      Saturday: `${startTimeSat}${endTimeSat}`,
+      Sunday: `${startTimeSun}${endTimeSun}`,
     });
   }, [
     startTimeMon,
@@ -149,19 +99,19 @@ const HelperAvailabilityPage = () => {
       await getAvailability(helperId).then((response) =>{
         setgetAvailabilityInPage(response.data.availability);
         setStartTimeMon(response.data.availability.Monday.slice(0,5));
-        setEndTimeMon(response.data.availability.Monday.slice(6,11));
+        setEndTimeMon(response.data.availability.Monday.slice(5,11));
         setStartTimeTue(response.data.availability.Tuesday.slice(0,5));
-        setEndTimeTue(response.data.availability.Tuesday.slice(6,11));
+        setEndTimeTue(response.data.availability.Tuesday.slice(5,11));
         setStartTimeWed(response.data.availability.Wednesday.slice(0,5));
-        setEndTimeWed(response.data.availability.Wednesday.slice(6,11));
+        setEndTimeWed(response.data.availability.Wednesday.slice(5,11));
         setStartTimeThu(response.data.availability.Thursday.slice(0,5));
-        setEndTimeThu(response.data.availability.Thursday.slice(6,11));
+        setEndTimeThu(response.data.availability.Thursday.slice(5,11));
         setStartTimeFri(response.data.availability.Friday.slice(0,5));
-        setEndTimeFri(response.data.availability.Friday.slice(6,11));
+        setEndTimeFri(response.data.availability.Friday.slice(5,11));
         setStartTimeSat(response.data.availability.Saturday.slice(0,5));
-        setEndTimeSat(response.data.availability.Saturday.slice(6,11));
+        setEndTimeSat(response.data.availability.Saturday.slice(5,11));
         setStartTimeSun(response.data.availability.Sunday.slice(0,5));
-        setEndTimeSun(response.data.availability.Sunday.slice(6,11));
+        setEndTimeSun(response.data.availability.Sunday.slice(5,11));
       }
 
       );
@@ -371,109 +321,7 @@ const HelperAvailabilityPage = () => {
           Save
         </Button>
       </div>
-      {/*
-        <div className='availability-container'>
-            <div className='left'>
-                <form onSubmit={handleSubmit}>
-                    
-                    <div className='Days'>
-                        <h3 >Select the Day -</h3>
-                        <input type="radio" id="Monday" name="Day" value="Monday" onClick={() => handleSelectedDay("Monday")}/>
-                        <label htmlFor="Monday">Monday - {JSON.stringify(showAvailability.Monday, null, 100)}</label>
-
-                        <input type="radio" id="Tuesday" name="Day" value="Tuesday" onClick={() => handleSelectedDay("Tuesday")} />
-                        <label htmlFor="Tuesday">Tuesday - {JSON.stringify(showAvailability.Tuesday, null, 100)}</label>
-
-                        <input type="radio" id="Wednesday" name="Day" value="Wednesday" onClick={() => handleSelectedDay("Wednesday")} />
-                        <label htmlFor="Wednesday">Wednesday - {JSON.stringify(showAvailability.Wednesday, null, 100)}</label>
-
-                        <input type="radio" id="Thursday" name="Day" value="Thursday" onClick={() => handleSelectedDay("Thursday")} />
-                        <label htmlFor="Thursday">Thursday - {JSON.stringify(showAvailability.Thursday, null, 100)}</label>
-
-                        <input type="radio" id="Friday" name="Day" value="Friday"  onClick={() => handleSelectedDay("Friday")}/>
-                        <label htmlFor="Friday">Friday - {JSON.stringify(showAvailability.Friday, null, 100)}</label>
-
-                        <input type="radio" id="Saturday" name="Day" value="Saturday"  onClick={() => handleSelectedDay("Saturday")}/>
-                        <label htmlFor="Saturday">Saturday - {JSON.stringify(showAvailability.Saturday, null, 100)}</label>
-
-                        <input type="radio" id="Sunday" name="Day" value="Sunday" onClick={() => handleSelectedDay("Sunday")} />
-                        <label htmlFor="Sunday">Sunday - {JSON.stringify(showAvailability.Sunday, null, 100)}</label>
-
-                    </div>
-                    <div className='time-picker-upper'>
-                        <br></br><br></br>
-                        <p className='paraTag'>Start Time</p>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>  
-                            <Stack>  
-                            
-                            <DesktopTimePicker  
-                            label=""  
-                            value={startTime}
-                            ampm={false}  
-                            onChange={  
-                                setStartTime
-                            }  
-                            onError={
-                                setErrorStartTime
-                            }
-                            
-                            renderInput={(params) => <TextField 
-                                
-                                {...params} sx={{ width:"100%" }} 
-                                errorStartTime
-                                helperText={errorStartTime? errortxt: ''}
-                              />}
-                            
-                              
-                            />  
-                        
-                        </Stack>  
-                        </LocalizationProvider> 
-                </div>
-                <br></br>
-                <div className='time-picker-upper'>
-                        <p className='paraTag'>End Time</p>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>  
-                            <Stack>  
-                            
-                            <DesktopTimePicker  
-                            label=""  
-                            value={endTime}
-                            ampm={false}  
-                            onChange={  
-                                setEndTime
-                            }  
-                            onError={
-                                setErrorEndTime
-                            }
-                            
-                            renderInput={(params) => <TextField 
-                                
-                                {...params} sx={{ width:"100%" }} 
-                                errorStartTime
-                                helperText={errorEndTime? errortxt: ''}
-                              />}
-                            />  
-                        
-                        </Stack>  
-                        </LocalizationProvider> 
-                </div>
-
-                <div className='time-picker-lower'>
-                        <br></br><br></br>
-                        <button className='btn' onClick={handleAddAvailability}>Add</button>
-                        <button className='btn' onClick={handleRemoveAvailability}>Remove</button>
-                        <div className='space'> </div><button type="submit" className='btn' onClick={handleSubmit}>Update</button>
-                </div>
-                </form>                
-            </div>
-            {/* <div className='right'>
-                <div className="availability-list">
-                    <div><pre>{JSON.stringify(showAvailability, null, 100)}</pre></div>
-                    <div><pre>Monday : {JSON.stringify(showAvailability.Monday, null, 100)}</pre></div>
-                </div>
-            </div> 
-        </div> */}
+      
     </div>
   );
 };

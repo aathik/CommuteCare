@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./ForgotPasswordPage.css";
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 
 import { forgotPass, forgotPassHelper } from "../Routes/Login/AuthService";
 import { Button, TextField } from "@mui/material";

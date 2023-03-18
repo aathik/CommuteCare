@@ -1,5 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   addChatMessagesHelper,
   addChatMessagesUser,
@@ -7,7 +8,7 @@ import {
 } from "../Routes/Login/AuthService";
 import "./Chat.css";
 
-const Chat = () => {
+const Chat = (props) => {
   const bottomRef = useRef(null);
   const [sendMessage, setsendMessage] = useState({
     sender: "user",
@@ -19,7 +20,7 @@ const Chat = () => {
     try {
       await getChatMessages(
         localStorage.getItem("UserID"),
-        "6412cc8d8aead6fe1ac74f23"
+        props.data,
       ).then((response) => {
         setmessageList(response.data.messages);
       });
@@ -31,7 +32,7 @@ const Chat = () => {
     try {
       await getChatMessages(
         localStorage.getItem("HelperID"),
-        "6413e1ad2f99d8f4ae0bfe31"
+        props.data,
       ).then((response) => {
         setmessageList(response.data.messages);
       });
@@ -56,7 +57,7 @@ const Chat = () => {
     try {
       await addChatMessagesUser(
         localStorage.getItem("UserID"),
-        "6412cc8d8aead6fe1ac74f23",
+        props.data,
         sendMessage.message
       ).then((response) => {
         setmessageList([...messageList, sendMessage]);
@@ -70,7 +71,7 @@ const Chat = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     try {
       await addChatMessagesHelper(
-        "6413e1ad2f99d8f4ae0bfe31",
+        props.data,
         localStorage.getItem("HelperID"),
         sendMessage.message
       ).then((response) => {
@@ -81,13 +82,15 @@ const Chat = () => {
       console.error("error", error);
     }
   };
+
+  const navigate = useNavigate();
   console.log(messageList);
   return (
     <div className="chat">
       <div className="chat-logo">LOGO</div>
       <div className="chat-container">
         <div className="chat-header">
-          <div className="sender-name">Name</div>
+          <div className="sender-name">{props.name}</div>
         </div>
         <div className="chat-window">
           <div className="chat-innerwindow">
@@ -115,22 +118,68 @@ const Chat = () => {
           </div>
         </div>
         <div className="footer">
-          <Button>Report</Button>
+          {localStorage.getItem("UserType") === "Customer" && 
+          
+          <Button
+                      variant="outlined"
+                      sx={{
+                        ":hover": {
+                          bgcolor: "#006e5f4a",
+                          borderColor: "#006E60",
+                        },
+                        color: "red",
+                        background: "none",
+                        borderColor: "red",
+                        width: 100,
+                        borderRadius: "50px",
+                        
+                      }}
+                      
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate('/report');
+                      }}
+                    >Report</Button>
+            }
+                  
+          
           <TextField
+            placeholder="Type Here.."
+            multiline
+            
+            sx={{
+              width: 300,
+              backgroundColor: "#D9D9D9",
+              width: 700,
+              
+            }}
             value={sendMessage.message}
             onChange={(e) =>
               setsendMessage({ ...sendMessage, message: e.target.value })
             }
           />
-          <Button
-            onClick={() =>
-              localStorage.getItem("UserType") === "Customer"
-                ? handleChatSendUser()
-                : handleChatSendHelper()
-            }
-          >
-            Send
-          </Button>
+
+                  <Button
+                      variant="outlined"
+                      sx={{
+                        ":hover": {
+                          bgcolor: "#006e5f4a",
+                          borderColor: "#006E60",
+                        },
+                        color: "white",
+                        backgroundColor: "#00720B",
+                        borderColor: "#006E60",
+                        width: 150,
+                        borderRadius: "50px",
+                      }}
+                      
+                      onClick={() =>
+                        localStorage.getItem("UserType") === "Customer"
+                          ? handleChatSendUser()
+                          : handleChatSendHelper()
+                      }
+                    >Send</Button>
+          
         </div>
       </div>
     </div>

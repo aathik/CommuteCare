@@ -48,6 +48,9 @@ import { Button } from '@mui/material';
       day: days[props.Day],
       time: props.Time,
       duration: props.Duration,
+      location: props.Location,
+      comments: props.Comments,
+      date: props.Date,
     }
     console.log("Data: ", bookdata);
     navigate('/confirmationPage', {state:{bookdata}});
@@ -69,7 +72,7 @@ import { Button } from '@mui/material';
           console.error('error', error);
           setjwtError(error.response.data.message);
           
-          if(jwtError==="jwt expired" || jwtError==='jwt malformed'){
+          if(error.response.data.message==="jwt expired" || error.response.data.message==='jwt malformed'){
             console.log("Hello")
             logout();
             navigate('/');

@@ -1,9 +1,8 @@
 import React from "react";
 import "./ReviewAndReport.css";
-import logo from "../Assets/logo.png";
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
-import { textAlign } from "@mui/system";
+import NavBar from "./NavBar";
 
 const Report = () => {
   const [email, setEmail] = useState("");
@@ -84,9 +83,7 @@ const Report = () => {
 
   return (
     <div className="report">
-      <div className="logo">
-        <img src={logo} alt="logo-img" className="logo-img"></img>
-      </div>
+      <NavBar />
       <div className="report-container">
         <div className="report-content">
           <TextField

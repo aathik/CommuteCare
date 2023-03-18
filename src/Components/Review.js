@@ -1,6 +1,6 @@
 import React from 'react'
 import './ReviewAndReport.css';
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 import { Alert, Button, Rating, TextField } from '@mui/material';
 import { useState } from 'react';
 

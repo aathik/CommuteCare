@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo.jpg";
 import image from "../Assets/home-page.jpg";
 
 import { signUp, signUpHelper } from "../Routes/Login/AuthService";
