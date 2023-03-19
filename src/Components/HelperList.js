@@ -73,7 +73,6 @@ import { Button } from '@mui/material';
           setjwtError(error.response.data.message);
           
           if(error.response.data.message==="jwt expired" || error.response.data.message==='jwt malformed'){
-            console.log("Hello")
             logout();
             navigate('/');
           }

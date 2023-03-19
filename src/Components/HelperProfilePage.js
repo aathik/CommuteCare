@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import './ProfilePage.css';
 
-import { displayHelperProfile } from '../Routes/Login/AuthService';
+import { displayHelperProfile, logout } from '../Routes/Login/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 const HelperProfilePage = () => {
     const [firstname, setfirstname] = useState("");
@@ -18,6 +19,8 @@ const HelperProfilePage = () => {
     const [description, setDescription] = useState("");
     const [bookings, setBookings] = useState("");
     const [isLoading, setisLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect( () => {
         const fetchData = async () => {
@@ -39,6 +42,10 @@ const HelperProfilePage = () => {
                 //setresult(res);
               } catch (error) {
                 console.error('error', error);
+                if(error.response.data.message==="jwt expired" || error.response.data.message==='jwt malformed'){
+                  logout();
+                  navigate('/');
+                }
               }
               setisLoading(false);
         }

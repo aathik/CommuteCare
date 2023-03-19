@@ -5,6 +5,7 @@ import {
   addChatMessagesHelper,
   addChatMessagesUser,
   getChatMessages,
+  logout,
 } from "../Routes/Login/AuthService";
 import "./Chat.css";
 
@@ -26,6 +27,10 @@ const Chat = (props) => {
       });
     } catch (error) {
       console.error("error", error);
+      if(error.response.data.message==="jwt expired" || error.response.data.message==='jwt malformed'){
+        logout();
+        navigate('/');
+      }
     }
   };
   const getMessagesHelper = async () => {
@@ -38,6 +43,10 @@ const Chat = (props) => {
       });
     } catch (error) {
       console.error("error", error);
+      if(error.response.data.message==="jwt expired" || error.response.data.message==='jwt malformed'){
+        logout();
+        navigate('/');
+      }
     }
   };
 
@@ -65,6 +74,10 @@ const Chat = (props) => {
       });
     } catch (error) {
       console.error("error", error);
+      if(error.response.data.message==="jwt expired" || error.response.data.message==='jwt malformed'){
+        logout();
+        navigate('/');
+      }
     }
   };
   const handleChatSendHelper = async () => {
@@ -80,6 +93,10 @@ const Chat = (props) => {
       });
     } catch (error) {
       console.error("error", error);
+      if(error.response.data.message==="jwt expired" || error.response.data.message==='jwt malformed'){
+        logout();
+        navigate('/');
+      }
     }
   };
 
