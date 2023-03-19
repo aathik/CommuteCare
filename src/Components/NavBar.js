@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import {FaBars, FaTimes} from "react-icons/fa";
 
 import { logout } from '../Routes/Login/AuthService';
-import { FormControlLabel, Switch } from '@mui/material';
+import { FormControl, FormControlLabel, InputLabel, MenuItem, NativeSelect, Select, Switch } from '@mui/material';
 
 import { green } from '@mui/material/colors';
 import { alpha, styled } from '@mui/material/styles';
@@ -16,7 +16,7 @@ import logo from "../Assets/logo.jpg";
 const NavBar = () => {
 
   const [click, setClick] = useState(false);
-  const [switchPress, setSwitchPress] = useState(true);
+  const [language, setlanguage] = useState('');
 
     const handleClick = () => setClick(!click);
     
@@ -75,32 +75,20 @@ const NavBar = () => {
             <Link to="/" onClick={logout}>Logout</Link>
             </li>  
             <li>
-                <FormControlLabel control={<Switch size="small"
-                sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': {
-                      color: green[600],
-                      '&:hover': {
-                        backgroundColor: alpha(green[500]),
-                      },
-                    },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                      backgroundColor: green[500],
-                    },
+              <FormControl fullWidth>
+                <NativeSelect
+                  defaultValue={30}
+                  inputProps={{
+                    name: 'age',
+                    id: 'uncontrolled-native',
                   }}
-                
-                />} label={switchPress? "EN" : "FR"} 
-                sx={{
-                  '& .css-ahj2mt-MuiTypography-root':{
-                    fontWeight: 500,
-                    fontFamily: 'Outfit, sans-serif',
-                    fontSize: '1.2rem',
-                  }
-                }}
-                
-                onClick={(e)=>{
-                    setSwitchPress(!switchPress);
-                }
-                    }/>
+                >
+                  <option value="English">en-US</option>
+                  <option value="French">fr-FR</option>
+                  <option value="German">de-DE</option>
+                  <option value="Spanish">es-ES</option>
+                </NativeSelect>
+              </FormControl>
             </li>
             
             </> : <></>
