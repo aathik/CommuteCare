@@ -135,7 +135,7 @@ const Chat = (props) => {
           </div>
         </div>
         <div className="footer">
-          {localStorage.getItem("UserType") === "Customer" && 
+          {/* {localStorage.getItem("UserType") === "Customer" && 
           
           <Button
                       variant="outlined"
@@ -157,7 +157,7 @@ const Chat = (props) => {
                         navigate('/report');
                       }}
                     >Report</Button>
-            }
+            } */}
                   
           
           <TextField
