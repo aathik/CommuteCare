@@ -4,5 +4,5 @@ An application that provides people with disabilities a platform that connects t
 
 ## Website
 
-(https://commutecare.vercel.app)
-[![commute-care-gitHub](https://commutecare.vercel.app)
+Deployed Application - https://commutecare.vercel.app
+
